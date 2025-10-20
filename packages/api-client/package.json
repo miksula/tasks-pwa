@@ -1,0 +1,21 @@
+{
+  "name": "@app/api-client",
+  "type": "module",
+  "version": "1.0.0",
+  "main": "./dist/index.js",
+  "scripts": {
+    "dev": "tsc --watch",
+    "build": "rm -rf dist && tsc",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@app/api": "workspace:^",
+    "@app/eslint-config": "workspace:^",
+    "hono": "catalog:"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "typescript": "catalog:"
+  }
+}
