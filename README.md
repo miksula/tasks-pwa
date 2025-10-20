@@ -22,6 +22,7 @@ Tech Stack:
 - web
   - lit
   - vite
+  - tailwindplus elements
 - dev tooling
   - typescript
   - eslint with `@antfu/eslint-config`
