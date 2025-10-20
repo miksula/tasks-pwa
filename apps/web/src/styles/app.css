@@ -5,48 +5,34 @@
 
   nav {
     border-bottom: 1px solid var(--main-border-light);
+    display: flex;
+    justify-content: center;
+    height: calc(var(--spacing) * 12);
+    padding-inline: calc(var(--spacing) * 6);
 
-    & > div {
-      padding-inline: calc(var(--spacing) * 6);
+    & > a {
+      display: inline-flex;
+      align-items: center;
+      color: var(--grey1);
+      font-size: var(--text-sm);
+      font-weight: var(--font-normal);
+      text-decoration: none;
+      padding-top: calc(var(--spacing) * 1);
+      padding-left: calc(var(--spacing) * 1);
+      padding-right: calc(var(--spacing) * 1);
+      margin: calc(var(--spacing) * 3);
+      margin-block: -1px;
+      border-bottom: 2px solid transparent;
 
-      & > div {
-        display: flex;
-        justify-content: space-around;
-        height: calc(var(--spacing) * 12);
+      &.active {
+        color: var(--black);
+        border-color: var(--red);
+        font-weight: var(--font-medium);
+      }
 
-        & > div {
-          display: flex;
-
-          & > div {
-            display: flex;
-
-            & > a {
-              display: inline-flex;
-              align-items: center;
-              color: var(--grey1);
-              font-size: var(--text-sm);
-              font-weight: var(--font-normal);
-              text-decoration: none;
-              padding-top: calc(var(--spacing) * 1);
-              padding-left: calc(var(--spacing) * 1);
-              padding-right: calc(var(--spacing) * 1);
-              margin: calc(var(--spacing) * 3);
-              margin-block: -1px;
-              border-bottom: 2px solid transparent;
-
-              &.active {
-                color: var(--black);
-                border-color: var(--red);
-                font-weight: var(--font-medium);
-              }
-
-              &:not(.active):hover {
-                color: var(--grey0);
-                border-color: var(--grey2);
-              }
-            }
-          }
-        }
+      &:not(.active):hover {
+        color: var(--grey0);
+        border-color: var(--grey2);
       }
     }
   }

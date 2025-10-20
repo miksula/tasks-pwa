@@ -9,8 +9,8 @@ import { EVENT_DATA, EVENT_LOAD } from "@/web/lib/constants";
 import Router from "@/web/lib/router";
 import "@/web/routes/tasks/tasks-route";
 
-function Home() {
-  return html`<div>Home</div>`;
+function Dashboard() {
+  return html`<div>Dashboard</div>`;
 }
 
 function Tasks(data: State) {
@@ -38,7 +38,7 @@ export class CustomApp extends LitElement {
 
     this.router
       .add(/^$/, () => {
-        this.activeRoute = Home();
+        this.activeRoute = Dashboard();
       })
       .add(/^tasks$/, () => {
         this.activeRoute = Tasks(this.state);
@@ -48,8 +48,7 @@ export class CustomApp extends LitElement {
         this.activeRoute = Task(id);
       })
       .add(() => {
-        const path = this.router.getPath();
-        this.activeRoute = NotFound(path);
+        this.activeRoute = NotFound(this.router.path);
       })
       .onRouteChange(() => {
         this.requestUpdate();
@@ -93,16 +92,8 @@ export class CustomApp extends LitElement {
     return html`
       <div class="custom-app">
         <nav>
-          <div>
-            <div>
-              <div>
-                <div>
-                  <a href="/" class=${classMap({ active: this.router.path == "/" })}>Dashboard</a>
-                  <a href="/tasks" class=${classMap({ active: this.router.path == "/tasks" })}>Tasks</a>
-                </div>
-              </div>
-            </div>
-          </div>
+            <a href="/" class=${classMap({ active: this.router.path == "/" })}>Dashboard</a>
+            <a href="/tasks" class=${classMap({ active: this.router.path == "/tasks" })}>Tasks</a>
         </nav>
 
         <main>${this.activeRoute}</main>
