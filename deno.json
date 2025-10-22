@@ -1,1 +1,6 @@
-{}
+{
+  "tasks": {
+    "api": "deno task --cwd=apps/api dev",
+    "web": "deno task --cwd=apps/web dev"
+  }
+}
