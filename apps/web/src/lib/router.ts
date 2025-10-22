@@ -18,7 +18,7 @@ export default class Router {
     if (options.root) {
       this.root = this.clearSlashes(options.root);
     }
-    window.addEventListener("popstate", () => {
+    globalThis.addEventListener("popstate", () => {
       // Handle back/forward navigation
       this.check();
     });

@@ -2,6 +2,7 @@
   "deno.enablePaths": [
     "./"
   ],
+  "deno.lint": true,
   "editor.inlayHints.enabled": "off",
   "editor.formatOnSave": true,
   "[javascript]": {

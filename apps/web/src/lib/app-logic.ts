@@ -1,6 +1,6 @@
-import type { State } from "./types";
+import type { State } from "./types.ts";
 
-import { uuid } from "./uuid";
+import { uuid } from "./uuid.ts";
 
 export class AppLogic {
   static initData(): State {

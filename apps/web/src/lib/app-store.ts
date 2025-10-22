@@ -1,9 +1,9 @@
 import { produce } from "immer";
 
-import type { Action, State } from "@/web/lib/types";
+import type { Action, State } from "./types.ts";
 
-import { AppLogic } from "@/web/lib/app-logic";
-import { EVENT_ACTION, EVENT_DATA, EVENT_LOAD } from "@/web/lib/constants";
+import { AppLogic } from "./app-logic.ts";
+import { EVENT_ACTION, EVENT_DATA, EVENT_LOAD } from "./constants.ts";
 
 const getState = produce((state: State, action: Action) => {
   const { addItem } = AppLogic;
@@ -44,8 +44,7 @@ export function AppStore(el: HTMLElement) {
       if (localStorage?.todo) {
         appState = JSON.parse(localStorage.todo);
       }
-    }
-    catch (err) {
+    } catch (err) {
       console.warn(err);
     }
 
@@ -58,8 +57,7 @@ export function AppStore(el: HTMLElement) {
     saveTimeout = setTimeout(() => {
       try {
         localStorage.todo = JSON.stringify(appState);
-      }
-      catch (err) {
+      } catch (err) {
         console.warn(err);
       }
     }, 100);

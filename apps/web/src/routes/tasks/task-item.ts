@@ -4,9 +4,9 @@ import { html, LitElement } from "lit";
 // import { property } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 
-import type { TodoItem } from "@/web/lib/types";
+import type { TodoItem } from "../../lib/types.ts";
 
-import { dispatchEvent } from "@/web/lib/app-store.ts";
+import { dispatchEvent } from "../../lib/app-store.ts";
 
 export class TaskItem extends LitElement {
   declare item: TodoItem;
@@ -81,22 +81,21 @@ export class TaskItem extends LitElement {
         <div>
           <input
             type="checkbox"
-            ?checked=${item.done}
-            @click=${(event: InputEvent) => this.toggleCompleted(event, item)}
+            ?checked="${item.done}"
+            @click="${(event: InputEvent) => this.toggleCompleted(event, item)}"
           />
-          <span class=${classMap({ dimmed: item.done })}> ${item.text} </span>
+          <span class="${classMap({ dimmed: item.done })}"> ${item.text} </span>
         </div>
         <div>
           <button
             class="todo-edit link small uppercase"
-            @click=${() => this.setEditing(true)}
+            @click="${() => this.setEditing(true)}"
           >
             Edit
           </button>
           <button
             class="error small uppercase"
-            @click=${(event: InputEvent) =>
-              this.removeTask(event, item)}
+            @click="${(event: InputEvent) => this.removeTask(event, item)}"
           >
             Delete
           </button>
@@ -107,20 +106,21 @@ export class TaskItem extends LitElement {
     const editingTemplate = html`
       <form
         class="pb-2 flex justify-between items-center"
-        @submit=${(event: InputEvent) => this.handleSubmit(event, item)}
+        @submit="${(event: InputEvent) => this.handleSubmit(event, item)}"
       >
         <div class="flex-1 pr-1">
           <input
             type="text"
             class="todo-text small w-full"
-            .value=${this.newText || item.text}
-            @keydown=${(event: KeyboardEvent) => this.handleChange(event, item)}
+            .value="${this.newText || item.text}"
+            @keydown="${(event: KeyboardEvent) =>
+              this.handleChange(event, item)}"
           />
         </div>
         <div>
           <button
             class="link small uppercase"
-            @click=${() => this.setEditing(false)}
+            @click="${() => this.setEditing(false)}"
           >
             Cancel
           </button>
@@ -133,7 +133,6 @@ export class TaskItem extends LitElement {
   }
 
   protected updated(_changedProperties: PropertyValues) {
-
   }
 }
 

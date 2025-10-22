@@ -1,8 +1,8 @@
 import { html, LitElement } from "lit";
 
-import type { State } from "@/web/lib/types";
+import type { State } from "../../lib/types.ts";
 
-import { TasksList } from "./tasks-list";
+import { TasksList } from "./tasks-list.ts";
 
 export class TasksRoute extends LitElement {
   declare data: State;
@@ -14,7 +14,9 @@ export class TasksRoute extends LitElement {
   }
 
   protected render() {
-    return html`<div>${TasksList(this.data)}</div> `;
+    return html`
+      <div>${TasksList(this.data)}</div>
+    `;
   }
 }
 

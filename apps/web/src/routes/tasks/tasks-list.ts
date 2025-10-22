@@ -1,10 +1,10 @@
 import { html } from "lit";
-import { createRef, ref, type Ref } from "lit/directives/ref.js";
+import { createRef, type Ref, ref } from "lit/directives/ref.js";
 import { repeat } from "lit/directives/repeat.js";
 
-import type { Filter, State, TodoItem } from "@/web/lib/types";
+import type { Filter, State, TodoItem } from "../../lib/types.ts";
 
-import { dispatchEvent } from "@/web/lib/app-store.ts";
+import { dispatchEvent } from "../../lib/app-store.ts";
 
 import "./task-item.ts";
 import { FilterButton } from "./filter-button.ts";
@@ -23,12 +23,14 @@ export function TasksList(data: State) {
 
   const taskList = items.filter(FILTER_MAP[filter]);
 
-  const filterButtons = (Object.keys(FILTER_MAP) as Filter[]).map(function mapNameToBtn(name) {
-    return FilterButton({
-      name,
-      isActive: name === filter,
-    });
-  });
+  const filterButtons = (Object.keys(FILTER_MAP) as Filter[]).map(
+    function mapNameToBtn(name) {
+      return FilterButton({
+        name,
+        isActive: name === filter,
+      });
+    },
+  );
 
   const count = taskList.length;
   const statusText = `${count} task${count === 1 ? "" : "s"} remaining`;
@@ -56,8 +58,9 @@ export function TasksList(data: State) {
     const element = elementRef.value!;
 
     const text = input.value.trim();
-    if (!text)
+    if (!text) {
       return;
+    }
     input.value = "";
 
     dispatchEvent(element, { type: "ADD", text });
@@ -83,9 +86,9 @@ export function TasksList(data: State) {
             id="new-todo-input"
             minlength="5"
             autocomplete="off"
-            @keyup=${keyboardActions}
+            @keyup="${keyboardActions}"
           />
-          <button @click=${saveTodo} type="submit" class="primary">Add</button>
+          <button @click="${saveTodo}" type="submit" class="primary">Add</button>
         </div>
       </form>
 
@@ -97,7 +100,10 @@ export function TasksList(data: State) {
         ${repeat(
           items,
           (item: TodoItem) => item.id,
-          item => html`<task-item .item=${item}></task-item>`,
+          (item) =>
+            html`
+              <task-item .item="${item}"></task-item>
+            `,
         )}
       </ul>
     </div>

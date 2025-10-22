@@ -1,34 +1,44 @@
 import { html, LitElement, type TemplateResult } from "lit";
 import { classMap } from "lit/directives/class-map.js";
 
-import type { State } from "@/web/lib/types";
+import type { State } from "./lib/types.ts";
 
-import { AppLogic } from "@/web/lib/app-logic";
-import { AppStore } from "@/web/lib/app-store";
-import { EVENT_DATA, EVENT_LOAD } from "@/web/lib/constants";
-import Router from "@/web/lib/router";
-import "@/web/routes/tasks/tasks-route";
+import { AppLogic } from "./lib/app-logic.ts";
+import { AppStore } from "./lib/app-store.ts";
+import { EVENT_DATA, EVENT_LOAD } from "./lib/constants.ts";
+import Router from "./lib/router.ts";
+import "./routes/tasks/tasks-route.ts";
 
 function Dashboard() {
-  return html`<div>Dashboard</div>`;
+  return html`
+    <div>Dashboard</div>
+  `;
 }
 
 function Tasks(data: State) {
-  return html`<tasks-route .data=${data}></tasks-route>`;
+  return html`
+    <tasks-route .data="${data}"></tasks-route>
+  `;
 }
 
 function Task(taskId: string) {
-  return html`<div>Task Detail - ${taskId}</div>`;
+  return html`
+    <div>Task Detail - ${taskId}</div>
+  `;
 }
 
 function NotFound(path: string) {
-  return html`<div>
-    Not found - ${path}
-  </div>`;
+  return html`
+    <div>
+      Not found - ${path}
+    </div>
+  `;
 }
 
-export class CustomApp extends LitElement {
-  private activeRoute: TemplateResult = html`<div>Loading...</div>`;
+export class MainApp extends LitElement {
+  private activeRoute: TemplateResult = html`
+    <div>Loading...</div>
+  `;
   private state: State = AppLogic.initData();
   private router: Router = new Router();
 
@@ -92,8 +102,12 @@ export class CustomApp extends LitElement {
     return html`
       <div class="custom-app">
         <nav>
-            <a href="/" class=${classMap({ active: this.router.path == "/" })}>Dashboard</a>
-            <a href="/tasks" class=${classMap({ active: this.router.path == "/tasks" })}>Tasks</a>
+          <a href="/" class="${classMap({
+            active: this.router.path == "/",
+          })}">Dashboard</a>
+          <a href="/tasks" class="${classMap({
+            active: this.router.path == "/tasks",
+          })}">Tasks</a>
         </nav>
 
         <main>${this.activeRoute}</main>
@@ -102,4 +116,4 @@ export class CustomApp extends LitElement {
   }
 }
 
-customElements.define("custom-app", CustomApp);
+customElements.define("main-app", MainApp);

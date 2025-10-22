@@ -1,8 +1,8 @@
-import apiClient from "./api-client";
-import formatApiError from "./format-api-error";
+import apiClient from "./api-client.ts";
+import formatApiError from "./format-api-error.ts";
 
 export async function createTask(task: any) {
-  await new Promise(resolve => setTimeout(resolve, 1000));
+  await new Promise((resolve) => setTimeout(resolve, 1000));
   const response = await apiClient.api.tasks.$post({
     json: task,
   });

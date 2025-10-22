@@ -2,6 +2,7 @@
   "name": "@app/api-client",
   "type": "module",
   "version": "1.0.0",
+  "main": "./src/index.ts",
   "dependencies": {
     "@app/api": "workspace:^",
     "hono": "^4.8.12"
