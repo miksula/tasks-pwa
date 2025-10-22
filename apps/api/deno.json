@@ -1,0 +1,5 @@
+{
+  "tasks": {
+    "dev": "deno run --allow-all --env-file=.env.development src/index.ts --watch"
+  }
+}

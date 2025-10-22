@@ -1,6 +1,6 @@
-import createApp from "@/api/lib/create-app";
-import index from "@/api/routes/index.route";
-import tasks from "@/api/routes/tasks/tasks.index";
+import createApp from "./lib/create-app.ts";
+import index from "./routes/index.route.ts";
+import tasks from "./routes/tasks/tasks.index.ts";
 
 const app = createApp();
 
