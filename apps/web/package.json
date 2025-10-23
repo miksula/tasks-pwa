@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "vite",
-    "dev:db:start": "turso dev --db-file ./src/db/web.db"
+    "dev:db": "turso dev --db-file ./src/db/web.db"
   },
   "dependencies": {
     "@app/api": "workspace:^",
