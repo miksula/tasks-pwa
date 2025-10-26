@@ -18,7 +18,7 @@ export async function up(db: Kysely<any>) {
       CREATE TRIGGER update_task_timestamp 
       AFTER UPDATE ON task
       BEGIN
-          UPDATE task SET updated_at = datetime('now', 'utc') WHERE id = NEW.id;
+          UPDATE task SET updated_at = (datetime('now', 'utc')) WHERE id = NEW.id;
       END;
     `.execute(db);
 

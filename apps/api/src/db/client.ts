@@ -5,5 +5,7 @@ import { Database as Sqlite } from "@db/sqlite";
 import { DenoSqlite3Dialect } from "@soapbox/kysely-deno-sqlite";
 
 export const db = new Kysely<Database>({
-  dialect: new DenoSqlite3Dialect({ database: new Sqlite("api.db") }),
+  dialect: new DenoSqlite3Dialect({
+    database: new Sqlite(new URL("./api.db", import.meta.url)),
+  }),
 });
