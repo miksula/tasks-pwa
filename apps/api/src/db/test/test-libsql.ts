@@ -1,7 +1,7 @@
 import { createClient } from "@libsql/client";
 
 const db = createClient({
-  url: "file:api.db",
+  url: "file:../api.db",
 });
 
 const tasks = await db.execute({
@@ -10,3 +10,8 @@ const tasks = await db.execute({
 });
 
 console.log("Tasks:", tasks.rows);
+
+// await db.execute({
+//   sql: "UPDATE task SET completed = ? WHERE id = ?",
+//   args: [1, 1],
+// });

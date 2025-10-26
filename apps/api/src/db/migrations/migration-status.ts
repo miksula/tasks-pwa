@@ -1,4 +1,4 @@
-import { migrator } from "./migrations/migrator.ts";
+import { migrator } from "./migrator.ts";
 
 console.log("📊 Database Migration Status\n");
 

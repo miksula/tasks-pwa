@@ -1,7 +1,5 @@
-import type { Migration } from "kysely";
+import * as Migration_2025_10_26_16_04 from "./data/2025-10-26_16-04-graceful-finch.ts";
 
-import { Migration01 } from "./2025-10-26-create-table-task.ts";
-
-export const migrations: Record<string, Migration> = {
-  "2025-10-26-create-table-task": Migration01,
+export const migrations = {
+  "create-table-task": Migration_2025_10_26_16_04,
 };
