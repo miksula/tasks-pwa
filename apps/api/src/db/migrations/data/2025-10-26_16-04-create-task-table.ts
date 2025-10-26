@@ -1,4 +1,4 @@
-// Migration: 2025-10-26_16-04-graceful-finch.ts
+// deno-lint-ignore-file no-explicit-any
 import { Kysely } from "kysely";
 import { sql } from "kysely";
 

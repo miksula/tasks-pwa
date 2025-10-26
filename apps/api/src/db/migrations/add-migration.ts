@@ -73,7 +73,7 @@ async function createMigrationFile(): Promise<void> {
 
   await ensureDir("./data");
 
-  const migrationContent = `// Migration: ${filename}
+  const migrationContent = `// deno-lint-ignore-file no-explicit-any
 import { Kysely } from 'kysely'
 
 export async function up(db: Kysely<any>): Promise<void> {
@@ -98,7 +98,7 @@ export async function down(db: Kysely<any>): Promise<void> {
     indexContent = "";
   }
 
-  const importStatement = `// import * as Migration_${
+  const importStatement = `import * as Migration_${
     toSnakeCase(timestamp)
   } from "./data/${filename}";\n`;
   const updatedContent = importStatement + indexContent;
