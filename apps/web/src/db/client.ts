@@ -10,5 +10,6 @@ const client = createClient({
 });
 
 export const db = new Kysely<Database>({
+  // deno-lint-ignore no-explicit-any
   dialect: new LibsqlDialect({ client: client as unknown as any }),
 });

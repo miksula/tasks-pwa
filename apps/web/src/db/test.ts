@@ -1,4 +1,4 @@
-import { db } from "./client";
+import { db } from "./client.ts";
 
 async function getTasks() {
   return await db.selectFrom("todo").selectAll().execute();
