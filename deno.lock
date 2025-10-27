@@ -1,18 +1,9 @@
 {
   "version": "5",
   "specifiers": {
-    "jsr:@db/sqlite@0.12": "0.12.0",
-    "jsr:@denosaurs/plug@1": "1.1.0",
-    "jsr:@soapbox/kysely-deno-sqlite@^2.2.0": "2.2.0",
-    "jsr:@std/assert@0.217": "0.217.0",
-    "jsr:@std/encoding@1": "1.0.10",
-    "jsr:@std/fmt@1": "1.0.8",
-    "jsr:@std/fs@1": "1.0.19",
     "jsr:@std/fs@^1.0.19": "1.0.19",
     "jsr:@std/internal@^1.0.10": "1.0.12",
     "jsr:@std/internal@^1.0.9": "1.0.12",
-    "jsr:@std/path@0.217": "0.217.0",
-    "jsr:@std/path@1": "1.1.2",
     "jsr:@std/path@^1.1.1": "1.1.2",
     "npm:@auth/core@~0.37.4": "0.37.4_preact@10.24.3",
     "npm:@hono/auth-js@^1.0.15": "1.1.0_@auth+core@0.37.4__preact@10.24.3_hono@4.10.2_react@19.2.0",
@@ -20,66 +11,30 @@
     "npm:@libsql/client@~0.15.15": "0.15.15",
     "npm:@libsql/kysely-libsql@~0.4.1": "0.4.1_kysely@0.28.8",
     "npm:@tailwindplus/elements@^1.0.18": "1.0.18",
+    "npm:@types/node@*": "24.2.0",
     "npm:hono-pino@~0.10.1": "0.10.3_hono@4.10.2_pino@9.14.0",
     "npm:hono@^4.8.12": "4.10.2",
     "npm:immer@^10.1.3": "10.1.3",
-    "npm:kysely@~0.27.2": "0.27.6",
     "npm:kysely@~0.28.8": "0.28.8",
+    "npm:libsql@~0.5.22": "0.5.22",
     "npm:lit@^3.3.1": "3.3.1",
     "npm:pino-pretty@^13.1.1": "13.1.2",
     "npm:pino@^9.7.0": "9.14.0",
     "npm:stoker@^2.0.1": "2.0.1_hono@4.10.2",
-    "npm:vite-plugin-devtools-json@1": "1.0.0_vite@6.4.1__picomatch@4.0.3",
-    "npm:vite@^6.0.3": "6.4.1_picomatch@4.0.3",
+    "npm:vite-plugin-devtools-json@1": "1.0.0_vite@6.4.1__picomatch@4.0.3_@types+node@24.2.0",
+    "npm:vite@^6.0.3": "6.4.1_picomatch@4.0.3_@types+node@24.2.0",
     "npm:zod@^4.0.14": "4.1.12"
   },
   "jsr": {
-    "@db/sqlite@0.12.0": {
-      "integrity": "dd1ef7f621ad50fc1e073a1c3609c4470bd51edc0994139c5bf9851de7a6d85f",
-      "dependencies": [
-        "jsr:@denosaurs/plug",
-        "jsr:@std/path@0.217"
-      ]
-    },
-    "@denosaurs/plug@1.1.0": {
-      "integrity": "eb2f0b7546c7bca2000d8b0282c54d50d91cf6d75cb26a80df25a6de8c4bc044",
-      "dependencies": [
-        "jsr:@std/encoding",
-        "jsr:@std/fmt",
-        "jsr:@std/fs@1",
-        "jsr:@std/path@1"
-      ]
-    },
-    "@soapbox/kysely-deno-sqlite@2.2.0": {
-      "integrity": "668ec94600bc4b4d7bd618dd7ca65d4ef30ee61c46ffcb379b6f45203c08517a",
-      "dependencies": [
-        "npm:kysely@~0.27.2"
-      ]
-    },
-    "@std/assert@0.217.0": {
-      "integrity": "c98e279362ca6982d5285c3b89517b757c1e3477ee9f14eb2fdf80a45aaa9642"
-    },
-    "@std/encoding@1.0.10": {
-      "integrity": "8783c6384a2d13abd5e9e87a7ae0520a30e9f56aeeaa3bdf910a3eaaf5c811a1"
-    },
-    "@std/fmt@1.0.8": {
-      "integrity": "71e1fc498787e4434d213647a6e43e794af4fd393ef8f52062246e06f7e372b7"
-    },
     "@std/fs@1.0.19": {
       "integrity": "051968c2b1eae4d2ea9f79a08a3845740ef6af10356aff43d3e2ef11ed09fb06",
       "dependencies": [
         "jsr:@std/internal@^1.0.9",
-        "jsr:@std/path@^1.1.1"
+        "jsr:@std/path"
       ]
     },
     "@std/internal@1.0.12": {
       "integrity": "972a634fd5bc34b242024402972cd5143eac68d8dffaca5eaa4dba30ce17b027"
-    },
-    "@std/path@0.217.0": {
-      "integrity": "1217cc25534bca9a2f672d7fe7c6f356e4027df400c0e85c0ef3e4343bc67d11",
-      "dependencies": [
-        "jsr:@std/assert"
-      ]
     },
     "@std/path@1.1.2": {
       "integrity": "c0b13b97dfe06546d5e16bf3966b1cadf92e1cc83e56ba5476ad8b498d9e3038",
@@ -331,7 +286,7 @@
       "integrity": "sha512-mCTa6OWgoME8LNu22COM6XjKBmcMAvNtIO6DYM10jSAFq779fVlrTKQEmXIB8TwJVU65dA5jGCpT8gkDdWS0HQ==",
       "dependencies": [
         "@libsql/client@0.8.1",
-        "kysely@0.28.8"
+        "kysely"
       ]
     },
     "@libsql/linux-arm-gnueabihf@0.5.22": {
@@ -659,9 +614,6 @@
     "js-base64@3.7.8": {
       "integrity": "sha512-hNngCeKxIUQiEUN3GPJOkz4wF/YvdUdbNL9hsBcMQTkKzboD7T/q3OYOuuPZLUE6dBxSGpwhk5mwuDud7JVAow=="
     },
-    "kysely@0.27.6": {
-      "integrity": "sha512-FIyV/64EkKhJmjgC0g2hygpBv5RNWVPyNCqSAD7eTCv6eFWNIi4PN1UvdSJGicN/o35bnevgis4Y0UDC0qi8jQ=="
-    },
     "kysely@0.28.8": {
       "integrity": "sha512-QUOgl5ZrS9IRuhq5FvOKFSsD/3+IA6MLE81/bOOTRA/YQpKDza2sFdN5g6JCB9BOpqMJDGefLCQ9F12hRS13TA=="
     },
@@ -929,7 +881,14 @@
       "integrity": "sha512-MobvwqX76Vqt/O4AbnNMNWoXWGrKUqZbphCUle/J2KXH82yKQiunOeKnz/nqEPosPsoWWPP9FtNuPBSYpiiwkw==",
       "dependencies": [
         "uuid",
-        "vite"
+        "vite@6.4.1_picomatch@4.0.3"
+      ]
+    },
+    "vite-plugin-devtools-json@1.0.0_vite@6.4.1__picomatch@4.0.3_@types+node@24.2.0": {
+      "integrity": "sha512-MobvwqX76Vqt/O4AbnNMNWoXWGrKUqZbphCUle/J2KXH82yKQiunOeKnz/nqEPosPsoWWPP9FtNuPBSYpiiwkw==",
+      "dependencies": [
+        "uuid",
+        "vite@6.4.1_picomatch@4.0.3_@types+node@24.2.0"
       ]
     },
     "vite@6.4.1_picomatch@4.0.3": {
@@ -944,6 +903,25 @@
       ],
       "optionalDependencies": [
         "fsevents"
+      ],
+      "bin": true
+    },
+    "vite@6.4.1_picomatch@4.0.3_@types+node@24.2.0": {
+      "integrity": "sha512-+Oxm7q9hDoLMyJOYfUYBuHQo+dkAloi33apOPP56pzj+vsdJDzr+j1NISE5pyaAuKL4A3UD34qd0lx5+kfKp2g==",
+      "dependencies": [
+        "@types/node",
+        "esbuild",
+        "fdir",
+        "picomatch",
+        "postcss",
+        "rollup",
+        "tinyglobby"
+      ],
+      "optionalDependencies": [
+        "fsevents"
+      ],
+      "optionalPeers": [
+        "@types/node"
       ],
       "bin": true
     },
@@ -1059,8 +1037,6 @@
     "members": {
       "apps/api": {
         "dependencies": [
-          "jsr:@db/sqlite@0.12",
-          "jsr:@soapbox/kysely-deno-sqlite@^2.2.0",
           "jsr:@std/fs@^1.0.19"
         ],
         "packageJson": {
@@ -1069,6 +1045,7 @@
             "npm:hono-pino@~0.10.1",
             "npm:hono@^4.8.12",
             "npm:kysely@~0.28.8",
+            "npm:libsql@~0.5.22",
             "npm:pino-pretty@^13.1.1",
             "npm:pino@^9.7.0",
             "npm:stoker@^2.0.1",

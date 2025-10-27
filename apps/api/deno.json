@@ -6,8 +6,6 @@
     "strict": true
   },
   "imports": {
-    "@db/sqlite": "jsr:@db/sqlite@^0.12.0",
-    "@soapbox/kysely-deno-sqlite": "jsr:@soapbox/kysely-deno-sqlite@^2.2.0",
     "@std/fs": "jsr:@std/fs@^1.0.19"
   }
 }
