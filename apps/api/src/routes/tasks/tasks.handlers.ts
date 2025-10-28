@@ -1,49 +1,44 @@
 import * as HttpStatusCodes from "stoker/http-status-codes";
 import * as HttpStatusPhrases from "stoker/http-status-phrases";
-import * as z from "zod";
 import { createFactory } from "hono/factory";
 import { zValidator } from "@hono/zod-validator";
+import {
+  idParamsSchema,
+  taskCreateSchema,
+  taskUpdateSchema,
+} from "../../db/schema/task.ts";
+import { db } from "../../db/client.ts";
 
 const factory = createFactory();
 
-const taskSchema = z.object({
-  id: z.number(),
-  title: z.string(),
-  completed: z.boolean(),
-});
-
-const IdParamsSchema = z.object({
-  id: z.coerce.number(),
-});
-
-// type Task = z.infer<typeof taskSchema>;
-
 const tasks = [
-  { id: 1, title: "Task 1", completed: false },
-  { id: 2, title: "Task 2", completed: true },
-  { id: 3, title: "Task 3", completed: false },
+  { id: 1, text: "Task 1", completed: false },
+  { id: 2, text: "Task 2", completed: true },
+  { id: 3, text: "Task 3", completed: false },
 ];
 
 const list = factory.createHandlers(
-  function listTasks(c) {
+  async function listTasks(c) {
+    const tasks = await db.selectFrom("task").selectAll().execute();
     return c.json(tasks);
   },
 );
 
 const create = factory.createHandlers(
-  zValidator("json", taskSchema),
-  function createTask(c) {
+  zValidator("json", taskCreateSchema),
+  async function createTask(c) {
     const task = c.req.valid("json");
-    tasks.push(task);
-    return c.json(task, HttpStatusCodes.OK);
+    const [createdTask] = await db.insertInto("task").values(task).execute();
+    return c.json(createdTask, HttpStatusCodes.CREATED);
   },
 );
 
 const getOne = factory.createHandlers(
-  zValidator("param", IdParamsSchema),
-  function getTask(c) {
+  zValidator("param", idParamsSchema),
+  async function getTask(c) {
     const { id } = c.req.valid("param");
-    const task = tasks.find((t) => t.id === id);
+    const task = await db.selectFrom("task").where("id", "=", id)
+      .executeTakeFirst();
 
     if (!task) {
       return c.json(
@@ -59,14 +54,37 @@ const getOne = factory.createHandlers(
 );
 
 const update = factory.createHandlers(
-  zValidator("param", IdParamsSchema),
-  zValidator("json", taskSchema.omit({ id: true })),
-  function updateTask(c) {
+  zValidator("param", idParamsSchema),
+  zValidator("json", taskUpdateSchema),
+  async function updateTask(c) {
     const { id } = c.req.valid("param");
-    const task = c.req.valid("json");
-    const index = tasks.findIndex((t) => t.id === id);
+    const updates = c.req.valid("json");
 
-    if (index === -1) {
+    if (Object.keys(updates).length === 0) {
+      return c.json(
+        {
+          success: false,
+          error: {
+            issues: [
+              {
+                code: "Invalid updates",
+                path: [],
+                message: "No fields to update were provided",
+              },
+            ],
+            name: "ZodError",
+          },
+        },
+        HttpStatusCodes.UNPROCESSABLE_ENTITY,
+      );
+    }
+
+    const [task] = await db.updateTable("task")
+      .set(updates)
+      .where("id", "=", id)
+      .execute();
+
+    if (!task) {
       return c.json(
         {
           message: HttpStatusPhrases.NOT_FOUND,
@@ -74,20 +92,19 @@ const update = factory.createHandlers(
         HttpStatusCodes.NOT_FOUND,
       );
     }
-
-    tasks[index] = { id, ...task };
 
     return c.json(task, HttpStatusCodes.OK);
   },
 );
 
 const remove = factory.createHandlers(
-  zValidator("param", IdParamsSchema),
-  function deleteTask(c) {
+  zValidator("param", idParamsSchema),
+  async function deleteTask(c) {
     const { id } = c.req.valid("param");
-    const index = tasks.findIndex((t) => t.id === id);
+    const result = await db.deleteFrom("task").where("id", "=", id)
+      .executeTakeFirst();
 
-    if (index === -1) {
+    if (result.numDeletedRows === 0n) {
       return c.json(
         {
           message: HttpStatusPhrases.NOT_FOUND,
@@ -95,8 +112,6 @@ const remove = factory.createHandlers(
         HttpStatusCodes.NOT_FOUND,
       );
     }
-
-    tasks.splice(index, 1);
 
     return c.body(null, HttpStatusCodes.NO_CONTENT);
   },

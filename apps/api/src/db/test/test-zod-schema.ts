@@ -1,4 +1,3 @@
-/*
 import * as z from "zod";
 import type { Generated } from "kysely";
 
@@ -15,5 +14,5 @@ const positiveInteger = z.number().int().positive();
 function autoIncrement(val: unknown) {
   return positiveInteger.safeParse(val).success;
 }
+
 export type PersonTable = z.infer<typeof PersonSchema>;
-*/

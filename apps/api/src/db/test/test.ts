@@ -6,3 +6,8 @@ async function getTasks() {
 
 const tasks = await getTasks();
 console.log("Tasks:", tasks);
+
+const result = await db.deleteFrom("task").where("id", "=", 99)
+  .executeTakeFirst();
+
+console.log("Delete Result:", result);

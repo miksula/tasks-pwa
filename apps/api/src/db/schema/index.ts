@@ -1,5 +1,5 @@
-import type { TaskTable } from "./task.ts";
+import type { Task } from "./task.ts";
 
 export type Database = {
-  task: TaskTable;
+  task: Task;
 };

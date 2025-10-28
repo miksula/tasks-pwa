@@ -17,3 +17,9 @@ async function getTasks() {
 
 const tasks = await getTasks();
 console.log("Tasks:", tasks);
+
+await db.insertInto("task").values({ text: "Test task", completed: false })
+  .execute();
+
+const updatedTasks = await getTasks();
+console.log("Updated Tasks:", updatedTasks);
