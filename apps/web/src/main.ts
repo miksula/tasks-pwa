@@ -68,7 +68,7 @@ export class MainApp extends LitElement {
     this.router.check();
   }
 
-  connectedCallback() {
+  override connectedCallback() {
     super.connectedCallback();
 
     // Listen for state update events
@@ -94,11 +94,11 @@ export class MainApp extends LitElement {
     });
   }
 
-  createRenderRoot() {
+  override createRenderRoot() {
     return this; // will render the template without shadow DOM
   }
 
-  render() {
+  override render() {
     return html`
       <div class="custom-app">
         <nav>
