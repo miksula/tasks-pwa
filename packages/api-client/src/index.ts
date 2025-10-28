@@ -1,22 +1,26 @@
-import type { router } from "@app/api/routes";
-
+import type { AppType } from "@app/api/routes";
 import { hc } from "hono/client";
 
-// create instance to inline type in build
-// https://hono.dev/docs/guides/rpc#compile-your-code-before-using-it-recommended
-const client = hc<router>("");
+const client = hc<AppType>("");
 export type Client = typeof client;
 
-export default (...args: Parameters<typeof hc>): Client => hc<router>(...args);
-
-export type ErrorSchema = {
-  error: {
-    issues: {
-      code: string;
-      path: (string | number)[];
-      message?: string | undefined;
-    }[];
-    name: string;
-  };
-  success: boolean;
-};
+/**
+ * Creates a new Hono API client instance.
+ *
+ * @param args - Specify the server URL as first argument, and optional configuration as second argument.
+ * @returns A configured API client instance.
+ *
+ * @example
+ * ```typescript
+ * const client = createClient('https://api.example.com');
+ *
+ * const taskResult = await client.tasks[":id"].$get({
+ *   param: {
+ *     id: "1",
+ *   },
+ * });
+ * ```
+ */
+export default function createClient(...args: Parameters<typeof hc>): Client {
+  return hc<AppType>(...args);
+}

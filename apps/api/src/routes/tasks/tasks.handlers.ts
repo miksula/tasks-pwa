@@ -11,12 +11,6 @@ import { db } from "../../db/client.ts";
 
 const factory = createFactory();
 
-const tasks = [
-  { id: 1, text: "Task 1", completed: false },
-  { id: 2, text: "Task 2", completed: true },
-  { id: 3, text: "Task 3", completed: false },
-];
-
 const list = factory.createHandlers(
   async function listTasks(c) {
     const tasks = await db.selectFrom("task").selectAll().execute();
@@ -37,7 +31,7 @@ const getOne = factory.createHandlers(
   zValidator("param", idParamsSchema),
   async function getTask(c) {
     const { id } = c.req.valid("param");
-    const task = await db.selectFrom("task").where("id", "=", id)
+    const task = await db.selectFrom("task").selectAll().where("id", "=", id)
       .executeTakeFirst();
 
     if (!task) {
