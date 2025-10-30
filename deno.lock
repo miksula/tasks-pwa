@@ -23,6 +23,7 @@
     "npm:stoker@^2.0.1": "2.0.1_hono@4.10.2",
     "npm:vite-plugin-devtools-json@1": "1.0.0_vite@6.4.1__picomatch@4.0.3_@types+node@24.2.0",
     "npm:vite@^6.0.3": "6.4.1_picomatch@4.0.3_@types+node@24.2.0",
+    "npm:vite@^7.1.7": "7.1.12_@types+node@24.2.0_picomatch@4.0.3",
     "npm:zod@^4.0.14": "4.1.12"
   },
   "jsr": {
@@ -925,6 +926,25 @@
       ],
       "bin": true
     },
+    "vite@7.1.12_@types+node@24.2.0_picomatch@4.0.3": {
+      "integrity": "sha512-ZWyE8YXEXqJrrSLvYgrRP7p62OziLW7xI5HYGWFzOvupfAlrLvURSzv/FyGyy0eidogEM3ujU+kUG1zuHgb6Ug==",
+      "dependencies": [
+        "@types/node",
+        "esbuild",
+        "fdir",
+        "picomatch",
+        "postcss",
+        "rollup",
+        "tinyglobby"
+      ],
+      "optionalDependencies": [
+        "fsevents"
+      ],
+      "optionalPeers": [
+        "@types/node"
+      ],
+      "bin": true
+    },
     "web-streams-polyfill@3.3.3": {
       "integrity": "sha512-d2JWLCivmZYTSIoge9MsgFCZrt571BikcWGYkjC1khllbTeDlGqZ2D8vD8E/lJa8WGWbb7Plm8/XJYV7IJHZZw=="
     },
@@ -1075,6 +1095,14 @@
         "packageJson": {
           "dependencies": [
             "npm:hono@^4.8.12"
+          ]
+        }
+      },
+      "packages/lit-query": {
+        "packageJson": {
+          "dependencies": [
+            "npm:lit@^3.3.1",
+            "npm:vite@^7.1.7"
           ]
         }
       }
