@@ -3,10 +3,12 @@
 export class RouteContext {
   public params: Record<string, string>;
   public path: string;
+  private searchParams: URLSearchParams;
 
   constructor(path: string, params: Record<string, string> = {}) {
     this.path = path;
     this.params = params;
+    this.searchParams = new URLSearchParams(location.search);
   }
 
   param(key?: string): string | Record<string, string> {
@@ -14,6 +16,17 @@ export class RouteContext {
       return this.params[key];
     }
     return this.params;
+  }
+
+  search(key?: string): string | Record<string, string> {
+    if (key) {
+      return this.searchParams.get(key) || "";
+    }
+    const result: Record<string, string> = {};
+    this.searchParams.forEach((value, key) => {
+      result[key] = value;
+    });
+    return result;
   }
 }
 

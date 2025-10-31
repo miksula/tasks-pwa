@@ -8,24 +8,23 @@ navigation.
 
 ## Features
 
-- 🎯 **String-Based Routing** - Define routes with named parameters (e.g.,
+- **String-Based Routing** - Define routes with named parameters (e.g.,
   `/posts/:id`).
-- 💪 **RegExp-Based Routing** - Use regular expressions for complex and flexible
+- **RegExp-Based Routing** - Use regular expressions for complex and flexible
   pattern matching.
-- 🔄 **History API Support** - Smooth, native browser back/forward navigation.
-- 🎨 **TypeScript Support** - Full type safety and IntelliSense for a better
+- **History API Support** - Smooth, native browser back/forward navigation.
+- **TypeScript Support** - Full type safety and IntelliSense for a better
   developer experience.
-- 📦 **Lightweight** - Minimal and dependency-free.
-- 🔧 **Configurable Root Path** - Ideal for applications hosted in
-  subdirectories.
-- 📢 **Route Change Callbacks** - Hook into navigation events to update your UI.
+- **Lightweight** - Minimal and dependency-free.
+- **Configurable Root Path** - Ideal for applications hosted in subdirectories.
+- **Route Change Callbacks** - Hook into navigation events to update your UI.
 
 ## Installation
 
 Since this is a standalone module, you can import it directly into your project.
 
 ```typescript
-import Router, { RouteContext } from "./router";
+import Router, { RouteContext } from "@app/router";
 ```
 
 ## Basic Usage
@@ -64,6 +63,16 @@ router.add("/posts/:id/comments/:comment_id", (context) => {
   console.log(`Post: ${params.id}, Comment: ${params.comment_id}`);
 });
 
+// Route with search parameters
+// Example URL: /users/123?tab=profile&sort=asc
+router.add("/users/:id", (context) => {
+  const { id } = context.param() as { id: string };
+  const { tab, sort } = context.search() as { tab: string; sort: string };
+  // Or access a single search parameter
+  // const sort = context.search('sort') as string;
+  console.log(`User: ${id}, Tab: ${tab}, Sort: ${sort}`);
+});
+
 // Catch-all route for 404 pages (must be added last)
 router.add(() => {
   console.log("404 - Page not found");
@@ -96,60 +105,70 @@ router.onRouteChange(() => {
 
 ## API Reference
 
-### `RouteContext` Class
+### `RouteContext`
 
-An instance of `RouteContext` is passed to every route handler.
+The `RouteContext` object is passed to every route handler and provides access
+to route parameters and search parameters.
 
 #### `param(key?: string): string | Record<string, string>`
 
-- If `key` is provided, returns the value of the specified URL parameter.
-- If `key` is omitted, returns an object containing all URL parameters.
+Access URL path parameters from string-based routes (e.g., `/users/:id`).
+
+- **With key**: Returns the value of the specified parameter
+  - Example: `context.param('id')` returns `"123"` for URL `/users/123`
+- **Without key**: Returns an object with all parameters
+  - Example: `context.param()` returns `{ id: "123" }`
+
+#### `search(key?: string): string | Record<string, string>`
+
+Access URL search/query parameters (e.g., `?tab=profile&sort=asc`).
+
+- **With key**: Returns the value of the specified search parameter (or empty
+  string if not found)
+  - Example: `context.search('tab')` returns `"profile"` for URL
+    `/users/123?tab=profile`
+- **Without key**: Returns an object with all search parameters
+  - Example: `context.search()` returns `{ tab: "profile", sort: "asc" }`
 
 #### `path: string`
 
-The matched path fragment.
+The matched path fragment (without search parameters).
 
 #### `params: Record<string, string>`
 
-An object containing the matched URL parameters.
+Direct access to the parameters object.
 
----
-
-### `Router` Class
+### `Router`
 
 #### `new Router(options?: { root?: string })`
 
 Creates a new router instance.
 
-- `options.root`: The base path for the application (defaults to `/`).
+- `options.root`: Base path for the application (defaults to `/`)
 
 #### `add(path: string | RegExp | RouteHandler, handler?: RouteHandler): Router`
 
-Adds a new route.
+Adds a new route. Returns the router instance for method chaining.
 
-- `path`: A string pattern (e.g., `/users/:id`), a `RegExp`, or a `RouteHandler`
-  for a catch-all route.
-- `handler`: A function that receives a `RouteContext` object.
+- `path`: String pattern (e.g., `/users/:id`), RegExp, or handler function for
+  catch-all
+- `handler`: Function that receives a `RouteContext` object
 
-#### `navigate(path: string = ""): Router`
+#### `navigate(path: string): Router`
 
-Programmatically navigates to a new path and triggers the corresponding route
-handler.
+Programmatically navigates to a path and triggers the route handler.
 
 #### `check(fragment?: string): any`
 
-Manually triggers a check against the routes. This is called automatically on
-navigation.
-
-- `fragment`: An optional path to check against (defaults to the current URL).
+Manually checks and executes the matching route handler.
 
 #### `onRouteChange(callback: () => void): Router`
 
-Registers a callback to be executed after a route change.
+Registers a callback for route changes.
 
 #### `path: string` (getter)
 
-Returns the current full path, including the root.
+Returns the current full path including the root.
 
 ## Advanced Example: RegExp Route
 
