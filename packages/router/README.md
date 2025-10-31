@@ -2,234 +2,186 @@
 
 A lightweight, TypeScript-based client-side router for single-page applications
 (SPAs). This router provides essential routing functionality with support for
-regular expression-based route matching, programmatic navigation, and browser
-history management.
+both intuitive string-based patterns (e.g., `/users/:id`) and powerful regular
+expressions. It integrates with the browser's History API for seamless
+navigation.
 
 ## Features
 
-- **RegExp-based routing** - Flexible pattern matching for complex routes
-- **History API support** - Browser back/forward navigation
-- **TypeScript support** - Full type safety and IntelliSense
-- **Lightweight** - Minimal dependencies and small bundle size
-- **Configurable root path** - Support for apps hosted in subdirectories
-- **Route change callbacks** - Hook into navigation events
+- 🎯 **String-Based Routing** - Define routes with named parameters (e.g.,
+  `/posts/:id`).
+- 💪 **RegExp-Based Routing** - Use regular expressions for complex and flexible
+  pattern matching.
+- 🔄 **History API Support** - Smooth, native browser back/forward navigation.
+- 🎨 **TypeScript Support** - Full type safety and IntelliSense for a better
+  developer experience.
+- 📦 **Lightweight** - Minimal and dependency-free.
+- 🔧 **Configurable Root Path** - Ideal for applications hosted in
+  subdirectories.
+- 📢 **Route Change Callbacks** - Hook into navigation events to update your UI.
 
 ## Installation
 
+Since this is a standalone module, you can import it directly into your project.
+
 ```typescript
-import Router from "./router";
+import Router, { RouteContext } from "./router";
 ```
 
 ## Basic Usage
 
-### Creating a Router Instance
+### 1. Creating a Router Instance
 
 ```typescript
 // Basic router
 const router = new Router();
 
-// Router with custom root path (for apps in subdirectories)
-const router = new Router({ root: "/my-app" });
+// For an app hosted at "https://example.com/my-app/"
+const routerWithRoot = new Router({ root: "/my-app" });
 ```
 
-### Adding Routes
+### 2. Adding Routes
+
+Routes are matched in the order they are added. The first match wins.
 
 ```typescript
-// Simple route with RegExp pattern
-router.add(/^users$/, () => {
-  console.log("Users page");
+// Simple string-based route
+router.add("/about", (context) => {
+  console.log("About page");
 });
 
-// Route with parameters
-router.add(/^users\/(\d+)$/, (match, userId) => {
-  console.log(`User page for ID: ${userId}`);
+// Route with named parameters
+router.add("/users/:id", (context) => {
+  const { id } = context.param() as { id: string };
+  // Or access a single parameter
+  // const id = context.param('id') as string;
+  console.log(`User page for ID: ${id}`);
 });
 
-// Catch-all route (must be added last)
+// Route with multiple parameters
+router.add("/posts/:id/comments/:comment_id", (context) => {
+  const params = context.param() as { id: string; comment_id: string };
+  console.log(`Post: ${params.id}, Comment: ${params.comment_id}`);
+});
+
+// Catch-all route for 404 pages (must be added last)
 router.add(() => {
   console.log("404 - Page not found");
 });
 ```
 
-### Navigation
+### 3. Navigation
 
 ```typescript
 // Navigate to a route
-router.navigate("users");
-router.navigate("users/123");
+router.navigate("/users/123");
 
-// Navigate to root
-router.navigate("");
-
-// Check current route manually
-router.check();
+// Navigate to the root
+router.navigate("/");
 ```
 
-### Route Change Events
+The router automatically listens for browser back/forward button clicks.
+
+### 4. Handling Route Changes
+
+You can execute code whenever a route changes, which is useful for updating your
+application's main view.
 
 ```typescript
 router.onRouteChange(() => {
   console.log("Route changed to:", router.path);
+  // e.g., renderAppView();
 });
 ```
 
 ## API Reference
 
-### Constructor
+### `RouteContext` Class
 
-```typescript
-new Router(options?: RouterOptions)
-```
+An instance of `RouteContext` is passed to every route handler.
 
-**Options:**
+#### `param(key?: string): string | Record<string, string>`
 
-- `root?: string` - Base path for the application (default: `"/"`)
+- If `key` is provided, returns the value of the specified URL parameter.
+- If `key` is omitted, returns an object containing all URL parameters.
 
-### Methods
+#### `path: string`
 
-#### `add(pattern: RegExp | RouteHandler, handler?: RouteHandler): Router`
+The matched path fragment.
 
-Adds a new route to the router.
+#### `params: Record<string, string>`
 
-**Parameters:**
+An object containing the matched URL parameters.
 
-- `pattern` - RegExp pattern to match against the current path, or a handler
-  function for catch-all routes
-- `handler` - Function to execute when the route matches
+---
 
-**Returns:** Router instance for method chaining
+### `Router` Class
+
+#### `new Router(options?: { root?: string })`
+
+Creates a new router instance.
+
+- `options.root`: The base path for the application (defaults to `/`).
+
+#### `add(path: string | RegExp | RouteHandler, handler?: RouteHandler): Router`
+
+Adds a new route.
+
+- `path`: A string pattern (e.g., `/users/:id`), a `RegExp`, or a `RouteHandler`
+  for a catch-all route.
+- `handler`: A function that receives a `RouteContext` object.
 
 #### `navigate(path: string = ""): Router`
 
-Programmatically navigate to a new path.
-
-**Parameters:**
-
-- `path` - Target path (relative to root)
-
-**Returns:** Router instance for method chaining
+Programmatically navigates to a new path and triggers the corresponding route
+handler.
 
 #### `check(fragment?: string): any`
 
-Check and execute the handler for the current or provided path.
+Manually triggers a check against the routes. This is called automatically on
+navigation.
 
-**Parameters:**
-
-- `fragment` - Optional path fragment to check (defaults to current path)
-
-**Returns:** Result of the matched route handler, or `null` if no match
+- `fragment`: An optional path to check against (defaults to the current URL).
 
 #### `onRouteChange(callback: () => void): Router`
 
-Register a callback to be executed after route changes.
-
-**Parameters:**
-
-- `callback` - Function to execute on route change
-
-**Returns:** Router instance for method chaining
-
-### Properties
+Registers a callback to be executed after a route change.
 
 #### `path: string` (getter)
 
-Returns the current full path including the root.
+Returns the current full path, including the root.
 
-## Advanced Examples
+## Advanced Example: RegExp Route
 
-### Complex Route Patterns
+For complex scenarios, you can still use regular expressions. The handler
+signature remains the same.
 
 ```typescript
-// Route with multiple parameters
-router.add(/^posts\/(\d+)\/comments\/(\d+)$/, (match, postId, commentId) => {
-  console.log(`Post ${postId}, Comment ${commentId}`);
-});
-
-// Optional parameters
-router.add(/^products\/([^\/]+)(?:\/(\w+))?$/, (match, productId, variant) => {
-  console.log(`Product: ${productId}, Variant: ${variant || "default"}`);
-});
-
-// Query parameters (handled in the route handler)
-router.add(/^search$/, () => {
-  const params = new URLSearchParams(location.search);
-  const query = params.get("q");
-  console.log(`Search query: ${query}`);
+// Matches /items/ followed by a number, e.g., /items/42
+router.add(/^\/items\/(\d+)$/, (context) => {
+  // The captured group from the RegExp is not automatically named.
+  // You would need to handle the `match` array manually if needed,
+  // but string-based routes are preferred for simplicity.
+  console.log("RegExp route matched:", context.path);
 });
 ```
 
-### Integration with Components
+## Integration with a SPA
+
+Here is a conceptual example of how to handle link clicks in a Single-Page
+Application to prevent full-page reloads.
 
 ```typescript
-class App {
-  private router: Router;
-
-  constructor() {
-    this.router = new Router();
-    this.setupRoutes();
-
-    // Listen for route changes to update UI
-    this.router.onRouteChange(() => {
-      this.render();
-    });
-
-    // Initial route check
-    this.router.check();
-  }
-
-  setupRoutes() {
-    this.router
-      .add(/^$/, () => this.showHome())
-      .add(/^about$/, () => this.showAbout())
-      .add(/^users\/(\d+)$/, (match, id) => this.showUser(id))
-      .add(() => this.show404());
-  }
-
-  showHome() {/* render home component */}
-  showAbout() {/* render about component */}
-  showUser(id: string) {/* render user component */}
-  show404() {/* render 404 component */}
-}
-```
-
-### Link Handling
-
-```typescript
-// Handle link clicks for SPA navigation
 document.addEventListener("click", (e) => {
   const target = e.target as HTMLElement;
-  const link = target.closest("a[href]") as HTMLAnchorElement;
+  // Find the closest 'a' tag to the click target
+  const link = target.closest("a[href]");
 
+  // Check if the link is internal
   if (link && link.host === location.host) {
-    e.preventDefault();
-    const path = link.pathname.replace(router.root, "");
-    router.navigate(path);
+    e.preventDefault(); // Prevent the browser's default navigation
+    const path = link.pathname.replace(router.root, ""); // Get the relative path
+    router.navigate(path); // Use the router to navigate
   }
 });
-```
-
-## Browser Compatibility
-
-This router uses the HTML5 History API and requires:
-
-- Modern browsers (IE10+)
-- `history.pushState()` support
-- `popstate` event support
-
-## Notes
-
-- Routes are checked in the order they were added
-- The first matching route wins
-- Use catch-all routes (functions without patterns) as the last route for 404
-  handling
-- The router automatically handles browser back/forward navigation
-- Query parameters are preserved but not parsed by the router itself
-
-## TypeScript Support
-
-The router is written in TypeScript and includes full type definitions. All
-methods and options are properly typed for better development experience.
-
-```typescript
-import Router, { RouteHandler, RouterOptions } from "./router";
 ```
