@@ -1,4 +1,4 @@
-import { produce } from "immer";
+// import { produce } from "immer";
 
 import type { Action, State } from "./types.ts";
 import apiClient from "./api-client.ts";
@@ -6,17 +6,32 @@ import apiClient from "./api-client.ts";
 import { AppLogic } from "./app-logic.ts";
 import { EVENT_ACTION, EVENT_DATA, EVENT_LOAD } from "./constants.ts";
 
-const getState = produce((state: State, action: Action) => {
-  const { addItem } = AppLogic;
+// const getState = produce((state: State, action: Action) => {
+//   const { addItem } = AppLogic;
 
+//   switch (action.type) {
+//     case "ADD":
+//       addItem(state, action.text);
+//       break;
+//   }
+// });
+
+async function setState(state: State, action: Action) {
+  let result: unknown;
+  
   switch (action.type) {
-    case "ADD":
-      addItem(state, action.text);
-      break;
+    case "ADD": {
+      result = await apiClient.api.tasks.$post({ json: { text: action.text, completed: 0 } }).then(async (response) => {
+        const json = await response.json();
+        return json;
+      });
+    }
   }
-});
 
-type Timeout = ReturnType<typeof setTimeout>;
+  return result;
+}
+
+// type Timeout = ReturnType<typeof setTimeout>;
 
 export function AppStore(el: HTMLElement) {
   let appState = AppLogic.initData();
@@ -24,8 +39,9 @@ export function AppStore(el: HTMLElement) {
 
   el.addEventListener(EVENT_LOAD, load);
 
-  el.addEventListener(EVENT_ACTION, (e: CustomEvent<Action>) => {
-    appState = getState(appState, e.detail);
+  el.addEventListener(EVENT_ACTION, async (e: CustomEvent<Action>) => {
+    const result = await setState(appState, e.detail);
+    console.log("Result:", result);
     update();
   });
 

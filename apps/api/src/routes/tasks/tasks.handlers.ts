@@ -22,7 +22,9 @@ const create = factory.createHandlers(
   zValidator("json", taskCreateSchema),
   async function createTask(c) {
     const task = c.req.valid("json");
-    const [createdTask] = await db.insertInto("task").values(task).execute();
+    const createdTask = await db.insertInto("task").values(task)
+      .returningAll().executeTakeFirst();
+    console.log("Created task:", createdTask);
     return c.json(createdTask, HttpStatusCodes.CREATED);
   },
 );
