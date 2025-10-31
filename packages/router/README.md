@@ -166,22 +166,79 @@ router.add(/^\/items\/(\d+)$/, (context) => {
 });
 ```
 
-## Integration with a SPA
+## Integration with Web Components (Lit Example)
 
-Here is a conceptual example of how to handle link clicks in a Single-Page
-Application to prevent full-page reloads.
+Here's a simple example showing how to use the router in a Lit component:
 
 ```typescript
-document.addEventListener("click", (e) => {
-  const target = e.target as HTMLElement;
-  // Find the closest 'a' tag to the click target
-  const link = target.closest("a[href]");
+import { html, LitElement } from "lit";
+import Router, { RouteContext } from "./router";
 
-  // Check if the link is internal
-  if (link && link.host === location.host) {
-    e.preventDefault(); // Prevent the browser's default navigation
-    const path = link.pathname.replace(router.root, ""); // Get the relative path
-    router.navigate(path); // Use the router to navigate
+export class MyApp extends LitElement {
+  private router = new Router();
+  private currentView = html`
+    <div>Loading...</div>
+  `;
+
+  constructor() {
+    super();
+
+    // Setup routes
+    this.router
+      .add("/", () => {
+        this.currentView = html`
+          <h1>Home</h1>
+        `;
+      })
+      .add("/about", () => {
+        this.currentView = html`
+          <h1>About</h1>
+        `;
+      })
+      .add("/users/:id", (context: RouteContext) => {
+        const id = context.param("id");
+        this.currentView = html`
+          <h1>User ${id}</h1>
+        `;
+      })
+      .onRouteChange(() => this.requestUpdate());
+
+    this.router.check();
   }
-});
+
+  connectedCallback() {
+    super.connectedCallback();
+
+    // Handle link clicks
+    this.addEventListener("click", (e: Event) => {
+      const target = e.target as HTMLElement;
+      if (target.tagName === "A") {
+        const href = target.getAttribute("href");
+        if (href?.startsWith("/")) {
+          e.preventDefault();
+          this.router.navigate(href);
+        }
+      }
+    });
+  }
+
+  render() {
+    return html`
+      <nav>
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+        <a href="/users/123">User 123</a>
+      </nav>
+      <main>${this.currentView}</main>
+    `;
+  }
+}
+
+customElements.define("my-app", MyApp);
 ```
+
+**Key concepts:**
+
+- Store a `currentView` property that gets updated by route handlers
+- Call `this.requestUpdate()` in `onRouteChange()` to trigger re-renders
+- Intercept link clicks to use `router.navigate()` instead of page reloads
