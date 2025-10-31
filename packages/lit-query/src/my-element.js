@@ -14,19 +14,13 @@ import { getTodos, postTodo } from "./my-api/index.js";
  * QueryClient to minimize or disable the in-memory caching. This configuration treats 
  * TanStack Query more as a state synchronization layer rather than a traditional cache.
  * 
- * @typedef {Object} QueryClientConfig
- * @property {string} networkMode - Set to "always" to always fetch and ignore the online / offline state.
- * @property {number} staleTime - Set to Infinity since local data is the source of truth and doesn't change externally.
- * @property {number} cacheTime - Set to 0 to minimize memory usage; data persists in storage.
- * @property {boolean} refetchOnMount - Disabled since local data doesn't change between mounts.
- * @property {boolean} refetchOnWindowFocus - Disabled as local data isn't affected by window focus.
  */
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      networkMode: "always",
-      staleTime: Infinity,
-      cacheTime: 0,
+      networkMode: "always", // Set to "always" to always fetch and ignore the online / offline state.
+      staleTime: Infinity, // Data is always fresh since it's from local data.
+      cacheTime: 0, // Minimize memory usage; data persists in storage.
       refetchOnMount: false,
       refetchOnWindowFocus: false,
     },
