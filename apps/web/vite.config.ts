@@ -10,7 +10,7 @@ export default defineConfig({
   plugins: [devtoolsJson()],
   server: {
     proxy: {
-      "/api": "http://localhost:8787",
+      "/api": "http://localhost:9999",
     },
   },
 });

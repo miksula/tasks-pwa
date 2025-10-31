@@ -1,3 +1,4 @@
+
 import { html, LitElement } from "lit";
 import {
   MutationObserver,
@@ -6,25 +7,53 @@ import {
 } from "@tanstack/query-core";
 import { getTodos, postTodo } from "./my-api/index.js";
 
-// Create a client
+/**
+ * Create a QueryClient configured for local storage persistence.
+ * 
+ * @summary When querying data from local data source, we should configure the 
+ * QueryClient to minimize or disable the in-memory caching. This configuration treats 
+ * TanStack Query more as a state synchronization layer rather than a traditional cache.
+ * 
+ * @typedef {Object} QueryClientConfig
+ * @property {string} networkMode - Set to "always" to always fetch and ignore the online / offline state.
+ * @property {number} staleTime - Set to Infinity since local data is the source of truth and doesn't change externally.
+ * @property {number} cacheTime - Set to 0 to minimize memory usage; data persists in storage.
+ * @property {boolean} refetchOnMount - Disabled since local data doesn't change between mounts.
+ * @property {boolean} refetchOnWindowFocus - Disabled as local data isn't affected by window focus.
+ */
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 0, // Data becomes stale immediately
+      networkMode: "always",
+      staleTime: Infinity,
+      cacheTime: 0,
+      refetchOnMount: false,
+      refetchOnWindowFocus: false,
     },
   },
 });
 
 /**
- * An example element.
+ * @summary An example Lit component demonstrating integration with @tanstack/query-core.
+ * @description
+ * `my-element` fetches, displays, and adds "todos" using TanStack Query for state
+ * management. It sets up a `QueryObserver` to get the list of todos and a
+ * `MutationObserver` to add new ones. The component automatically updates when the
+ * underlying data changes.
  *
- * @slot - This element has a slot
- * @csspart button - The button
+ * @element my-element
+ *
+ * @property {Array<Object>} todos - The internal state property holding the list of todo items.
+ * Each todo object is expected to have `id` and `title` properties. It is updated automatically
+ * by the QueryObserver.
+ *
+ * @slot - This element has a default unnamed slot. Content placed here will be rendered inside the main container div.
+ * @csspart button - The button element that triggers adding a new todo.
  */
 export class MyElement extends LitElement {
   static get properties() {
     return {
-      todos: { state: true },
+      todos: { state: true, type: Array },
     };
   }
 
@@ -37,13 +66,13 @@ export class MyElement extends LitElement {
     super.connectedCallback();
 
     // Create a QueryObserver
-    this.query = new QueryObserver(queryClient, {
+    const query = new QueryObserver(queryClient, {
       queryKey: ["todos"],
       queryFn: getTodos,
     });
 
     // Subscribe to results
-    this.querySubscription = this.query.subscribe((result) => {
+    query.subscribe((result) => {
       console.log("Query result:", result.status, result.data);
       if (result.data) {
         this.todos = result.data;
@@ -62,7 +91,7 @@ export class MyElement extends LitElement {
     });
 
     // Subscribe to mutation results (optional)
-    this.mutationSubscription = this.mutation.subscribe((result) => {
+    this.mutation.subscribe((result) => {
       console.log("Mutation result:", result.status, result.data);
     });
   }

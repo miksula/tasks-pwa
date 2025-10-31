@@ -1,7 +1,7 @@
 export type TodoItem = {
   id: number | string;
   text: string;
-  done: boolean;
+  completed: 0 | 1;
 };
 
 export type Filter = "all" | "active" | "completed";
@@ -13,7 +13,7 @@ export type State = {
 
 export type Action =
   | { type: "ADD"; text: string }
-  | { type: "COMPLETED"; id: number; done: boolean }
+  | { type: "COMPLETED"; id: number; completed: 0 | 1 }
   | { type: "FILTER"; filter: Filter }
   | { type: "DELETE"; id: number }
   | { type: "EDIT"; id: number; text: string };

@@ -1,6 +1,7 @@
 import { produce } from "immer";
 
 import type { Action, State } from "./types.ts";
+import apiClient from "./api-client.ts";
 
 import { AppLogic } from "./app-logic.ts";
 import { EVENT_ACTION, EVENT_DATA, EVENT_LOAD } from "./constants.ts";
@@ -19,7 +20,7 @@ type Timeout = ReturnType<typeof setTimeout>;
 
 export function AppStore(el: HTMLElement) {
   let appState = AppLogic.initData();
-  let saveTimeout: Timeout;
+  // let saveTimeout: Timeout;
 
   el.addEventListener(EVENT_LOAD, load);
 
@@ -40,27 +41,28 @@ export function AppStore(el: HTMLElement) {
   }
 
   function load() {
-    try {
-      if (localStorage?.todo) {
-        appState = JSON.parse(localStorage.todo);
-      }
-    } catch (err) {
-      console.warn(err);
-    }
+    apiClient.api.tasks.$get().then(async (tasks) => {
+      const result = await tasks.json();
 
-    update();
+      appState = {
+        ...appState,
+        items: result,
+      };
+
+      update();
+    });
   }
 
   function save() {
-    clearTimeout(saveTimeout);
+    // clearTimeout(saveTimeout);
 
-    saveTimeout = setTimeout(() => {
-      try {
-        localStorage.todo = JSON.stringify(appState);
-      } catch (err) {
-        console.warn(err);
-      }
-    }, 100);
+    // saveTimeout = setTimeout(() => {
+    //   try {
+    //     localStorage.todo = JSON.stringify(appState);
+    //   } catch (err) {
+    //     console.warn(err);
+    //   }
+    // }, 100);
   }
 }
 

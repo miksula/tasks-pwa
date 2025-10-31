@@ -5,7 +5,7 @@ import { uuid } from "./uuid.ts";
 export class AppLogic {
   static initData(): State {
     return {
-      items: [{ id: 1, text: "Task 1", done: false }],
+      items: [{ id: 1, text: "Task 1", completed: false }],
       filter: "all",
     };
   }
@@ -14,7 +14,7 @@ export class AppLogic {
     state.items.push({
       id: uuid(),
       text,
-      done: false,
+      completed: false,
     });
   }
 }

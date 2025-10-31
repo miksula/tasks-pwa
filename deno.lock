@@ -11,6 +11,7 @@
     "npm:@libsql/client@~0.15.15": "0.15.15",
     "npm:@libsql/kysely-libsql@~0.4.1": "0.4.1_kysely@0.28.8",
     "npm:@tailwindplus/elements@^1.0.18": "1.0.18",
+    "npm:@tanstack/query-core@^5.90.5": "5.90.5",
     "npm:@types/node@*": "24.2.0",
     "npm:hono-pino@~0.10.1": "0.10.3_hono@4.10.2_pino@9.14.0",
     "npm:hono@^4.8.12": "4.10.2",
@@ -480,6 +481,9 @@
     },
     "@tailwindplus/elements@1.0.18": {
       "integrity": "sha512-JvqwL+6LwDIxC5zV9kAcI1wttpkUhgkGr7bcuYGH7fxnmgvVJglBERqlgPGGDXWB+lpuFgjgkvtK3pMm/7MvTA=="
+    },
+    "@tanstack/query-core@5.90.5": {
+      "integrity": "sha512-wLamYp7FaDq6ZnNehypKI5fNvxHPfTYylE0m/ZpuuzJfJqhR5Pxg9gvGBHZx4n7J+V5Rg5mZxHHTlv25Zt5u+w=="
     },
     "@types/estree@1.0.8": {
       "integrity": "sha512-dWHzHa2WqEXI/O1E9OjrocMTKJl2mSrEolh1Iomrv6U+JuNwaHXsXx9bLu5gG7BUWFIN0skIQJQ/L1rIex4X6w=="
@@ -1101,6 +1105,7 @@
       "packages/lit-query": {
         "packageJson": {
           "dependencies": [
+            "npm:@tanstack/query-core@^5.90.5",
             "npm:lit@^3.3.1",
             "npm:vite@^7.1.7"
           ]

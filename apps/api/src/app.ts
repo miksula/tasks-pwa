@@ -3,7 +3,7 @@ import index from "./routes/index.route.ts";
 import tasks from "./routes/tasks/tasks.index.ts";
 
 // Create the main app instance
-const app = createApp();
+const app = createApp().basePath("/api");
 
 // Chain routes for proper RPC type inference
 const routes = app
