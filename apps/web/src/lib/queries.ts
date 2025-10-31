@@ -1,6 +1,12 @@
 import apiClient from "./api-client.ts";
 import formatApiError from "./format-api-error.ts";
 
+export async function fetchTasks() {
+  const response = await apiClient.api.tasks.$get();
+  const json = await response.json();
+  return json;
+}
+
 export async function createTask(task: any) {
   const response = await apiClient.api.tasks.$post({
     json: task,
