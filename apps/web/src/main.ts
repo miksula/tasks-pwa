@@ -1,66 +1,50 @@
-import { html, LitElement, type TemplateResult } from "lit";
-import { classMap } from "lit/directives/class-map.js";
+import { LitElement, type TemplateResult } from "lit";
+import { ContextProvider, provide } from "@lit/context";
 
-import type { State } from "./lib/types.ts";
+import Router, { RouteContext } from "@app/router";
+// This is the DOM based context object for child components to access the router instance.
+// See: https://lit.dev/docs/data/context
+import { routerContext } from "./router-context.ts";
 
-import { AppLogic } from "./lib/app-logic.ts";
-import { AppStore } from "./lib/app-store.ts";
-import { EVENT_DATA, EVENT_LOAD } from "./lib/constants.ts";
-import Router from "./lib/router.ts";
-import "./routes/tasks/tasks-route.ts";
+import type { State } from "@/shared/types.ts";
 
-function Dashboard() {
-  return html`
-    <div>Dashboard</div>
-  `;
-}
+// import { AppLogic } from "./lib/app-logic.ts";
+// import { AppStore } from "./lib/app-store.ts";
+import { EVENT_DATA, EVENT_LOAD } from "@/shared/constants.ts";
 
-function Tasks(data: State) {
-  return html`
-    <tasks-route .data="${data}"></tasks-route>
-  `;
-}
-
-function Task(taskId: string) {
-  return html`
-    <div>Task Detail - ${taskId}</div>
-  `;
-}
-
-function NotFound(path: string) {
-  return html`
-    <div>
-      Not found - ${path}
-    </div>
-  `;
-}
+import { Dashboard, NotFound, Task, Tasks } from "@/routes/index.ts";
+import Layout from "./layout.ts";
 
 export class MainApp extends LitElement {
-  private activeRoute: TemplateResult = html`
-    <div>Loading...</div>
-  `;
-  private state: State = AppLogic.initData();
-  private router: Router = new Router();
+  private page: TemplateResult | null = null;
+  // private state: State = AppLogic.initData();
+  router: Router = new Router();
+
+  // Setup context provider
+  private routerProvider = new ContextProvider(this, {
+    context: routerContext,
+    initialValue: this.router,
+  });
 
   constructor() {
     super();
-    AppStore(this);
+    // AppStore(this);
 
     this.router
-      .add(/^$/, () => {
-        this.activeRoute = Dashboard();
+      .add("/", () => {
+        this.page = Dashboard();
       })
-      .add(/^tasks$/, () => {
-        this.activeRoute = Tasks(this.state);
+      .add("/tasks", () => {
+        this.page = Tasks();
       })
-      .add(/^tasks\/(.*)/, (...args) => {
-        const id = args[1];
-        this.activeRoute = Task(id);
+      .add("/tasks/:id", (c: RouteContext) => {
+        const id = c.params.id;
+        this.page = Task(id);
       })
       .add(() => {
-        this.activeRoute = NotFound(this.router.path);
+        this.page = NotFound(this.router.path);
       })
-      .onRouteChange(() => {
+      .onRouteCheck(() => {
         this.requestUpdate();
       });
 
@@ -73,25 +57,13 @@ export class MainApp extends LitElement {
 
     // Listen for state update events
     this.addEventListener(EVENT_DATA, (event: CustomEvent<State>) => {
-      this.state = event.detail;
+      // this.state = event.detail;
       // Update route based on new state
       this.router.check();
     });
 
     // Trigger update to get the state from persistent storage
     this.dispatchEvent(new CustomEvent(EVENT_LOAD));
-
-    // Handle navigation clicks to prevent page reload
-    this.addEventListener("click", (event: Event) => {
-      const target = event.target as HTMLElement;
-      if (target.tagName === "A") {
-        const href = target.getAttribute("href");
-        if (href && href.startsWith("/")) {
-          event.preventDefault();
-          this.router.navigate(href);
-        }
-      }
-    });
   }
 
   override createRenderRoot() {
@@ -99,20 +71,7 @@ export class MainApp extends LitElement {
   }
 
   override render() {
-    return html`
-      <div class="custom-app">
-        <nav>
-          <a href="/" class="${classMap({
-            active: this.router.path == "/",
-          })}">Dashboard</a>
-          <a href="/tasks" class="${classMap({
-            active: this.router.path == "/tasks",
-          })}">Tasks</a>
-        </nav>
-
-        <main>${this.activeRoute}</main>
-      </div>
-    `;
+    return Layout(this.page);
   }
 }
 

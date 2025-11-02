@@ -11,11 +11,10 @@ export class RouteContext {
     this.searchParams = new URLSearchParams(location.search);
   }
 
-  param(key?: string): string | Record<string, string> {
+  param(key?: string): string | undefined {
     if (key) {
       return this.params[key];
     }
-    return this.params;
   }
 
   search(key?: string): string | Record<string, string> {
@@ -45,7 +44,7 @@ type RouteItem = {
 export default class Router {
   private routes: RouteItem[] = [];
   private root = "/";
-  private routeChangeHandler?: () => void;
+  private routeCheckHandler?: () => void;
 
   constructor(options: RouterOptions = {}) {
     if (options.root) {
@@ -65,12 +64,11 @@ export default class Router {
       decodeURI(location.pathname + location.search),
     );
     fragment = fragment.replace(/\?(.*)$/, "");
-    fragment = this.root != "/" ? fragment.replace(this.root, "") : fragment;
-    return this.clearSlashes(fragment);
+    return this.root + this.clearSlashes(fragment);
   }
 
   get path() {
-    return this.root + this.getPath();
+    return this.getPath();
   }
 
   add(path: string | RegExp | RouteHandler, handler?: RouteHandler) {
@@ -113,8 +111,8 @@ export default class Router {
         }
         const context = new RouteContext(fragment, params);
         const result = route.handler.apply({}, [context]);
-        if (this.routeChangeHandler) {
-          this.routeChangeHandler();
+        if (this.routeCheckHandler) {
+          this.routeCheckHandler();
         }
         return result;
       }
@@ -122,8 +120,8 @@ export default class Router {
     return null;
   }
 
-  onRouteChange(callback: () => void) {
-    this.routeChangeHandler = callback;
+  onRouteCheck(callback: () => void) {
+    this.routeCheckHandler = callback;
     return this;
   }
 
@@ -134,3 +132,5 @@ export default class Router {
     return this;
   }
 }
+
+export type RouterType = typeof Router;
