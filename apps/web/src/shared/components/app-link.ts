@@ -1,7 +1,7 @@
 import { html, LitElement } from "lit";
 import { ContextConsumer } from "@lit/context";
 
-import { routerContext } from "@/router-context.ts";
+import { routerContext } from "../router-context.ts";
 import { NoShadow } from "@/shared/mixins/no-shadow.ts";
 
 class AppLink extends NoShadow(LitElement) {
