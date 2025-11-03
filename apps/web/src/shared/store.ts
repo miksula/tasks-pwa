@@ -13,11 +13,11 @@ async function mutateState(action: Action) {
 }
 
 export const initialState: State = {
-  items: [],
+  items: [{ id: 0, text: "Loading...", completed: 0 }],
   filter: "all",
 };
 
-export function AppStore(el: HTMLElement) {
+export function Store(el: HTMLElement) {
   let appState = initialState;
 
   el.addEventListener(EVENT_LOAD, updateState);
