@@ -1,7 +1,8 @@
 import { html, LitElement } from "lit";
+import { NoShadow } from "@/shared/mixins/no-shadow.ts";
 
-export default class TasksPage extends LitElement {
-  render() {
+export default class TasksPage extends NoShadow(LitElement) {
+  override render() {
     return html`
       <div>
         <h1>Tasks</h1>

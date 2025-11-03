@@ -1,39 +1,7 @@
 import { html, LitElement } from "lit";
-import { ContextConsumer } from "@lit/context";
-
-import { routerContext } from "@/router-context.ts";
+import "./app-link.ts";
 
 class AppNavigation extends LitElement {
-  // Consume the router context for navigation
-  private router = new ContextConsumer(this, {
-    context: routerContext,
-    subscribe: true,
-  });
-
-  override connectedCallback() {
-    super.connectedCallback();
-    const routerInstance = this.router.value;
-
-    if (!routerInstance) {
-      console.error("Router instance not available in AppNavigation");
-      return;
-    }
-
-    // Handle navigation clicks to prevent page reload
-    this.addEventListener("click", (event: Event) => {
-      const target = event.target as HTMLElement;
-
-      if (target.tagName === "A") {
-        const href = target.getAttribute("href");
-
-        if (href && href.startsWith("/")) {
-          event.preventDefault();
-          routerInstance.navigate(href);
-        }
-      }
-    });
-  }
-
   override createRenderRoot() {
     // will render the template without shadow DOM
     return this;
@@ -43,11 +11,11 @@ class AppNavigation extends LitElement {
     return html`
       <nav>
         <ul>
-          <li><a href="/">Dashboard</a></li>
-          <li><a href="/tasks">Tasks</a></li>
-          <li><a href="/tasks/1">Task 1</a></li>
-          <li><a href="/tasks/2">Task 2</a></li>
-          <li><a href="/foo">Foo</a></li>
+          <li><app-link text="Dashboard" to="/"></app-link></li>
+          <li><app-link text="Tasks" to="/tasks"></app-link></li>
+          <li><app-link text="Task 1" to="/tasks/1"></app-link></li>
+          <li><app-link text="Task 2" to="/tasks/2"></app-link></li>
+          <li><app-link text="Foo" to="/foo"></app-link></li>
         </ul>
       </nav>
     `;
