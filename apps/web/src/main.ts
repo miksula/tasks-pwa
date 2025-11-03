@@ -1,8 +1,8 @@
 import { LitElement, type TemplateResult } from "lit";
-import { ContextProvider, provide } from "@lit/context";
+import { ContextProvider } from "@lit/context";
 
 import Router, { RouteContext } from "@app/router";
-// This is the DOM based context object for child components to access the router instance.
+// The context object for children to access the router instance.
 // See: https://lit.dev/docs/data/context
 import { routerContext } from "./router-context.ts";
 
@@ -18,7 +18,7 @@ import Layout from "./layout.ts";
 export class MainApp extends NoShadow(LitElement) {
   private page: TemplateResult | null = null;
   // private state: State = AppLogic.initData();
-  router: Router = new Router();
+  private router: Router = new Router();
 
   // Setup context provider
   private routerProvider = new ContextProvider(this, {
@@ -62,6 +62,10 @@ export class MainApp extends NoShadow(LitElement) {
       this.router.check();
     });
 
+    this.loadData();
+  }
+
+  private loadData() {
     // Trigger update to get the state from persistent storage
     this.dispatchEvent(new CustomEvent(EVENT_LOAD));
   }

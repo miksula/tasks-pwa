@@ -19,8 +19,8 @@ export type Action =
   | { type: "EDIT"; id: number; text: string };
 
 declare global {
-  // eslint-disable-next-line ts/consistent-type-definitions
   interface GlobalEventHandlersEventMap {
+    EVENT_LOAD: CustomEvent;
     EVENT_DATA: CustomEvent<State>;
     EVENT_ACTION: CustomEvent<Action>;
   }

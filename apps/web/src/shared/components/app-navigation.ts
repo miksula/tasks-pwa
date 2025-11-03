@@ -1,12 +1,9 @@
 import { html, LitElement } from "lit";
+import { NoShadow } from "@/shared/mixins/no-shadow.ts";
+
 import "./app-link.ts";
 
-class AppNavigation extends LitElement {
-  override createRenderRoot() {
-    // will render the template without shadow DOM
-    return this;
-  }
-
+class AppNavigation extends NoShadow(LitElement) {
   override render() {
     return html`
       <nav>

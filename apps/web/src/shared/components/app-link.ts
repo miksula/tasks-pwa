@@ -25,21 +25,16 @@ class AppLink extends NoShadow(LitElement) {
     this.to = "/";
   }
 
-  override connectedCallback() {
-    super.connectedCallback();
-    const routerInstance = this.router.value;
-
-    // Handle navigation clicks (prevents page reload)
-    this.addEventListener("click", (e: Event) => {
-      e.preventDefault();
-      routerInstance?.navigate(this.to);
-    });
-  }
-
   override render() {
     return html`
-      <a href="${this.to}">${this.text}</a>
+      <a href="${this.to}" @click="${this.handleClick}">${this.text}</a>
     `;
+  }
+
+  private handleClick(event: MouseEvent) {
+    event.preventDefault();
+    const routerInstance = this.router.value;
+    routerInstance?.navigate(this.to);
   }
 }
 
