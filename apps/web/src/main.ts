@@ -44,6 +44,7 @@ export class MainApp extends WithRouter(NoShadow(LitElement)) {
 
     // Listen for state update events
     this.addEventListener(EVENT_DATA, (event: CustomEvent<State>) => {
+      console.log("MainApp received state update:", event.detail);
       this.state = event.detail;
       // Update route based on new state
       this.router.check();
@@ -53,7 +54,7 @@ export class MainApp extends WithRouter(NoShadow(LitElement)) {
   }
 
   private loadData() {
-    // this.dispatchEvent(new CustomEvent(EVENT_LOAD));
+    this.dispatchEvent(new CustomEvent(EVENT_LOAD));
   }
 
   override render() {

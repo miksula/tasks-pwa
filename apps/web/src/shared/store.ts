@@ -13,7 +13,7 @@ async function mutateState(action: Action) {
 }
 
 export const initialState: State = {
-  items: [{ id: 0, text: "Loading...", completed: 0 }],
+  items: [],
   filter: "all",
 };
 

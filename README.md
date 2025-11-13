@@ -89,7 +89,6 @@ use-deno/
 
 - `lit` - Web components framework
 - `@auth/core` - Authentication
-- `immer` - Immutable state updates
 - `vite` - Build tool and dev server
 
 ## 🏛️ Architecture
