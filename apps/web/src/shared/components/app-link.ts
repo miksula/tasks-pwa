@@ -1,23 +1,22 @@
 import { html, LitElement } from "lit";
-import { ContextConsumer } from "@lit/context";
+// import { ContextConsumer } from "@lit/context";
 
-import { routerContext } from "../router-context.ts";
+// import { routerContext } from "../router-context.ts";
 import { NoShadow } from "@/shared/mixins/no-shadow.ts";
+import { UseRouter } from "@/shared/mixins/use-router.ts";
 
-class AppLink extends NoShadow(LitElement) {
-  text: string;
-  to: string;
+const props = {
+  text: { type: String },
+  to: { type: String },
+};
 
-  static override properties = {
-    text: {},
-    to: {},
-  };
+class AppLink extends UseRouter(NoShadow(LitElement)) {
+  static override properties = props;
 
-  // Consume the router context for navigation
-  private router = new ContextConsumer(this, {
-    context: routerContext,
-    subscribe: true,
-  });
+  /** The text content of the link. */
+  public text: string;
+  /** The target route/path of the link. */
+  public to: string;
 
   constructor() {
     super();
@@ -31,10 +30,9 @@ class AppLink extends NoShadow(LitElement) {
     `;
   }
 
-  private handleClick(event: MouseEvent) {
+  private handleClick(event: Event) {
     event.preventDefault();
-    const routerInstance = this.router.value;
-    routerInstance?.navigate(this.to);
+    this.router?.navigate(this.to);
   }
 }
 

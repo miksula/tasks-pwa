@@ -1,60 +1,67 @@
-import { html, LitElement } from "lit";
+import { css, html, LitElement } from "lit";
 import { classMap } from "lit/directives/class-map.js";
 
-import { NoShadow } from "@/shared/mixins/no-shadow.ts";
 import { type TodoItem } from "@/shared/types.ts";
 import { dispatchEvent } from "@/shared/store.ts";
 
-export class TaskItem extends NoShadow(LitElement) {
-  static override properties = {
-    item: { attribute: false },
-  };
-
-  item: TodoItem;
-
-  constructor() {
-    super();
-    this.item = {} as TodoItem;
+const styles = css`
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
   }
 
+  li.viewing {
+    animation: fadeIn 100ms ease-in;
+  }
+
+  li.viewing, form.editing {
+    display: flex;
+  }
+`;
+
+const props = {
+  item: {},
+};
+
+export class TaskItem extends LitElement {
+  static override styles = styles;
+  static override properties = props;
+
+  /** The todo item to display and manage. */
+  declare public item: TodoItem;
+
   private isEditing = false;
-  private wasEditing = false;
   private newText = "";
 
   setEditing(isEditing: boolean, update = true) {
     this.isEditing = isEditing;
-    if (!isEditing) {
-      this.wasEditing = true;
-    }
     if (update) {
       this.requestUpdate();
     }
   }
 
-  toggleCompleted(
-    event: InputEvent,
-    item: TodoItem,
-  ) {
+  toggleCompleted(item: TodoItem) {
     const id = Number(item.id);
     const completed = !item.completed;
 
-    dispatchEvent(event.target as HTMLElement, {
+    dispatchEvent(this, {
       type: "COMPLETED",
       id,
       completed: completed ? 1 : 0,
     });
   }
 
-  removeTask(event: InputEvent, item: TodoItem) {
+  removeTask(item: TodoItem) {
     const id = Number(item.id);
-    dispatchEvent(event.target as HTMLElement, { type: "DELETE", id });
+    dispatchEvent(this, { type: "DELETE", id });
   }
 
-  editTask(
-    event: InputEvent | KeyboardEvent,
-    item: Omit<TodoItem, "completed">,
-  ) {
-    dispatchEvent(event.target as HTMLElement, {
+  editTask(item: Omit<TodoItem, "completed">) {
+    dispatchEvent(this, {
       type: "EDIT",
       id: Number(item.id),
       text: item.text,
@@ -74,7 +81,7 @@ export class TaskItem extends NoShadow(LitElement) {
       return;
     }
     this.setEditing(false, false);
-    this.editTask(event, { id: Number(item.id), text: this.newText });
+    this.editTask({ id: Number(item.id), text: this.newText });
     this.newText = "";
   }
 
@@ -82,12 +89,12 @@ export class TaskItem extends NoShadow(LitElement) {
     const item = this.item;
 
     const viewTemplate = html`
-      <li class="pb-2 flex justify-between items-center">
+      <li class="viewing">
         <div>
           <input
             type="checkbox"
             ?checked="${item.completed}"
-            @click="${(event: InputEvent) => this.toggleCompleted(event, item)}"
+            @click="${() => this.toggleCompleted(item)}"
           />
           <span class="${classMap({ "completed": item.completed })}"> ${item
             .text} </span>
@@ -96,8 +103,7 @@ export class TaskItem extends NoShadow(LitElement) {
           <button @click="${() => this.setEditing(true)}">
             Edit
           </button>
-          <button @click="${(event: InputEvent) =>
-            this.removeTask(event, item)}">
+          <button @click="${() => this.removeTask(item)}">
             Delete
           </button>
         </div>
@@ -105,7 +111,8 @@ export class TaskItem extends NoShadow(LitElement) {
     `;
 
     const editingTemplate = html`
-      <form @submit="${(event: InputEvent) => this.handleSubmit(event, item)}">
+      <form class="editing" @submit="${(event: InputEvent) =>
+        this.handleSubmit(event, item)}">
         <div>
           <input
             type="text"

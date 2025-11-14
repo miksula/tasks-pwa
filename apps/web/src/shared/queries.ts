@@ -10,7 +10,9 @@ export async function createTask(task: NewTodo) {
 }
 
 export async function deleteTask(id: number) {
+  await db.deleteFrom("todo").where("id", "=", id).execute();
 }
 
-export async function updateTask() {
+export async function updateTask(id: number, updates: Partial<NewTodo>) {
+  await db.updateTable("todo").set(updates).where("id", "=", id).execute();
 }

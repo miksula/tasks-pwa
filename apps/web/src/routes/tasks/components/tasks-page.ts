@@ -1,25 +1,23 @@
 import { html, LitElement } from "lit";
 import { repeat } from "lit/directives/repeat.js";
-import { NoShadow } from "@/shared/mixins/no-shadow.ts";
 import type { State, TodoItem } from "@/shared/types.ts";
 import { dispatchEvent } from "@/shared/store.ts";
 import "./task-item.ts";
 
-export default class TasksPage extends NoShadow(LitElement) {
-  input: HTMLInputElement | null = null;
-  data: State;
+const props = {
+  data: {},
+};
 
-  static override properties = {
-    data: { attribute: false },
-  };
+export default class TasksPage extends LitElement {
+  static override properties = props;
 
-  constructor() {
-    super();
-    this.data = {} as State;
-  }
+  /** The application state. */
+  declare public data: State;
+
+  private input?: HTMLInputElement;
 
   override firstUpdated() {
-    this.input = this.querySelector("input");
+    this.input = this.shadowRoot?.querySelector("input") || undefined;
   }
 
   keyboardAction(event: KeyboardEvent) {

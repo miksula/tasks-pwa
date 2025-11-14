@@ -8,7 +8,7 @@ import { routerContext } from "../router-context.ts";
 
 export const WithRouter = (superClass: typeof LitElement) =>
   class WithRouterMixin extends superClass {
-    protected router: Router = new Router();
+    protected router = new Router();
 
     private _routerProvider = new ContextProvider(this, {
       context: routerContext,
