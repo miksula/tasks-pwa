@@ -4,9 +4,9 @@ import { Kysely } from "kysely";
 
 import type { Database } from "./schema.ts";
 
-// start sqld server with `turso dev --db-file web.db`
+// start sqld server with `turso dev --db-file web.db --port 8088`
 const client = createClient({
-  url: "http://127.0.0.1:8080",
+  url: "http://127.0.0.1:8088",
 });
 
 export const db = new Kysely<Database>({

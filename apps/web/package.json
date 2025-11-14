@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "vite",
-    "dev:db": "turso dev --db-file ./src/shared/db/web.db"
+    "dev:db": "turso dev --db-file ./src/shared/db/web.db --port 8088"
   },
   "dependencies": {
     "@app/api": "workspace:^",

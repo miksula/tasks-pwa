@@ -7,7 +7,7 @@ import { NoShadow } from "@/shared/mixins/no-shadow.ts";
 import { WithRouter } from "@/shared/mixins/with-router.ts";
 
 import { Dashboard, NotFound, Task, Tasks } from "@/routes/index.ts";
-import Layout from "./layout.ts";
+import Layout from "./Layout.ts";
 
 export class MainApp extends WithRouter(NoShadow(LitElement)) {
   private page: TemplateResult | null = null;

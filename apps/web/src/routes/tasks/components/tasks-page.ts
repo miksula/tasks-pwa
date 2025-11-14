@@ -1,7 +1,8 @@
 import { html, LitElement } from "lit";
 import { repeat } from "lit/directives/repeat.js";
 import { NoShadow } from "@/shared/mixins/no-shadow.ts";
-import { State } from "@/shared/types.ts";
+import { type State } from "@/shared/types.ts";
+import { dispatchEvent } from "@/shared/store.ts";
 
 export default class TasksPage extends NoShadow(LitElement) {
   input: HTMLInputElement | null = null;
@@ -16,12 +17,39 @@ export default class TasksPage extends NoShadow(LitElement) {
     this.data = {} as State;
   }
 
-  protected override firstUpdated() {
+  override firstUpdated() {
     this.input = this.querySelector("input");
   }
 
-  saveTask(e: UIEvent) {
-    console.log(this.input?.value);
+  keyboardAction(event: KeyboardEvent) {
+    switch (event.key) {
+      case "Enter":
+        this.saveTask(event);
+        break;
+      case "Escape":
+        this.clear();
+        break;
+    }
+  }
+
+  saveTask(e: Event) {
+    e.preventDefault();
+    if (this.input) {
+      const text = this.input.value.trim();
+      if (!text) {
+        return;
+      }
+      this.input.value = "";
+      this.input.focus();
+      dispatchEvent(this, { type: "ADD", text });
+    }
+  }
+
+  clear() {
+    if (this.input) {
+      this.input.value = "";
+      this.input.blur();
+    }
   }
 
   override render() {
@@ -30,7 +58,12 @@ export default class TasksPage extends NoShadow(LitElement) {
         <h1>Tasks</h1>
         <p>List of tasks will be displayed here.</p>
         <div>
-          <input type="text" placeholder="New task" id="new-task-input" />
+          <input
+            type="text"
+            placeholder="New task"
+            id="new-task-input"
+            @keyup="${this.keyboardAction}"
+          />
           <button @click="${this.saveTask}">Add Task</button>
         </div>
         <ul>

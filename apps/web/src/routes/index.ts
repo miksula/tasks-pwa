@@ -1,4 +1,4 @@
-export { Dashboard } from "./dashboard/dashboard.ts";
-export { Tasks } from "./tasks/tasks.ts";
-export { Task } from "./tasks/[id]/task.ts";
-export { NotFound } from "./not-found.ts";
+export { Dashboard } from "./dashboard/Dashboard.ts";
+export { Tasks } from "./tasks/Tasks.ts";
+export { Task } from "./tasks/[id]/Task.ts";
+export { NotFound } from "./NotFound.ts";
