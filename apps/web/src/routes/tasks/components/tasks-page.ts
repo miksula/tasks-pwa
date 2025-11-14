@@ -1,8 +1,9 @@
 import { html, LitElement } from "lit";
 import { repeat } from "lit/directives/repeat.js";
 import { NoShadow } from "@/shared/mixins/no-shadow.ts";
-import { type State } from "@/shared/types.ts";
+import type { State, TodoItem } from "@/shared/types.ts";
 import { dispatchEvent } from "@/shared/store.ts";
+import "./task-item.ts";
 
 export default class TasksPage extends NoShadow(LitElement) {
   input: HTMLInputElement | null = null;
@@ -69,10 +70,10 @@ export default class TasksPage extends NoShadow(LitElement) {
         <ul>
           ${repeat(
             this.data.items,
-            (item) => item.id,
+            (item: TodoItem) => item.id,
             (item) =>
               html`
-                <li>${item.text}</li>
+                <task-item .item="${item}"></task-item>
               `,
           )}
         </ul>
