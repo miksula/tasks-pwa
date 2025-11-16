@@ -1,20 +1,19 @@
 import { LitElement, type TemplateResult } from "lit";
 
 import type { State } from "@/shared/types.ts";
-import { initialState, Store } from "@/shared/store.ts";
 import { EVENT_DATA, EVENT_LOAD } from "@/shared/constants.ts";
 import { WithRouter } from "@/shared/mixins/with-router.ts";
+import { WithStore } from "@/shared/mixins/with-store.ts";
 
-import { Dashboard, NotFound, Task, Tasks } from "@/routes/index.ts";
+import { Dashboard, NotFound, Task, Tasks, Test } from "@/routes/index.ts";
 import Layout from "./Layout.ts";
 
-export class MainApp extends WithRouter(LitElement) {
+export class MainApp extends WithRouter(WithStore(LitElement)) {
   private page: TemplateResult | null = null;
-  private state: State = initialState;
+  private state: State = this.store.getState();
 
   constructor() {
     super();
-    Store(this);
 
     this.router
       .add("/", () => {
@@ -26,6 +25,9 @@ export class MainApp extends WithRouter(LitElement) {
       .add("/tasks/:id", (c) => {
         const id = c.params.id;
         this.page = Task(id);
+      })
+      .add("/test", () => {
+        this.page = Test();
       })
       .add(() => {
         this.page = NotFound(this.router.path);

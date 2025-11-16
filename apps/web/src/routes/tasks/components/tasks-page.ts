@@ -17,7 +17,7 @@ export default class TasksPage extends LitElement {
   private input?: HTMLInputElement;
 
   override firstUpdated() {
-    this.input = this.shadowRoot?.querySelector("input") || undefined;
+    this.input = this.renderRoot?.querySelector("input") || undefined;
   }
 
   keyboardAction(event: KeyboardEvent) {

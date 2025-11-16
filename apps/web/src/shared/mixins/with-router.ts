@@ -4,10 +4,14 @@ import Router from "@app/router";
 
 // The context object for children to access the router instance.
 // See: https://lit.dev/docs/data/context
-import { routerContext } from "../router-context.ts";
+import { routerContext } from "./router-context.ts";
 
-export const WithRouter = (superClass: typeof LitElement) =>
-  class WithRouterMixin extends superClass {
+// https://www.typescriptlang.org/docs/handbook/mixins.html
+// deno-lint-ignore no-explicit-any
+type Constructor<T = Record<string, never>> = new (...args: any[]) => T;
+
+export function WithRouter<T extends Constructor<LitElement>>(Base: T) {
+  return class WithRouterMixin extends Base {
     protected router = new Router();
 
     private _routerProvider = new ContextProvider(this, {
@@ -15,3 +19,4 @@ export const WithRouter = (superClass: typeof LitElement) =>
       initialValue: this.router,
     });
   };
+}
