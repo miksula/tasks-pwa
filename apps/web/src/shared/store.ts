@@ -54,6 +54,7 @@ export function Store(el: HTMLElement) {
       new CustomEvent(EVENT_DATA, {
         detail: appState,
         bubbles: false,
+        composed: true,
       }),
     );
   }
@@ -82,6 +83,9 @@ export function Store(el: HTMLElement) {
       }),
     );
   }
+
+  // @ts-ignore -- for development
+  globalThis.updateState = updateState;
 
   /**
    * @returns The current application state

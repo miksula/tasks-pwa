@@ -6,10 +6,6 @@ export default class CounterElement extends LitElement {
 
   private _value: number = 0;
 
-  constructor() {
-    super();
-  }
-
   override render() {
     return html`
       <span class="value"></span>
@@ -20,10 +16,6 @@ export default class CounterElement extends LitElement {
 
   override firstUpdated() {
     const el = this.renderRoot;
-
-    const _update = () => {
-      el.querySelector(".value")!.textContent = this._value.toString();
-    };
 
     el.addEventListener("counter-change", (event: Event) => {
       this._value = (event as CustomEvent<number>).detail;
@@ -49,6 +41,10 @@ export default class CounterElement extends LitElement {
         }),
       );
     });
+
+    const _update = () => {
+      el.querySelector(".value")!.textContent = this._value.toString();
+    };
 
     // Initial update
     _update();
