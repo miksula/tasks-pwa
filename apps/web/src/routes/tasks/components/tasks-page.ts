@@ -1,4 +1,4 @@
-import { html, LitElement } from "lit";
+import { html, LitElement, PropertyValues } from "lit";
 import { repeat } from "lit/directives/repeat.js";
 import type { State, TodoItem } from "@/shared/types.ts";
 import { dispatchEvent } from "@/shared/store.ts";
@@ -15,6 +15,7 @@ export default class TasksPage extends LitElement {
   declare public data: State;
 
   private input?: HTMLInputElement;
+  private newId?: number;
 
   override firstUpdated() {
     this.input = this.renderRoot?.querySelector("input") || undefined;
@@ -51,6 +52,24 @@ export default class TasksPage extends LitElement {
     }
   }
 
+  override willUpdate(changedProperties: PropertyValues) {
+    const data = changedProperties.get("data") as State | undefined;
+    if (data) {
+      const previousItems = data.items;
+      const currentItems = this.data.items;
+
+      if (currentItems.length - previousItems.length == 1) {
+        // A new item was added
+        const newItem = currentItems.find(
+          (item) => !previousItems.some((prev) => prev.id === item.id),
+        );
+        if (newItem) {
+          this.newId = Number(newItem.id);
+        }
+      }
+    }
+  }
+
   override render() {
     return html`
       <div>
@@ -71,7 +90,8 @@ export default class TasksPage extends LitElement {
             (item: TodoItem) => item.id,
             (item) =>
               html`
-                <task-item .item="${item}"></task-item>
+                <task-item .item="${item}" ?new="${item.id ==
+                  this.newId}"></task-item>
               `,
           )}
         </ul>

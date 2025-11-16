@@ -22,7 +22,7 @@ export default class TodoList extends LitElement {
 
     addEventListener(EVENT_DATA, (event: CustomEvent<State>) => {
       this.items = event.detail.items;
-      update();
+      repeat();
     }, true);
 
     /**
@@ -40,7 +40,7 @@ export default class TodoList extends LitElement {
      * @remarks
      * Each todo item is rendered as a div with class "todo-item".
      */
-    const update = () => {
+    const repeat = () => {
       const obsolete = new Set(container.children);
       const childrenByKey = new Map<string, HTMLElement>();
 
@@ -61,7 +61,6 @@ export default class TodoList extends LitElement {
           // Create new element
           child = document.createElement("div");
           child.classList.add("todo-item");
-          child.style.viewTransitionName = `item-${item.id}`;
           child.dataset.key = item.id.toString();
 
           render(

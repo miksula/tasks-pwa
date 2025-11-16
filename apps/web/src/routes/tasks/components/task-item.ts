@@ -14,7 +14,7 @@ const styles = css`
     }
   }
 
-  li.viewing {
+  li.viewing.new {
     animation: fadeIn 100ms ease-in;
   }
 
@@ -24,7 +24,8 @@ const styles = css`
 `;
 
 const props = {
-  item: {},
+  item: { type: Object },
+  new: { type: Boolean },
 };
 
 export class TaskItem extends LitElement {
@@ -33,6 +34,8 @@ export class TaskItem extends LitElement {
 
   /** The todo item to display and manage. */
   declare public item: TodoItem;
+  /** Indicates if this is the latest added task. */
+  declare public new: boolean;
 
   private isEditing = false;
   private newText = "";
@@ -89,7 +92,7 @@ export class TaskItem extends LitElement {
     const item = this.item;
 
     const viewTemplate = html`
-      <li class="viewing">
+      <li class="viewing ${this.new ? "new" : ""}">
         <div>
           <input
             type="checkbox"
