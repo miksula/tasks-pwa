@@ -5,16 +5,20 @@ export class RouteContext {
   public path: string;
   private searchParams: URLSearchParams;
 
-  constructor(path: string, params: Record<string, string> = {}) {
+  constructor(path: string, params: Record<string, string | undefined> = {}) {
     this.path = path;
-    this.params = params;
+    // Filter out undefined values and convert to Record<string, string>
+    this.params = Object.fromEntries(
+      Object.entries(params).filter(([_, v]) => v !== undefined),
+    ) as Record<string, string>;
     this.searchParams = new URLSearchParams(location.search);
   }
 
-  param(key?: string): string | undefined {
+  param(key?: string): string | Record<string, string> | undefined {
     if (key) {
       return this.params[key];
     }
+    return this.params;
   }
 
   search(key?: string): string | Record<string, string> {
@@ -36,9 +40,8 @@ type RouterOptions = {
 type RouteHandler = (context: RouteContext) => void;
 
 type RouteItem = {
-  re: RegExp;
+  pattern: URLPattern;
   handler: RouteHandler;
-  paramNames: string[];
 };
 
 export default class Router {
@@ -71,52 +74,51 @@ export default class Router {
     return this.getPath();
   }
 
-  add(path: string | RegExp | RouteHandler, handler?: RouteHandler) {
-    let re: RegExp;
-    const paramNames: string[] = [];
-
-    if (typeof path === "function") {
-      handler = path;
-      re = /^.*$/;
-    } else if (typeof path === "string") {
-      const pattern = path
-        .replace(/:\w+/g, (match) => {
-          paramNames.push(match.substring(1));
-          return "([^/]+)";
-        })
-        .replace(/\//g, "\\/");
-      re = new RegExp(`^${pattern}$`);
-    } else {
-      re = path;
-    }
-
+  add(path: string, handler: RouteHandler) {
     if (!handler) {
       throw new Error("Handler is required");
     }
 
-    this.routes.push({ re, handler, paramNames });
+    // Append automatic trailing slash handling
+    const patternPath = path.endsWith("/") ? path : `${path}{/}?`;
+
+    try {
+      // Create URLPattern with pathname only
+      const pattern = new URLPattern({ pathname: patternPath });
+      this.routes.push({ pattern, handler });
+    } catch (error) {
+      throw new Error(
+        `Invalid URLPattern syntax for path "${path}": ${
+          error instanceof Error ? error.message : String(error)
+        }`,
+      );
+    }
+
     return this;
   }
 
   check(f?: string) {
     const fragment = f || this.getPath();
+
     for (const route of this.routes) {
-      const match = fragment.match(route.re);
-      if (match) {
-        const params: Record<string, string> = {};
-        if (route.paramNames.length > 0) {
-          for (let i = 0; i < route.paramNames.length; i++) {
-            params[route.paramNames[i]] = match[i + 1];
-          }
-        }
+      // Test with full URL context
+      const testUrl = `${location.protocol}//${location.host}${fragment}`;
+      const result = route.pattern.exec(testUrl);
+
+      if (result) {
+        // Extract parameters from pathname groups
+        const params = result.pathname.groups;
         const context = new RouteContext(fragment, params);
-        const result = route.handler.apply({}, [context]);
+        const handlerResult = route.handler.apply({}, [context]);
+
         if (this.routeCheckHandler) {
           this.routeCheckHandler();
         }
-        return result;
+
+        return handlerResult;
       }
     }
+
     return null;
   }
 

@@ -8,16 +8,20 @@ navigation.
 
 ## Features
 
-- **String-Based Routing** - Define routes with named parameters (e.g.,
-  `/posts/:id`).
-- **RegExp-Based Routing** - Use regular expressions for complex and flexible
-  pattern matching.
+- **URLPattern-Based Routing** - Leverage the modern URL Pattern API with
+  intuitive syntax for named parameters (e.g., `/posts/:id`).
+- **Wildcard Support** - Match multiple path segments with wildcard patterns
+  (e.g., `/api/*`).
+- **Advanced Patterns** - Support for optional parameters (`?`), repeating
+  groups (`+`, `*`), and regex constraints (`:id(\\d+)`).
 - **History API Support** - Smooth, native browser back/forward navigation.
 - **TypeScript Support** - Full type safety and IntelliSense for a better
   developer experience.
 - **Lightweight** - Minimal and dependency-free.
 - **Configurable Root Path** - Ideal for applications hosted in subdirectories.
 - **Route Change Callbacks** - Hook into navigation events to update your UI.
+- **Automatic Trailing Slash Handling** - Routes automatically match with or
+  without trailing slashes.
 
 ## Installation
 
@@ -63,6 +67,23 @@ router.add("/posts/:id/comments/:comment_id", (context) => {
   console.log(`Post: ${params.id}, Comment: ${params.comment_id}`);
 });
 
+// Route with optional parameter
+router.add("/products/:category/:id?", (context) => {
+  const params = context.param() as { category: string; id?: string };
+  console.log(`Category: ${params.category}, ID: ${params.id || "none"}`);
+});
+
+// Route with regex constraint (only numeric IDs)
+router.add("/items/:id(\\d+)", (context) => {
+  const { id } = context.param() as { id: string };
+  console.log(`Item ID (numeric): ${id}`);
+});
+
+// Wildcard route for nested paths
+router.add("/docs/*", (context) => {
+  console.log("Documentation page");
+});
+
 // Route with search parameters
 // Example URL: /users/123?tab=profile&sort=asc
 router.add("/users/:id", (context) => {
@@ -74,7 +95,7 @@ router.add("/users/:id", (context) => {
 });
 
 // Catch-all route for 404 pages (must be added last)
-router.add(() => {
+router.add("/*", () => {
   console.log("404 - Page not found");
 });
 ```
@@ -97,7 +118,7 @@ You can execute code whenever a route changes, which is useful for updating your
 application's main view.
 
 ```typescript
-router.onRouteChange(() => {
+router.onRouteCheck(() => {
   console.log("Route changed to:", router.path);
   // e.g., renderAppView();
 });
@@ -110,14 +131,16 @@ router.onRouteChange(() => {
 The `RouteContext` object is passed to every route handler and provides access
 to route parameters and search parameters.
 
-#### `param(key?: string): string | Record<string, string>`
+#### `param(key?: string): string | Record<string, string> | undefined`
 
-Access URL path parameters from string-based routes (e.g., `/users/:id`).
+Access URL path parameters from URLPattern routes (e.g., `/users/:id`).
 
-- **With key**: Returns the value of the specified parameter
+- **With key**: Returns the value of the specified parameter (or `undefined` if
+  not found)
   - Example: `context.param('id')` returns `"123"` for URL `/users/123`
 - **Without key**: Returns an object with all parameters
   - Example: `context.param()` returns `{ id: "123" }`
+  - For unnamed capturing groups, access by index: `context.param()["0"]`
 
 #### `search(key?: string): string | Record<string, string>`
 
@@ -146,13 +169,22 @@ Creates a new router instance.
 
 - `options.root`: Base path for the application (defaults to `/`)
 
-#### `add(path: string | RegExp | RouteHandler, handler?: RouteHandler): Router`
+#### `add(path: string, handler: RouteHandler): Router`
 
-Adds a new route. Returns the router instance for method chaining.
+Adds a new route using URLPattern syntax. Returns the router instance for
+method chaining. Throws an error if the pattern syntax is invalid.
 
-- `path`: String pattern (e.g., `/users/:id`), RegExp, or handler function for
-  catch-all
+- `path`: URLPattern string (e.g., `/users/:id`, `/api/*`, `/items/:id(\\d+)`)
 - `handler`: Function that receives a `RouteContext` object
+
+**Pattern Syntax:**
+
+- Named parameters: `:id` captures a path segment
+- Optional parameters: `:id?` makes a parameter optional
+- Repeating parameters: `:id+` (one or more), `:id*` (zero or more)
+- Regex constraints: `:id(\\d+)` only matches digits
+- Wildcards: `*` matches any remaining path segments
+- Unnamed groups: `/(foo|bar)` captures without a name (access via index)
 
 #### `navigate(path: string): Router`
 
@@ -170,19 +202,62 @@ Registers a callback for route changes.
 
 Returns the current full path including the root.
 
-## Advanced Example: RegExp Route
+## Advanced Pattern Examples
 
-For complex scenarios, you can still use regular expressions. The handler
-signature remains the same.
+URLPattern provides powerful syntax for complex routing scenarios:
 
 ```typescript
-// Matches /items/ followed by a number, e.g., /items/42
-router.add(/^\/items\/(\d+)$/, (context) => {
-  // The captured group from the RegExp is not automatically named.
-  // You would need to handle the `match` array manually if needed,
-  // but string-based routes are preferred for simplicity.
-  console.log("RegExp route matched:", context.path);
+// Optional segments - matches /products or /products/electronics
+router.add("/products/:category?", (context) => {
+  const { category } = context.param() as { category?: string };
+  console.log(`Category: ${category || "all"}`);
 });
+
+// Repeating segments - matches /tags/a or /tags/a/b/c
+router.add("/tags/:tag+", (context) => {
+  // Note: URLPattern returns the last matched segment for repeating groups
+  console.log("Tag route matched");
+});
+
+// Regex constraints - only numeric IDs
+router.add("/api/v:version(\\d+)/*", (context) => {
+  const { version } = context.param() as { version: string };
+  console.log(`API version ${version}`);
+});
+
+// Unnamed capturing groups
+router.add("/(blog|news)/:slug", (context) => {
+  const params = context.param() as Record<string, string>;
+  console.log(`Type: ${params["0"]}, Slug: ${params.slug}`);
+});
+
+// Complex wildcard patterns
+router.add("/files/*.{jpg,png,gif}", (context) => {
+  console.log("Image file requested");
+});
+```
+
+## Browser Compatibility
+
+The router uses the native **URL Pattern API**, which is part of the web
+platform baseline (newly available as of 2025):
+
+- **Chrome/Edge**: 95+
+- **Firefox**: 142+
+- **Safari**: 26+
+- **Deno**: 1.15+
+
+### Polyfill for Older Browsers
+
+For broader browser support, use the
+[urlpattern-polyfill](https://github.com/kenchris/urlpattern-polyfill):
+
+```bash
+npm install urlpattern-polyfill
+```
+
+```typescript
+import "urlpattern-polyfill";
 ```
 
 ## Integration with Web Components (Lit Example)
@@ -220,7 +295,7 @@ export class MyApp extends LitElement {
           <h1>User ${id}</h1>
         `;
       })
-      .onRouteChange(() => this.requestUpdate());
+      .onRouteCheck(() => this.requestUpdate());
 
     this.router.check();
   }

@@ -29,7 +29,7 @@ export class MainApp extends WithRouter(WithStore(LitElement)) {
       .add("/test", () => {
         this.page = Test();
       })
-      .add(() => {
+      .add("/*", () => {
         this.page = NotFound(this.router.path);
       })
       .onRouteCheck(() => {
