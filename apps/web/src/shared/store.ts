@@ -86,6 +86,10 @@ export function Store(el: HTMLElement) {
 
   // @ts-ignore -- for development
   globalThis.updateState = updateState;
+  // @ts-ignore -- for development
+  globalThis.getState = getState;
+  // @ts-ignore -- for development
+  globalThis.action = action;
 
   /**
    * @returns The current application state

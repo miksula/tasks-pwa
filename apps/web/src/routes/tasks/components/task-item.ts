@@ -3,6 +3,7 @@ import { classMap } from "lit/directives/class-map.js";
 
 import { type TodoItem } from "@/shared/types.ts";
 import { dispatchEvent } from "@/shared/store.ts";
+import { UseStore } from "@/shared/mixins/use-store.ts";
 
 const styles = css`
   @keyframes fadeIn {
@@ -28,7 +29,7 @@ const props = {
   new: { type: Boolean },
 };
 
-export class TaskItem extends LitElement {
+export class TaskItem extends UseStore(LitElement) {
   static override styles = styles;
   static override properties = props;
 
@@ -51,8 +52,7 @@ export class TaskItem extends LitElement {
     const id = Number(item.id);
     const completed = !item.completed;
 
-    dispatchEvent(this, {
-      type: "COMPLETED",
+    this.store?.action("COMPLETED", {
       id,
       completed: completed ? 1 : 0,
     });
@@ -60,7 +60,7 @@ export class TaskItem extends LitElement {
 
   removeTask(item: TodoItem) {
     const id = Number(item.id);
-    dispatchEvent(this, { type: "DELETE", id });
+    this.store?.action("DELETE", { id });
   }
 
   editTask(item: Omit<TodoItem, "completed">) {
