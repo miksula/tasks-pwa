@@ -1,4 +1,4 @@
-import tasksStore from "./tasks.store.ts";
+import tasksStore from "./tasksStore.ts";
 import { EVENT_ACTION, EVENT_DATA, EVENT_LOAD } from "../constants.ts";
 import { Action } from "../types.ts";
 

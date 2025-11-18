@@ -1,18 +1,18 @@
 import { db } from "./db/client.ts";
-import type { NewTodo } from "./db/schema.ts";
+import type { TaskInsert, TaskUpdate } from "@app/api/schema/task.ts";
 
 export async function fetchTasks() {
-  return await db.selectFrom("todo").selectAll().execute();
+  return await db.selectFrom("task").selectAll().execute();
 }
 
-export async function createTask(task: NewTodo) {
-  await db.insertInto("todo").values(task).execute();
+export async function createTask(task: TaskInsert) {
+  await db.insertInto("task").values(task).execute();
 }
 
 export async function deleteTask(id: number) {
-  await db.deleteFrom("todo").where("id", "=", id).execute();
+  await db.deleteFrom("task").where("id", "=", id).execute();
 }
 
-export async function updateTask(id: number, updates: Partial<NewTodo>) {
-  await db.updateTable("todo").set(updates).where("id", "=", id).execute();
+export async function updateTask(id: number, updates: Partial<TaskUpdate>) {
+  await db.updateTable("task").set(updates).where("id", "=", id).execute();
 }
