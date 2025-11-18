@@ -4,7 +4,7 @@ import Store from "../stores/store.ts";
 
 // The context object for children to access the router instance.
 // See: https://lit.dev/docs/data/context
-import { storeContext } from "./store-context.ts";
+import { storeContext } from "./storeContext.ts";
 
 export const withStore = (superClass: typeof LitElement) =>
   class WithStoreMixin extends superClass {

@@ -1,5 +1,5 @@
 import { html, LitElement } from "lit";
-import { noShadow } from "@/shared/mixins/no-shadow.ts";
+import { noShadow } from "../mixins/noShadow.ts";
 
 import "./app-link.ts";
 

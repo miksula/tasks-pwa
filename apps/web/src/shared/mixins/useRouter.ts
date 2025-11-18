@@ -1,7 +1,7 @@
 import { LitElement } from "lit";
 import { ContextConsumer } from "@lit/context";
 
-import { routerContext } from "./router-context.ts";
+import { routerContext } from "./routerContext.ts";
 
 export const useRouter = (superClass: typeof LitElement) =>
   class UseRouterMixin extends superClass {

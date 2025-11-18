@@ -1,9 +1,9 @@
 import { LitElement, type TemplateResult } from "lit";
 
-import type { State } from "@/shared/stores/store.ts";
+import type { State } from "@/shared/types.ts";
 import { EVENT_DATA, EVENT_LOAD } from "@/shared/constants.ts";
-import { withRouter } from "@/shared/mixins/with-router.ts";
-import { withStore } from "@/shared/mixins/with-store.ts";
+import { withRouter } from "@/shared/mixins/withRouter.ts";
+import { withStore } from "@/shared/mixins/withStore.ts";
 
 import { Dashboard, NotFound, Task, Tasks, Test } from "@/routes/index.ts";
 import Layout from "./Layout.ts";

@@ -4,7 +4,7 @@ import Router from "@app/router";
 
 // The context object for children to access the router instance.
 // See: https://lit.dev/docs/data/context
-import { routerContext } from "./router-context.ts";
+import { routerContext } from "./routerContext.ts";
 
 // https://www.typescriptlang.org/docs/handbook/mixins.html
 // deno-lint-ignore no-explicit-any

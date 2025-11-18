@@ -1,4 +1,4 @@
-import apiClient from "./api-client.ts";
+import apiClient from "./apiClient.ts";
 
 export async function fetchTasks() {
   const response = await apiClient.api.tasks.$get();

@@ -1,7 +1,7 @@
 import { LitElement } from "lit";
 import { ContextConsumer } from "@lit/context";
 
-import { storeContext } from "./store-context.ts";
+import { storeContext } from "./storeContext.ts";
 
 // deno-lint-ignore no-explicit-any
 type Constructor<T = Record<string, never>> = new (...args: any[]) => T;

@@ -2,8 +2,8 @@ import { html, LitElement } from "lit";
 // import { ContextConsumer } from "@lit/context";
 
 // import { routerContext } from "../router-context.ts";
-import { noShadow } from "@/shared/mixins/no-shadow.ts";
-import { useRouter } from "@/shared/mixins/use-router.ts";
+import { noShadow } from "../mixins/noShadow.ts";
+import { useRouter } from "../mixins/useRouter.ts";
 
 const props = {
   text: { type: String },
