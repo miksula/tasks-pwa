@@ -2,7 +2,7 @@ import { css, html, LitElement } from "lit";
 import { classMap } from "lit/directives/class-map.js";
 
 import { type TodoItem } from "@/shared/types.ts";
-import { useStore } from "@/shared/mixins/use-store.ts";
+import { useStore } from "@/shared/mixins/useStore.ts";
 
 const styles = css`
   @keyframes fadeIn {

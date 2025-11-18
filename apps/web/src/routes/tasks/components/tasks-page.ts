@@ -1,7 +1,9 @@
 import { html, LitElement, PropertyValues } from "lit";
 import { repeat } from "lit/directives/repeat.js";
+
 import type { State, TodoItem } from "@/shared/types.ts";
-import { useStore } from "@/shared/mixins/use-store.ts";
+import { useStore } from "@/shared/mixins/useStore.ts";
+
 import "./task-item.ts";
 
 const props = {
