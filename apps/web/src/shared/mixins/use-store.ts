@@ -3,6 +3,7 @@ import { ContextConsumer } from "@lit/context";
 
 import { storeContext } from "./store-context.ts";
 
+// deno-lint-ignore no-explicit-any
 type Constructor<T = Record<string, never>> = new (...args: any[]) => T;
 
 export function useStore<T extends Constructor<LitElement>>(Base: T) {

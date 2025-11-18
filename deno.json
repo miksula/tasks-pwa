@@ -1,5 +1,7 @@
 {
   "tasks": {
+    "lint": "deno lint",
+    "format": "deno fmt",
     "api": "deno task --cwd=apps/api dev",
     "web": "deno task --cwd=apps/web dev",
     "web:db": "deno task --cwd=apps/web dev:db",

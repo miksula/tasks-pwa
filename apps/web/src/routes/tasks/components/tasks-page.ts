@@ -12,7 +12,7 @@ export default class TasksPage extends useStore(LitElement) {
   static override properties = props;
 
   /** The application state. */
-  declare public data: State;
+  declare public data: State["tasks"];
 
   private input?: HTMLInputElement;
   private newId?: number;
@@ -41,7 +41,7 @@ export default class TasksPage extends useStore(LitElement) {
       }
       this.input.value = "";
       this.input.focus();
-      this.store.tasks.add(text); // <-- Use new action helper
+      this.store?.tasks.add(text);
     }
   }
 
@@ -53,7 +53,7 @@ export default class TasksPage extends useStore(LitElement) {
   }
 
   override willUpdate(changedProperties: PropertyValues) {
-    const data = changedProperties.get("data") as State | undefined;
+    const data = changedProperties.get("data") as State["tasks"] | undefined;
     if (data) {
       const previousItems = data.items;
       const currentItems = this.data.items;

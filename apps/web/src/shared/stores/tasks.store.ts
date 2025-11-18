@@ -22,16 +22,29 @@ class TasksStore {
     };
   }
 
+  /**
+   * Adds a new task to the store.
+   * @param text - The task description.
+   */
   @action
   async add(text: string) {
     await queries.createTask({ text, completed: 0 });
   }
 
+  /**
+   * Removes a task from the store by its ID.
+   * @param id - The ID of the task to delete.
+   */
   @action
   async delete(id: string) {
     await queries.deleteTask(Number(id));
   }
 
+  /**
+   * Updates the completion status of a task.
+   * @param id - The ID of the task to update.
+   * @param completed - The new completion status (0 or 1).
+   */
   @action
   async completed(id: string, completed: 0 | 1) {
     await queries.updateTask(Number(id), { completed });

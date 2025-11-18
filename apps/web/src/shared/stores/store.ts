@@ -1,5 +1,6 @@
 import tasksStore from "./tasks.store.ts";
 import { EVENT_ACTION, EVENT_DATA, EVENT_LOAD } from "../constants.ts";
+import { Action } from "../types.ts";
 
 export interface State {
   tasks: typeof tasksStore.initialState;
@@ -14,7 +15,7 @@ export default function Store() {
 
   addEventListener(EVENT_LOAD, () => updateState());
 
-  addEventListener(EVENT_ACTION, (e) => {
+  addEventListener(EVENT_ACTION, (e: CustomEvent<Action>) => {
     const { name } = e.detail;
     updateState(name);
   });
