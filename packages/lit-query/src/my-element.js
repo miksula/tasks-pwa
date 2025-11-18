@@ -1,4 +1,3 @@
-
 import { html, LitElement } from "lit";
 import {
   MutationObserver,
@@ -9,11 +8,10 @@ import { getTodos, postTodo } from "./my-api/index.js";
 
 /**
  * Create a QueryClient configured for local storage persistence.
- * 
- * @summary When querying data from local data source, we should configure the 
- * QueryClient to minimize or disable the in-memory caching. This configuration treats 
+ *
+ * @summary When querying data from local data source, we should configure the
+ * QueryClient to minimize or disable the in-memory caching. This configuration treats
  * TanStack Query more as a state synchronization layer rather than a traditional cache.
- * 
  */
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -120,4 +118,4 @@ export class MyElement extends LitElement {
   }
 }
 
-window.customElements.define("my-element", MyElement);
+customElements.define("my-element", MyElement);

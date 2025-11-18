@@ -171,8 +171,8 @@ Creates a new router instance.
 
 #### `add(path: string, handler: RouteHandler): Router`
 
-Adds a new route using URLPattern syntax. Returns the router instance for
-method chaining. Throws an error if the pattern syntax is invalid.
+Adds a new route using URLPattern syntax. Returns the router instance for method
+chaining. Throws an error if the pattern syntax is invalid.
 
 - `path`: URLPattern string (e.g., `/users/:id`, `/api/*`, `/items/:id(\\d+)`)
 - `handler`: Function that receives a `RouteContext` object
