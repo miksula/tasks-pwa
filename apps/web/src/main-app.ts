@@ -1,14 +1,14 @@
 import { LitElement, type TemplateResult } from "lit";
 
-import type { State } from "@/shared/types.ts";
+import type { State } from "@/shared/stores/store.ts";
 import { EVENT_DATA, EVENT_LOAD } from "@/shared/constants.ts";
-import { WithRouter } from "@/shared/mixins/with-router.ts";
-import { WithStore } from "@/shared/mixins/with-store.ts";
+import { withRouter } from "@/shared/mixins/with-router.ts";
+import { withStore } from "@/shared/mixins/with-store.ts";
 
 import { Dashboard, NotFound, Task, Tasks, Test } from "@/routes/index.ts";
 import Layout from "./Layout.ts";
 
-export class MainApp extends WithRouter(WithStore(LitElement)) {
+export class MainApp extends withRouter(withStore(LitElement)) {
   private page: TemplateResult | null = null;
   private state: State = this.store.getState();
 
@@ -20,7 +20,7 @@ export class MainApp extends WithRouter(WithStore(LitElement)) {
         this.page = Dashboard();
       })
       .add("/tasks", () => {
-        this.page = Tasks(this.state);
+        this.page = Tasks(this.state.tasks);
       })
       .add("/tasks/:id", (c) => {
         const id = c.params.id;
@@ -44,7 +44,7 @@ export class MainApp extends WithRouter(WithStore(LitElement)) {
     super.connectedCallback();
 
     // Listen for state update events
-    this.addEventListener(EVENT_DATA, (event: CustomEvent<State>) => {
+    addEventListener(EVENT_DATA, (event: CustomEvent<State>) => {
       this.state = event.detail;
       // Update route based on new state
       this.router.check();
@@ -54,7 +54,7 @@ export class MainApp extends WithRouter(WithStore(LitElement)) {
   }
 
   private loadData() {
-    this.dispatchEvent(new CustomEvent(EVENT_LOAD));
+    dispatchEvent(new CustomEvent(EVENT_LOAD));
   }
 
   override render() {

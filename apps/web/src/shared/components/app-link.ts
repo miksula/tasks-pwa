@@ -2,15 +2,15 @@ import { html, LitElement } from "lit";
 // import { ContextConsumer } from "@lit/context";
 
 // import { routerContext } from "../router-context.ts";
-import { NoShadow } from "@/shared/mixins/no-shadow.ts";
-import { UseRouter } from "@/shared/mixins/use-router.ts";
+import { noShadow } from "@/shared/mixins/no-shadow.ts";
+import { useRouter } from "@/shared/mixins/use-router.ts";
 
 const props = {
   text: { type: String },
   to: { type: String },
 };
 
-class AppLink extends UseRouter(NoShadow(LitElement)) {
+class AppLink extends useRouter(noShadow(LitElement)) {
   static override properties = props;
 
   /** The text content of the link. */

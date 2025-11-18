@@ -2,8 +2,7 @@ import { css, html, LitElement } from "lit";
 import { classMap } from "lit/directives/class-map.js";
 
 import { type TodoItem } from "@/shared/types.ts";
-import { dispatchEvent } from "@/shared/store.ts";
-import { UseStore } from "@/shared/mixins/use-store.ts";
+import { useStore } from "@/shared/mixins/use-store.ts";
 
 const styles = css`
   @keyframes fadeIn {
@@ -29,7 +28,7 @@ const props = {
   new: { type: Boolean },
 };
 
-export class TaskItem extends UseStore(LitElement) {
+export class TaskItem extends useStore(LitElement) {
   static override styles = styles;
   static override properties = props;
 
@@ -49,31 +48,24 @@ export class TaskItem extends UseStore(LitElement) {
   }
 
   toggleCompleted(item: TodoItem) {
-    const id = Number(item.id);
-    const completed = !item.completed;
-
-    this.store?.action("COMPLETED", {
-      id,
-      completed: completed ? 1 : 0,
-    });
+    this.store?.tasks.completed(
+      String(item.id),
+      !item.completed ? 1 : 0,
+    );
   }
 
   removeTask(item: TodoItem) {
-    const id = Number(item.id);
-    this.store?.action("DELETE", { id });
+    const id = String(item.id);
+    this.store?.tasks.delete(id);
   }
 
   editTask(item: Omit<TodoItem, "completed">) {
-    dispatchEvent(this, {
-      type: "EDIT",
-      id: Number(item.id),
-      text: item.text,
-    });
+    console.log("Editing task:", item);
   }
 
   handleChange(event: KeyboardEvent, item: TodoItem) {
     this.newText = (event.target as HTMLInputElement)?.value;
-    if (event.key === "Enter") {
+    if (event.key == "Enter") {
       this.handleSubmit(event, item);
     }
   }

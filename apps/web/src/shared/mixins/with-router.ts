@@ -10,7 +10,7 @@ import { routerContext } from "./router-context.ts";
 // deno-lint-ignore no-explicit-any
 type Constructor<T = Record<string, never>> = new (...args: any[]) => T;
 
-export function WithRouter<T extends Constructor<LitElement>>(Base: T) {
+export function withRouter<T extends Constructor<LitElement>>(Base: T) {
   return class WithRouterMixin extends Base {
     protected router = new Router();
 

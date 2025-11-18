@@ -1,9 +1,9 @@
 import { html, LitElement } from "lit";
-import { NoShadow } from "@/shared/mixins/no-shadow.ts";
+import { noShadow } from "@/shared/mixins/no-shadow.ts";
 
 import "./app-link.ts";
 
-class AppNavigation extends NoShadow(LitElement) {
+class AppNavigation extends noShadow(LitElement) {
   override render() {
     return html`
       <nav>

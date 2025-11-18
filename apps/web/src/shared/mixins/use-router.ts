@@ -3,7 +3,7 @@ import { ContextConsumer } from "@lit/context";
 
 import { routerContext } from "./router-context.ts";
 
-export const UseRouter = (superClass: typeof LitElement) =>
+export const useRouter = (superClass: typeof LitElement) =>
   class UseRouterMixin extends superClass {
     // Consume the router context
     private routerInstance = new ContextConsumer(this, {

@@ -1,3 +1,5 @@
+import type { State } from "@/shared/stores/store.ts";
+
 export type TodoItem = {
   id: number | string;
   text: string;
@@ -6,17 +8,9 @@ export type TodoItem = {
 
 export type Filter = "all" | "active" | "completed";
 
-export type State = {
-  items: TodoItem[];
-  filter: Filter;
+export type Action = {
+  name: string;
 };
-
-export type Action =
-  | { type: "ADD"; text: string }
-  | { type: "COMPLETED"; id: number; completed: 0 | 1 }
-  | { type: "FILTER"; filter: Filter }
-  | { type: "DELETE"; id: number }
-  | { type: "EDIT"; id: number; text: string };
 
 declare global {
   interface GlobalEventHandlersEventMap {
