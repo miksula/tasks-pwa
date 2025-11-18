@@ -2,7 +2,7 @@ import { html } from "lit";
 import { State } from "@/shared/types.ts";
 import "./components/tasks-page.ts";
 
-export function Tasks(data: State) {
+export function Tasks(data: State["tasks"]) {
   return html`
     <tasks-page .data="${data}"></tasks-page>
   `;

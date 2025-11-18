@@ -1,14 +1,14 @@
 import { html, LitElement, PropertyValues } from "lit";
 import { repeat } from "lit/directives/repeat.js";
 import type { State, TodoItem } from "@/shared/types.ts";
-import { UseStore } from "@/shared/mixins/use-store.ts";
+import { useStore } from "@/shared/mixins/use-store.ts";
 import "./task-item.ts";
 
 const props = {
   data: {},
 };
 
-export default class TasksPage extends UseStore(LitElement) {
+export default class TasksPage extends useStore(LitElement) {
   static override properties = props;
 
   /** The application state. */

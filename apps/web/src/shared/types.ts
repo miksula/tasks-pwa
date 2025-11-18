@@ -1,5 +1,7 @@
 import type { State } from "@/shared/stores/store.ts";
 
+export type { State };
+
 export type TodoItem = {
   id: number | string;
   text: string;
