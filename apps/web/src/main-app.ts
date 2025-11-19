@@ -2,13 +2,14 @@ import { LitElement, type TemplateResult } from "lit";
 
 import type { State } from "@/shared/types.ts";
 import { EVENT_DATA, EVENT_LOAD } from "@/shared/constants.ts";
+import { noShadow } from "@/shared/mixins/noShadow.ts";
 import { withRouter } from "@/shared/mixins/withRouter.ts";
 import { withStore } from "@/shared/mixins/withStore.ts";
 
 import { Dashboard, NotFound, Task, Tasks, Test } from "@/routes/index.ts";
 import Layout from "./Layout.ts";
 
-export class MainApp extends withRouter(withStore(LitElement)) {
+export class MainApp extends withRouter(withStore(noShadow(LitElement))) {
   private page: TemplateResult | null = null;
   private state: State = this.store.getState();
 

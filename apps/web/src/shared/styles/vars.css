@@ -1,48 +1,56 @@
 :root {
   /* Font families */
-  --font-sans: "Inter", system-ui, sans-serif;
+  --font-sans: "Google Sans Flex", system-ui, sans-serif;
   --font-mono: ui-monospace, "Courier New", monospace;
 
   /* Font sizes */
+  --text-sm: 0.75rem;
+  --text-base-sm: 0.875rem;
   --text-base: 1rem;
-  --text-lg: 1.125rem;
-  --text-sm: 0.875rem;
 
   /* Font weights */
   --font-normal: 400;
   --font-medium: 500;
-  --font-bold: 700;
+  --font-bold: 600;
 
   /* Spacing scale */
-  --spacing: 0.25rem; /* 4px */
+  /* 4px */
+  --spacing: 0.25rem;
 
   /* Named color scheme */
   --white: #fefefe;
   --black: #0a0a0b;
-  --grey0: #545e75;
+  --grey0: #444746;
   --grey1: #6a7282;
   --grey2: #b0b0b8;
   --grey3: #d2d2d6;
   --grey4: #e4ecf0;
+  --grey5: #f8fafd;
   --red: #ce2d4f;
+  --blue0: #00639b;
+  --blue1: #c1e7ff;
+
 
   /* UI color mapping */
   --main-text: var(--black);
   --main-bg: var(--white);
   --main-border: var(--grey2);
   --main-border-light: var(--grey3);
-  --header-text: var(--grey1);
+  --header-text: var(--grey0);
   --header-bg: var(--white);
   --highlight-text: var(--red);
   --disabled-text: var(--grey2);
-  --aside-text: var(--grey1);
-  --button-text: var(--grey1);
+  --aside-text: var(--grey0);
+  --button-text: var(--grey0);
   --button-bg: transparent;
   --button-active-text: var(--black);
   --button-active-bg: var(--grey4);
   --button-highlight-text: var(--red);
+  --input-bg: var(--grey4);
+  --input-text: var(--grey0);
 }
 
+/*
 .-invertcolorscheme {
   --main-text: var(--white);
   --main-bg: var(--black);
@@ -83,15 +91,16 @@
     --main-bg: var(--white);
     --main-border: var(--grey2);
     --main-border-light: var(--grey3);
-    --header-text: var(--grey1);
+    --header-text: var(--grey0);
     --header-bg: var(--white);
     --highlight-text: var(--red);
     --disabled-text: var(--grey2);
-    --aside-text: var(--grey1);
-    --button-text: var(--grey1);
+    --aside-text: var(--grey0);
+    --button-text: var(--grey0);
     --button-bg: transparent;
     --button-active-text: var(--black);
     --button-active-bg: var(--grey4);
     --button-highlight-text: var(--red);
   }
 }
+*/

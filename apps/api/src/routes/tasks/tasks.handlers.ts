@@ -56,7 +56,7 @@ const update = factory.createHandlers(
     const { id } = c.req.valid("param");
     const updates = c.req.valid("json");
 
-    if (Object.keys(updates).length === 0) {
+    if (Object.keys(updates).length == 0) {
       return c.json(
         {
           success: false,

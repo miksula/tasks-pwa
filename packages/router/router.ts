@@ -47,7 +47,7 @@ type RouteItem = {
 export default class Router {
   private routes: RouteItem[] = [];
   private root = "/";
-  private routeCheckHandler?: () => void;
+  private routeCheckHandlers: ((path: string) => void)[] = [];
 
   constructor(options: RouterOptions = {}) {
     if (options.root) {
@@ -111,8 +111,8 @@ export default class Router {
         const context = new RouteContext(fragment, params);
         const handlerResult = route.handler.apply({}, [context]);
 
-        if (this.routeCheckHandler) {
-          this.routeCheckHandler();
+        for (const handler of this.routeCheckHandlers) {
+          handler(this.path);
         }
 
         return handlerResult;
@@ -122,8 +122,8 @@ export default class Router {
     return null;
   }
 
-  onRouteCheck(callback: () => void) {
-    this.routeCheckHandler = callback;
+  onRouteCheck(callback: (path: string) => void) {
+    this.routeCheckHandlers.push(callback);
     return this;
   }
 

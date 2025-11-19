@@ -1,32 +1,39 @@
 import { html, LitElement } from "lit";
-// import { ContextConsumer } from "@lit/context";
+import { classMap } from "lit/directives/class-map.js";
 
-// import { routerContext } from "../router-context.ts";
 import { noShadow } from "../mixins/noShadow.ts";
 import { useRouter } from "../mixins/useRouter.ts";
 
 const props = {
   text: { type: String },
   to: { type: String },
+  active: { type: Boolean },
 };
 
-class AppLink extends useRouter(noShadow(LitElement)) {
+class NavLink extends useRouter(noShadow(LitElement)) {
   static override properties = props;
 
   /** The text content of the link. */
   public text: string;
   /** The target route/path of the link. */
   public to: string;
+  /** Whether the link is currently active. */
+  public active?: boolean;
 
   constructor() {
     super();
     this.text = "";
     this.to = "/";
+    this.active = false;
   }
 
   override render() {
     return html`
-      <a href="${this.to}" @click="${this.handleClick}">${this.text}</a>
+      <li @click="${this.handleClick}" class="${classMap({
+        active: this.active || false,
+      })}">
+        <a href="${this.to}">${this.text}</a>
+      </li>
     `;
   }
 
@@ -36,4 +43,4 @@ class AppLink extends useRouter(noShadow(LitElement)) {
   }
 }
 
-customElements.define("app-link", AppLink);
+customElements.define("nav-link", NavLink);

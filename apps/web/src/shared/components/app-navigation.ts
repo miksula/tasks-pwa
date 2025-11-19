@@ -1,18 +1,29 @@
 import { html, LitElement } from "lit";
 import { noShadow } from "../mixins/noShadow.ts";
+import { useRouter } from "../mixins/useRouter.ts";
 
-import "./app-link.ts";
+import "./nav-link.ts";
 
-class AppNavigation extends noShadow(LitElement) {
+class AppNavigation extends useRouter(noShadow(LitElement)) {
+  private activePath: string = "/";
+
+  override connectedCallback() {
+    super.connectedCallback();
+
+    this.router?.onRouteCheck((path) => {
+      this.activePath = path;
+      this.requestUpdate();
+    });
+  }
+
   override render() {
     return html`
       <nav>
         <ul>
-          <li><app-link text="Dashboard" to="/"></app-link></li>
-          <li><app-link text="Tasks" to="/tasks"></app-link></li>
-          <li><app-link text="Task 1" to="/tasks/1"></app-link></li>
-          <li><app-link text="Task 2" to="/tasks/2"></app-link></li>
-          <li><app-link text="Foo" to="/foo"></app-link></li>
+          <nav-link text="Dashboard " to="/" ?active="${this.activePath ==
+            "/"}"></nav-link>
+          <nav-link text="Tasks" to="/tasks" ?active="${this.activePath ==
+            "/tasks"}"></nav-link>
         </ul>
       </nav>
     `;

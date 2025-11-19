@@ -19,4 +19,5 @@ body {
   color: var(--main-text);
   font-size: 16px;
   font-family: var(--font-sans);
+  font-weight: var(--font-normal);
 }
