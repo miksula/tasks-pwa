@@ -56,7 +56,7 @@ const styles = css`
 
   span.completed {
     text-decoration: line-through;
-    color: var(--text-muted);
+    color: var(--grey2);
   }
 `;
 
