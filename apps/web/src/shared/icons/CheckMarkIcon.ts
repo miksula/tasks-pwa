@@ -1,6 +1,6 @@
 import { html } from "lit";
 
-export const CheckMark = () =>
+export const CheckMarkIcon = () =>
   html`
     <svg
       xmlns="http://www.w3.org/2000/svg"

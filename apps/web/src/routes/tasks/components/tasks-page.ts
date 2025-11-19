@@ -4,7 +4,7 @@ import { repeat } from "lit/directives/repeat.js";
 import type { State, TodoItem } from "@/shared/types.ts";
 import { useStore } from "@/shared/mixins/useStore.ts";
 
-import { CheckMark } from "@/shared/icons/CheckMark.ts";
+import { CheckMarkIcon } from "@/shared/icons/CheckMarkIcon.ts";
 import "./task-item.ts";
 
 const props = {
@@ -57,7 +57,7 @@ export default class TasksPage extends useStore(LitElement) {
       }
     }
 
-    .filter-title {
+    .filter-title, .items-left {
       font-size: var(--text-base-sm);
       font-family: var(--font-sans);
       font-weight: var(--font-medium);
@@ -94,6 +94,12 @@ export default class TasksPage extends useStore(LitElement) {
         background-color: var(--blue1);
         color: var(--blue0);
       }
+    }
+
+    ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
     }
   `;
 
@@ -174,7 +180,7 @@ export default class TasksPage extends useStore(LitElement) {
         <p class="filter-title">Filter by</p>
         <div class="filter-by-group">
           <button class="active">
-            ${CheckMark()}
+            ${CheckMarkIcon()}
             <span>All</span>
           </button>
           <button>Active</button>
@@ -192,6 +198,8 @@ export default class TasksPage extends useStore(LitElement) {
               `,
           )}
         </ul>
+
+        <p class="items-left">2 items left</p>
       </div>
     `;
   }

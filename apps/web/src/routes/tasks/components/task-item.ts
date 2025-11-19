@@ -3,6 +3,8 @@ import { classMap } from "lit/directives/class-map.js";
 
 import { type TodoItem } from "@/shared/types.ts";
 import { useStore } from "@/shared/mixins/useStore.ts";
+import { EditIcon } from "../../../shared/icons/EditIcon.ts";
+import { DeleteIcon } from "../../../shared/icons/DeleteIcon.ts";
 
 const styles = css`
   @keyframes fadeIn {
@@ -20,6 +22,41 @@ const styles = css`
 
   li.viewing, form.editing {
     display: flex;
+  }
+
+  li.viewing {
+    display: flex;
+    justify-content: space-between;
+    padding-block: calc(var(--spacing) * 4);
+    border-bottom: 1px solid var(--main-border-light);
+  }
+
+  li.viewing input + span {
+    margin-left: calc(var(--spacing) * 2);
+  }
+
+  .action-buttons button {
+    cursor: pointer;
+    background: none;
+    border: none;
+    color: var(--red0);
+    font-size: var(--text-sm);
+    font-family: var(--font-sans);
+    color: var(--grey1);
+
+    &:hover {
+      color: var(--main-text);
+    }
+
+    svg {
+      width: 1rem;
+      height: 1rem;
+    }
+  }
+
+  span.completed {
+    text-decoration: line-through;
+    color: var(--text-muted);
   }
 `;
 
@@ -94,12 +131,12 @@ export class TaskItem extends useStore(LitElement) {
           <span class="${classMap({ "completed": item.completed })}"> ${item
             .text} </span>
         </div>
-        <div>
-          <button @click="${() => this.setEditing(true)}">
-            Edit
+        <div class="action-buttons">
+          <button title="Edit" @click="${() => this.setEditing(true)}">
+            ${EditIcon()}
           </button>
-          <button @click="${() => this.removeTask(item)}">
-            Delete
+          <button title="Remove" @click="${() => this.removeTask(item)}">
+            ${DeleteIcon()}
           </button>
         </div>
       </li>
