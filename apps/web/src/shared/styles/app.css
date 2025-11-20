@@ -31,7 +31,7 @@ nav-link {
   }
 
   li:hover {
-    background: #dbdfe3;
+    background: var(--grey3);
   }
 
   li.active {

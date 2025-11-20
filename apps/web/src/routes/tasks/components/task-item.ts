@@ -39,7 +39,6 @@ const styles = css`
     cursor: pointer;
     background: none;
     border: none;
-    color: var(--red0);
     font-size: var(--text-xs);
     font-family: var(--font-sans);
     color: var(--grey1);
