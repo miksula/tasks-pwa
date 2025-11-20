@@ -17,13 +17,13 @@ export class FilterButton extends useStore(LitElement) {
       cursor: pointer;
       background-color: var(--grey4);
       color: var(--input-text);
-      font-size: var(--text-sm);
+      font-size: var(--text-xs);
       font-family: var(--font-sans);
       font-weight: var(--font-bold);
       border-style: none;
-      padding-inline: calc(var(--spacing) * 3);
-      padding-block: calc(var(--spacing) * 2);
-      border-radius: calc(var(--spacing) * 2);
+      padding-inline: var(--spacing-3);
+      padding-block: var(--spacing-2);
+      border-radius: var(--spacing-2);
 
       svg {
         width: 1rem;

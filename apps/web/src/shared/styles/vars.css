@@ -4,8 +4,8 @@
   --font-mono: ui-monospace, "Courier New", monospace;
 
   /* Font sizes */
-  --text-sm: 0.75rem;
-  --text-base-sm: 0.875rem;
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
   --text-base: 1rem;
 
   /* Font weights */
@@ -16,6 +16,15 @@
   /* Spacing scale */
   /* 4px */
   --spacing: 0.25rem;
+  --spacing-1: var(--spacing);
+  --spacing-2: calc(var(--spacing) * 2);
+  --spacing-3: calc(var(--spacing) * 3);
+  --spacing-4: calc(var(--spacing) * 4);
+  --spacing-5: calc(var(--spacing) * 5);
+
+  /* Border radius */
+  --radius-md: 0.5rem;
+  --radius-xl: 1.25rem;
 
   /* Named color scheme */
   --white: #fefefe;
@@ -29,7 +38,6 @@
   --red: #ce2d4f;
   --blue0: #00639b;
   --blue1: #c1e7ff;
-
 
   /* UI color mapping */
   --main-text: var(--black);
@@ -48,6 +56,10 @@
   --button-highlight-text: var(--red);
   --input-bg: var(--grey4);
   --input-text: var(--grey0);
+
+  /* Typography */
+  --font-header: var(--font-normal) 2.25rem / 2.75rem var(--font-sans);
+  --font-label: var(--font-medium) 0.875rem / 1.25rem var(--font-sans);
 }
 
 /*

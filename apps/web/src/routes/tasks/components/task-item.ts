@@ -27,12 +27,12 @@ const styles = css`
   li.viewing {
     display: flex;
     justify-content: space-between;
-    padding-block: calc(var(--spacing) * 4);
+    padding-block: var(--spacing-4);
     border-bottom: 1px solid var(--main-border-light);
   }
 
   li.viewing input + span {
-    margin-left: calc(var(--spacing) * 2);
+    margin-left: var(--spacing-2);
   }
 
   .action-buttons button {
@@ -40,7 +40,7 @@ const styles = css`
     background: none;
     border: none;
     color: var(--red0);
-    font-size: var(--text-sm);
+    font-size: var(--text-xs);
     font-family: var(--font-sans);
     color: var(--grey1);
 

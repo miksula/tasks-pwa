@@ -23,17 +23,17 @@ export default class TasksPage extends useStore(LitElement) {
     .tasks-page {
       margin: 0 auto;
       max-width: 400px;
-      padding: calc(var(--spacing) * 4);
+      padding: var(--spacing-4);
     }
 
     h1 {
-      font: 400 2.25rem / 2.75rem var(--font-sans);
+      font: var(--font-header);
     }
 
     .input-group {
       display: flex;
-      gap: calc(var(--spacing) * 2);
-      margin-block: calc(var(--spacing) * 4);
+      gap: var(--spacing-2);
+      margin-block: var(--spacing-4);
 
       input {
         flex: 1;
@@ -42,36 +42,34 @@ export default class TasksPage extends useStore(LitElement) {
         font-family: var(--font-sans);
         border-style: none;
         background-color: var(--input-bg);
-        padding-inline: calc(var(--spacing) * 3);
-        padding-block: calc(var(--spacing) * 2);
-        border-radius: calc(var(--spacing) * 2);
+        padding-inline: var(--spacing-3);
+        padding-block: var(--spacing-2);
+        border-radius: var(--radius-md);
       }
 
       button {
         cursor: pointer;
         background-color: var(--blue1);
         color: var(--blue0);
-        font-size: var(--text-sm);
+        font-size: var(--text-xs);
         font-family: var(--font-sans);
         font-weight: var(--font-bold);
         border-style: none;
-        padding-inline: calc(var(--spacing) * 3);
-        padding-block: calc(var(--spacing) * 2);
-        border-radius: calc(var(--spacing) * 2);
+        padding-inline: var(--spacing-3);
+        padding-block: var(--spacing-2);
+        border-radius: var(--radius-md);
         text-transform: uppercase;
       }
     }
 
-    .filter-title, .items-left {
-      font-size: var(--text-base-sm);
-      font-family: var(--font-sans);
-      font-weight: var(--font-medium);
+    .label {
+      font: var(--font-label);
     }
 
     .filter-by-group {
       display: flex;
-      gap: calc(var(--spacing) * 2);
-      margin-block: calc(var(--spacing) * 4);
+      gap: var(--spacing-2);
+      margin-block: var(--spacing-4);
     }
 
     ul {
@@ -156,8 +154,8 @@ export default class TasksPage extends useStore(LitElement) {
       },
     );
 
-    const count = items.length - items.filter((item) => item.completed).length;
-    const leftText = `${count} task${count === 1 ? "" : "s"} left`;
+    const count = items.length - items.filter(FILTER_MAP["completed"]).length;
+    const leftText = `${count} task${count == 1 ? "" : "s"} left`;
 
     return html`
       <div class="tasks-page">
@@ -173,7 +171,7 @@ export default class TasksPage extends useStore(LitElement) {
           <button @click="${this.saveTask}">Add Task</button>
         </div>
 
-        <p class="filter-title">Filter by</p>
+        <p class="label">Filter by</p>
 
         <div class="filter-by-group">
           ${filterButtons}
@@ -191,7 +189,7 @@ export default class TasksPage extends useStore(LitElement) {
           )}
         </ul>
 
-        <p class="items-left">${leftText}</p>
+        <p class="label">${leftText}</p>
       </div>
     `;
   }
