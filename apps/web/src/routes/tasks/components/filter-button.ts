@@ -60,11 +60,8 @@ export class FilterButton extends useStore(LitElement) {
     `;
   }
 
-  private setFilter(e: Event) {
-    console.log("Filter:", this.name);
-    console.log("Store", this.store);
-    // const filter = name;
-    // dispatchEvent(event.target as HTMLElement, { type: "FILTER", filter });
+  private setFilter() {
+    this.store?.tasks.setFilter(this.name);
   }
 }
 

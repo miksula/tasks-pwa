@@ -156,6 +156,9 @@ export default class TasksPage extends useStore(LitElement) {
       },
     );
 
+    const count = items.length - items.filter((item) => item.completed).length;
+    const leftText = `${count} task${count === 1 ? "" : "s"} left`;
+
     return html`
       <div class="tasks-page">
         <h1>Tasks</h1>
@@ -188,7 +191,7 @@ export default class TasksPage extends useStore(LitElement) {
           )}
         </ul>
 
-        <p class="items-left">2 items left</p>
+        <p class="items-left">${leftText}</p>
       </div>
     `;
   }
