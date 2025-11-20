@@ -1,6 +1,7 @@
 import type { Filter, TodoItem } from "@/shared/types.ts";
 import action from "@/shared/action.ts";
 import * as queries from "../queries.ts";
+import * as storage from "../db/storage.ts";
 
 export type Tasks = {
   items: TodoItem[];
@@ -18,8 +19,17 @@ class TasksStore {
   async load(): Promise<Tasks> {
     return {
       items: await queries.fetchTasks(),
-      filter: "all",
+      filter: await storage.getFilter(),
     };
+  }
+
+  /**
+   * Sets the current filter for tasks.
+   * @param filter - The filter to set (e.g., "all", "active", "completed").
+   */
+  @action
+  async setFilter(filter: Filter) {
+    await storage.setFilter(filter);
   }
 
   /**

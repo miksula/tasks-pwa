@@ -1,18 +1,23 @@
 import { css, html, LitElement, PropertyValues } from "lit";
 import { repeat } from "lit/directives/repeat.js";
 
-import type { State, TodoItem } from "@/shared/types.ts";
+import type { Filter, State, TodoItem } from "@/shared/types.ts";
 import { useStore } from "@/shared/mixins/useStore.ts";
 
-import { CheckMarkIcon } from "@/shared/icons/CheckMarkIcon.ts";
+// import { CheckMarkIcon } from "@/shared/icons/CheckMarkIcon.ts";
 import "./task-item.ts";
+import "./filter-button.ts";
 
-const props = {
-  data: {},
+const FILTER_MAP = {
+  all: () => true,
+  active: (todo: TodoItem) => !todo.completed,
+  completed: (todo: TodoItem) => todo.completed,
 };
 
 export default class TasksPage extends useStore(LitElement) {
-  static override properties = props;
+  static override properties = {
+    data: {},
+  };
 
   static override styles = css`
     .tasks-page {
@@ -67,33 +72,6 @@ export default class TasksPage extends useStore(LitElement) {
       display: flex;
       gap: calc(var(--spacing) * 2);
       margin-block: calc(var(--spacing) * 4);
-
-      button {
-        display: flex;
-        cursor: pointer;
-        background-color: var(--grey4);
-        color: var(--input-text);
-        font-size: var(--text-sm);
-        font-family: var(--font-sans);
-        font-weight: var(--font-bold);
-        border-style: none;
-        padding-inline: calc(var(--spacing) * 3);
-        padding-block: calc(var(--spacing) * 2);
-        border-radius: calc(var(--spacing) * 2);
-
-        svg {
-          width: 1rem;
-          height: 1rem;
-          margin-left: -3px;
-          margin-right: 3px;
-          transform: scale(1.25);
-        }
-      }
-
-      button.active {
-        background-color: var(--blue1);
-        color: var(--blue0);
-      }
     }
 
     ul {
@@ -103,7 +81,7 @@ export default class TasksPage extends useStore(LitElement) {
     }
   `;
 
-  /** The application state. */
+  /** The tasks store state. */
   declare public data: State["tasks"];
 
   private input?: HTMLInputElement;
@@ -163,6 +141,21 @@ export default class TasksPage extends useStore(LitElement) {
   }
 
   override render() {
+    const { items, filter } = this.data;
+
+    const filteredItems = items.filter(FILTER_MAP[filter]);
+
+    const filterButtons = (Object.keys(FILTER_MAP) as Filter[]).map(
+      function mapNameToBtn(name) {
+        return html`
+          <filter-button
+            name="${name}"
+            ?active="${name == filter}"
+          ></filter-button>
+        `;
+      },
+    );
+
     return html`
       <div class="tasks-page">
         <h1>Tasks</h1>
@@ -178,18 +171,14 @@ export default class TasksPage extends useStore(LitElement) {
         </div>
 
         <p class="filter-title">Filter by</p>
+
         <div class="filter-by-group">
-          <button class="active">
-            ${CheckMarkIcon()}
-            <span>All</span>
-          </button>
-          <button>Active</button>
-          <button>Completed</button>
+          ${filterButtons}
         </div>
 
         <ul>
           ${repeat(
-            this.data.items,
+            filteredItems,
             (item: TodoItem) => item.id,
             (item) =>
               html`
