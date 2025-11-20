@@ -1,6 +1,7 @@
 {
   "recommendations": [
     "denoland.vscode-deno",
-    "runem.lit-plugin"
+    "runem.lit-plugin",
+    "phoenisx.cssvar"
   ]
 }
