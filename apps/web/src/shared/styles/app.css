@@ -25,7 +25,7 @@ nav-link {
     background-color: var(--button-bg);
     padding-block: var(--spacing-2);
     padding-inline: var(--spacing-4);
-    border-radius: var(--spacing-5);
+    border-radius: var(--radius-xl);
     transition: background 0.1s ease-in-out;
     cursor: pointer;
   }
@@ -35,8 +35,7 @@ nav-link {
   }
 
   li.active {
-    /* background: var(--button-active-bg); */
-    background: var(--blue1)
+    background: var(--button-active-bg);
   }
 
   li a {
@@ -48,6 +47,6 @@ nav-link {
   }
 
   li.active a {
-    color: var(--blue0);
+    color: var(--button-active-text);
   }
 }

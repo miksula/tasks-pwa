@@ -44,20 +44,20 @@ export default class TasksPage extends useStore(LitElement) {
         background-color: var(--input-bg);
         padding-inline: var(--spacing-3);
         padding-block: var(--spacing-2);
-        border-radius: var(--radius-md);
+        border-radius: var(--radius);
       }
 
-      button {
+      button.action {
         cursor: pointer;
         background-color: var(--blue1);
-        color: var(--blue0);
+        color: var(--button-active-text);
         font-size: var(--text-xs);
         font-family: var(--font-sans);
         font-weight: var(--font-bold);
         border-style: none;
         padding-inline: var(--spacing-3);
         padding-block: var(--spacing-2);
-        border-radius: var(--radius-md);
+        border-radius: var(--radius);
         text-transform: uppercase;
       }
     }
@@ -155,10 +155,10 @@ export default class TasksPage extends useStore(LitElement) {
     );
 
     const count = items.length - items.filter(FILTER_MAP["completed"]).length;
-    const leftText = `${count} task${count == 1 ? "" : "s"} left`;
+    const itemsLeftText = `${count} task${count == 1 ? "" : "s"} left`;
 
     return html`
-      <div class="tasks-page">
+      <section class="tasks-page">
         <h1>Tasks</h1>
         <p>What needs to be done?</p>
 
@@ -168,7 +168,7 @@ export default class TasksPage extends useStore(LitElement) {
             id="new-task-input"
             @keyup="${this.keyboardAction}"
           />
-          <button @click="${this.saveTask}">Add Task</button>
+          <button class="action" @click="${this.saveTask}">Add Task</button>
         </div>
 
         <p class="label">Filter by</p>
@@ -189,8 +189,8 @@ export default class TasksPage extends useStore(LitElement) {
           )}
         </ul>
 
-        <p class="label">${leftText}</p>
-      </div>
+        <p class="label">${itemsLeftText}</p>
+      </section>
     `;
   }
 }

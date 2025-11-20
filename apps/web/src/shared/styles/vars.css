@@ -13,6 +13,10 @@
   --font-medium: 500;
   --font-bold: 600;
 
+  /* Typography */
+  --font-header: var(--font-normal) 2.25rem / 2.75rem var(--font-sans);
+  --font-label: var(--font-medium) 0.875rem / 1.25rem var(--font-sans);
+
   /* Spacing scale */
   /* 4px */
   --spacing: 0.25rem;
@@ -23,7 +27,7 @@
   --spacing-5: calc(var(--spacing) * 5);
 
   /* Border radius */
-  --radius-md: 0.5rem;
+  --radius: 0.5rem;
   --radius-xl: 1.25rem;
 
   /* Named color scheme */
@@ -44,22 +48,13 @@
   --main-bg: var(--white);
   --main-border: var(--grey2);
   --main-border-light: var(--grey3);
-  --header-text: var(--grey0);
-  --header-bg: var(--white);
-  --highlight-text: var(--red);
   --disabled-text: var(--grey2);
-  --aside-text: var(--grey0);
   --button-text: var(--grey0);
   --button-bg: transparent;
-  --button-active-text: var(--black);
-  --button-active-bg: var(--grey4);
-  --button-highlight-text: var(--red);
+  --button-active-text: var(--blue0);
+  --button-active-bg: var(--blue1);
   --input-bg: var(--grey4);
   --input-text: var(--grey0);
-
-  /* Typography */
-  --font-header: var(--font-normal) 2.25rem / 2.75rem var(--font-sans);
-  --font-label: var(--font-medium) 0.875rem / 1.25rem var(--font-sans);
 }
 
 /*
@@ -68,16 +63,11 @@
   --main-bg: var(--black);
   --main-border: var(--grey3);
   --main-border-light: var(--grey2);
-  --header-text: var(--grey2);
-  --header-bg: var(--black);
-  --highlight-text: var(--red);
   --disabled-text: var(--grey1);
-  --aside-text: var(--grey2);
   --button-text: var(--grey2);
   --button-bg: transparent;
   --button-active-text: var(--white);
   --button-active-bg: var(--grey1);
-  --button-highlight-text: var(--red);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -86,16 +76,11 @@
     --main-bg: var(--black);
     --main-border: var(--grey3);
     --main-border-light: var(--grey2);
-    --header-text: var(--grey2);
-    --header-bg: var(--black);
-    --highlight-text: var(--red);
     --disabled-text: var(--grey1);
-    --aside-text: var(--grey2);
     --button-text: var(--grey2);
     --button-bg: transparent;
     --button-active-text: var(--white);
     --button-active-bg: var(--grey1);
-    --button-highlight-text: var(--red);
   }
 
   .-invertcolorscheme {
@@ -103,16 +88,11 @@
     --main-bg: var(--white);
     --main-border: var(--grey2);
     --main-border-light: var(--grey3);
-    --header-text: var(--grey0);
-    --header-bg: var(--white);
-    --highlight-text: var(--red);
     --disabled-text: var(--grey2);
-    --aside-text: var(--grey0);
     --button-text: var(--grey0);
     --button-bg: transparent;
     --button-active-text: var(--black);
     --button-active-bg: var(--grey4);
-    --button-highlight-text: var(--red);
   }
 }
 */

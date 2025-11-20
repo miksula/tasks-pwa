@@ -40,7 +40,7 @@ export class FilterButton extends useStore(LitElement) {
 
     button.active {
       background-color: var(--blue1);
-      color: var(--blue0);
+      color: var(--button-active-text);
     }
   `;
 
