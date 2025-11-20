@@ -1,7 +1,10 @@
 {
   "recommendations": [
+    "GitHub.copilot",
+    "GitHub.copilot-chat",
     "denoland.vscode-deno",
     "runem.lit-plugin",
+    "thebearingedge.vscode-sql-lit",
     "phoenisx.cssvar"
   ]
 }
