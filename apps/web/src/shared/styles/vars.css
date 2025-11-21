@@ -26,9 +26,11 @@
   --spacing-3: calc(var(--spacing) * 3);
   --spacing-4: calc(var(--spacing) * 4);
   --spacing-5: calc(var(--spacing) * 5);
+  --spacing-6: calc(var(--spacing) * 6);
 
   /* Layout sizes */
-  --container-width: 400px;
+  --container-width: 474px;
+  --container-lg-width: 600px;
   --header-height: 64px;
 
   /* Border radius */

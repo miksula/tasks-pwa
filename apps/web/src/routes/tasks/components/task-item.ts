@@ -16,11 +16,8 @@ const styles = css`
     }
   }
 
-  li.viewing, form.editing {
-    display: flex;
-  }
-
   li.viewing {
+    display: flex;
     justify-content: space-between;
     padding-block: var(--spacing-4);
     border-bottom: 1px solid var(--main-border-light);
@@ -58,6 +55,7 @@ const styles = css`
   }
 
   form.editing {
+    display: flex;
     justify-content: space-between;
     padding-block: var(--spacing-4);
     border-bottom: 1px solid var(--main-border-light);

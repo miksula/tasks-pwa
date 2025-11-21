@@ -19,7 +19,7 @@ export default class TasksPage extends useStore(LitElement) {
   };
 
   static override styles = css`
-    .tasks-page {
+    .tasks {
       margin: 0 auto;
       max-width: var(--container-width);
       padding: var(--spacing-4);
@@ -157,7 +157,7 @@ export default class TasksPage extends useStore(LitElement) {
     const itemsLeftText = `${count} task${count == 1 ? "" : "s"} left`;
 
     return html`
-      <section class="tasks-page">
+      <section class="tasks">
         <h1>Tasks</h1>
         <p>What needs to be done?</p>
 
