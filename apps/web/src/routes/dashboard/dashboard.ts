@@ -1,28 +1,41 @@
 import { html } from "lit";
+import { State, TodoItem } from "@/shared/types.ts";
 import { Section } from "./components/Section.ts";
 
 const sections = [
   {
     title: "Total",
-    content: "Counts all your tasks.",
+    slug: "Counts all your tasks.",
+    filter: () => true,
   },
   {
     title: "Completed",
-    content: "Number of finished tasks.",
+    slug: "Number of finished tasks.",
+    filter: (todo: TodoItem) => todo.completed,
   },
   {
-    title: "Active",
-    content: "The tasks that are yet to be completed.",
+    title: "Left to-do",
+    slug: "The tasks yet to be completed.",
+    filter: (todo: TodoItem) => !todo.completed,
   },
 ];
 
-export function Dashboard() {
+export function Dashboard(data: State) {
+  const items = data.tasks.items;
+
+  const mappedSections = sections.map((section) => {
+    const count = items.filter(section.filter).length;
+    return { ...section, count };
+  });
+
   return html`
     <div class="dashboard">
       <h1>Dashboard</h1>
 
       <div class="blog-sections">
-        ${sections.map((section) => Section(section.title, section.content))}
+        ${mappedSections.map((section) =>
+          Section(section.title, section.slug, section.count)
+        )}
       </div>
     </div>
   `;

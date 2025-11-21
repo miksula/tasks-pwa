@@ -18,7 +18,7 @@ export class MainApp extends withRouter(withStore(noShadow(LitElement))) {
 
     this.router
       .add("/", () => {
-        this.page = Dashboard();
+        this.page = Dashboard(this.state);
       })
       .add("/tasks", () => {
         this.page = Tasks(this.state.tasks);

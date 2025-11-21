@@ -153,8 +153,8 @@ export default class TasksPage extends useStore(LitElement) {
       },
     );
 
-    const count = items.length - items.filter(FILTER_MAP["completed"]).length;
-    const itemsLeftText = `${count} task${count == 1 ? "" : "s"} left`;
+    const count = filteredItems.length;
+    const itemsCountText = `${count} task${count == 1 ? "" : "s"}`;
 
     return html`
       <section class="tasks">
@@ -188,7 +188,7 @@ export default class TasksPage extends useStore(LitElement) {
           )}
         </ul>
 
-        <p class="label">${itemsLeftText}</p>
+        <p class="label">${itemsCountText}</p>
       </section>
     `;
   }
