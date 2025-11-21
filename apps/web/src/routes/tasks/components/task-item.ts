@@ -16,26 +16,25 @@ const styles = css`
     }
   }
 
-  li.viewing.new {
-    animation: fadeIn 100ms ease-in;
-  }
-
   li.viewing, form.editing {
     display: flex;
   }
 
   li.viewing {
-    display: flex;
     justify-content: space-between;
     padding-block: var(--spacing-4);
     border-bottom: 1px solid var(--main-border-light);
+  }
+
+  li.viewing.new {
+    animation: fadeIn 100ms ease-in;
   }
 
   li.viewing input + span {
     margin-left: var(--spacing-2);
   }
 
-  .action-buttons button {
+  li.viewing button {
     cursor: pointer;
     background: none;
     border: none;
@@ -53,9 +52,22 @@ const styles = css`
     }
   }
 
-  span.completed {
+  li.viewing span.completed {
     text-decoration: line-through;
     color: var(--disabled-text);
+  }
+
+  form.editing {
+    justify-content: space-between;
+    padding-block: var(--spacing-4);
+    border-bottom: 1px solid var(--main-border-light);
+    width: 100%;
+    gap: var(--spacing-2);
+
+    input {
+      flex: 1;
+      color: var(--input-text);
+    }
   }
 `;
 
@@ -96,7 +108,7 @@ export class TaskItem extends useStore(LitElement) {
   }
 
   editTask(item: Omit<TodoItem, "completed">) {
-    console.log("Editing task:", item);
+    this.store?.tasks.edit(String(item.id), item.text);
   }
 
   handleChange(event: KeyboardEvent, item: TodoItem) {
@@ -111,7 +123,7 @@ export class TaskItem extends useStore(LitElement) {
     if (!this.newText.trim()) {
       return;
     }
-    this.setEditing(false, false);
+    this.setEditing(false);
     this.editTask({ id: Number(item.id), text: this.newText });
     this.newText = "";
   }
@@ -149,14 +161,12 @@ export class TaskItem extends useStore(LitElement) {
     const editingTemplate = html`
       <form class="editing" @submit="${(event: InputEvent) =>
         this.handleSubmit(event, item)}">
-        <div>
-          <input
-            type="text"
-            .value="${this.newText || item.text}"
-            @keydown="${(event: KeyboardEvent) =>
-              this.handleChange(event, item)}"
-          />
-        </div>
+        <input
+          name="task-edit"
+          type="text"
+          .value="${this.newText || item.text}"
+          @input="${(event: KeyboardEvent) => this.handleChange(event, item)}"
+        />
         <div>
           <button
             @click="${() => this.setEditing(false)}"

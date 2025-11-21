@@ -59,6 +59,16 @@ class TasksStore {
   async completed(id: string, completed: 0 | 1) {
     await queries.updateTask(Number(id), { completed });
   }
+
+  /**
+   * Edits the text of a task.
+   * @param id - The ID of the task to edit.
+   * @param text - The new text for the task.
+   */
+  @action
+  async edit(id: string, text: string) {
+    await queries.updateTask(Number(id), { text });
+  }
 }
 
 export default new TasksStore();
