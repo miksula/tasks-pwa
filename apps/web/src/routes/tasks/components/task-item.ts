@@ -126,6 +126,11 @@ export class TaskItem extends useStore(LitElement) {
             type="checkbox"
             ?checked="${item.completed}"
             @click="${() => this.toggleCompleted(item)}"
+            @keypress="${(e: KeyboardEvent) => {
+              if (e.key === "Enter") {
+                this.toggleCompleted(item);
+              }
+            }}"
           />
           <span class="${classMap({ "completed": item.completed })}"> ${item
             .text} </span>
