@@ -20,11 +20,16 @@
   /* Spacing scale */
   /* 4px */
   --spacing: 0.25rem;
+  --spacing-0: 0;
   --spacing-1: var(--spacing);
   --spacing-2: calc(var(--spacing) * 2);
   --spacing-3: calc(var(--spacing) * 3);
   --spacing-4: calc(var(--spacing) * 4);
   --spacing-5: calc(var(--spacing) * 5);
+
+  /* Layout sizes */
+  --container-width: 400px;
+  --header-height: 64px;
 
   /* Border radius */
   --radius: 0.5rem;

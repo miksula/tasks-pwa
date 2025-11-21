@@ -4,7 +4,6 @@ import { repeat } from "lit/directives/repeat.js";
 import type { Filter, State, TodoItem } from "@/shared/types.ts";
 import { useStore } from "@/shared/mixins/useStore.ts";
 
-// import { CheckMarkIcon } from "@/shared/icons/CheckMarkIcon.ts";
 import "./task-item.ts";
 import "./filter-button.ts";
 
@@ -22,7 +21,7 @@ export default class TasksPage extends useStore(LitElement) {
   static override styles = css`
     .tasks-page {
       margin: 0 auto;
-      max-width: 400px;
+      max-width: var(--container-width);
       padding: var(--spacing-4);
     }
 

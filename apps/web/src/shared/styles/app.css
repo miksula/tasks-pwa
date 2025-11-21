@@ -8,6 +8,10 @@ app-navigation {
     padding-inline: var(--spacing-2);
     border-bottom: 1px solid var(--main-border-light);
     background-color: var(--grey5);
+    height: var(--header-height);
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   nav ul {
