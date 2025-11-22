@@ -7,9 +7,9 @@ let lastPath = "";
 
 /**
  * Prepares the hook system for a new render cycle.
- * Should be called before the router or app renders.
+ * Should be called before the app renders.
  */
-export const prepareHooks = (currentPath: string) => {
+export const prepareHooks = (currentPath: string = location.pathname) => {
   // If the route has changed, clear the state to avoid collisions between pages
   if (currentPath !== lastPath) {
     stateValues = [];

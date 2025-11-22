@@ -5,8 +5,6 @@ export default function ReactState() {
   const [countA, setCountA] = useState(1);
   const [countB, setCountB] = useState(-1);
 
-  console.log("countA", countA);
-
   return html`
     <section>
       <div>
