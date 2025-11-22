@@ -1,7 +1,7 @@
 import { EVENT_ACTION } from "./constants.ts";
 import { Action } from "./types.ts";
 
-function dispatchActionEvent(
+export function dispatchActionEvent(
   detail: Action,
   bubbles = true,
   composed = true,

@@ -21,7 +21,7 @@ export default class TodoList extends LitElement {
     const container = el.querySelector(".items")!;
 
     addEventListener(EVENT_DATA, (event: CustomEvent<State>) => {
-      this.items = event.detail.items;
+      this.items = event.detail.tasks.items;
       repeat();
     }, true);
 

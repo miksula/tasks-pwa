@@ -21,6 +21,7 @@ export default function Store() {
   });
 
   async function updateState(_action?: string) {
+    console.log(_action);
     appState.tasks = await tasksStore.load();
     notify();
   }
