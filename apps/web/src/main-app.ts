@@ -8,6 +8,7 @@ import { withStore } from "@/shared/mixins/withStore.ts";
 
 import { Dashboard, NotFound, Task, Tasks, Test } from "@/routes/index.ts";
 import Layout from "./Layout.ts";
+import { prepareHooks } from "@/shared/hooks.ts";
 
 export class MainApp extends withRouter(withStore(noShadow(LitElement))) {
   private page: TemplateResult | null = null;
@@ -38,6 +39,7 @@ export class MainApp extends withRouter(withStore(noShadow(LitElement))) {
       });
 
     // Initial route check on page load
+    prepareHooks(location.pathname);
     this.router.check();
   }
 
@@ -47,6 +49,7 @@ export class MainApp extends withRouter(withStore(noShadow(LitElement))) {
     // Listen for state update events
     addEventListener(EVENT_DATA, (event: CustomEvent<State>) => {
       this.state = event.detail;
+      prepareHooks(location.pathname);
       // Update route based on new state
       this.router.check();
     });

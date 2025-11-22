@@ -1,27 +1,5 @@
-// deno-lint-ignore-file no-explicit-any
 import { html } from "lit";
-import { dispatchActionEvent } from "@/shared/action.ts";
-
-let callIndex = -1;
-const stateValues: any[] = [];
-
-const useState = (initialValue: any) => {
-  callIndex++;
-
-  const currentCallIndex = Number(callIndex);
-
-  if (stateValues[currentCallIndex] == undefined) {
-    stateValues[currentCallIndex] = initialValue;
-  }
-
-  const setValue = (newValue: any) => {
-    stateValues[currentCallIndex] = newValue;
-    dispatchActionEvent({ name: "useState" });
-    callIndex = -1;
-  };
-
-  return [stateValues[currentCallIndex], setValue];
-};
+import { useState } from "@/shared/hooks.ts";
 
 export default function ReactState() {
   const [countA, setCountA] = useState(1);
