@@ -1,7 +1,8 @@
-/* 
-Not imported! Provides Tailwind custom properties for CSS auto-completion.
-https://tailwindcss.com/docs/theme#default-theme-variable-reference
- */
+/**
+Do not @import! Purpose of this file is to make Tailwind custom properties
+visible for `CSS Navigation` auto-completion.
+See: https://tailwindcss.com/docs/theme#default-theme-variable-reference
+*/
 
 :root {
   --font-sans:
