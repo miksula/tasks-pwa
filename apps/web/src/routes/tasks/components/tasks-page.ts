@@ -22,11 +22,11 @@ export default class TasksPage extends useStore(LitElement) {
     .tasks {
       margin: 0 auto;
       max-width: var(--container-width);
-      padding: var(--spacing-4);
     }
 
     h1 {
-      font: var(--font-header);
+      font: var(--heading1);
+      margin-block: 0;
     }
 
     .input-group {
@@ -36,33 +36,33 @@ export default class TasksPage extends useStore(LitElement) {
 
       input {
         flex: 1;
-        color: var(--input-text);
+        color: var(--color-zinc-800);
         font-size: var(--text-base);
         font-family: var(--font-sans);
         border-style: none;
-        background-color: var(--input-bg);
+        background-color: var(--color-zinc-200);
         padding-inline: var(--spacing-3);
         padding-block: var(--spacing-2);
-        border-radius: var(--radius);
+        border-radius: var(--radius-lg);
       }
 
       button.action {
         cursor: pointer;
-        background-color: var(--blue1);
-        color: var(--button-active-text);
+        background-color: var(--color-brand-blue-light);
+        color: var(--color-brand-blue);
         font-size: var(--text-xs);
         font-family: var(--font-sans);
-        font-weight: var(--font-bold);
+        font-weight: var(--font-weight-semibold);
         border-style: none;
         padding-inline: var(--spacing-3);
         padding-block: var(--spacing-2);
-        border-radius: var(--radius);
+        border-radius: var(--radius-lg);
         text-transform: uppercase;
       }
     }
 
     .label {
-      font: var(--font-label);
+      font: var(--label);
     }
 
     .filter-by-group {

@@ -14,16 +14,16 @@ export class FilterButton extends useStore(LitElement) {
   static override styles = css`
     button {
       display: flex;
-      cursor: pointer;
-      background-color: var(--grey4);
-      color: var(--input-text);
+      background-color: var(--color-zinc-200);
+      color: var(--color-zinc-700);
       font-size: var(--text-xs);
       font-family: var(--font-sans);
-      font-weight: var(--font-bold);
+      font-weight: var(--font-weight-semibold);
       border-style: none;
       padding-inline: var(--spacing-3);
       padding-block: var(--spacing-2);
       border-radius: var(--spacing-2);
+      cursor: pointer;
 
       svg {
         width: 1rem;
@@ -39,8 +39,8 @@ export class FilterButton extends useStore(LitElement) {
     }
 
     button.active {
-      background-color: var(--blue1);
-      color: var(--button-active-text);
+      background-color: var(--color-brand-blue-light);
+      color: var(--color-brand-blue);
     }
   `;
 

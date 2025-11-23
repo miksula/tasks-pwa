@@ -39,7 +39,7 @@ class NavLink extends useRouter(noShadow(LitElement)) {
         )}"
       >
         <a
-          class="text-btn-grey font-medium text-base group-[.active]:text-brand-blue"
+          class="text-zinc-700 font-medium text-base group-[.active]:text-brand-blue"
           href="${this.to}"
         >${this.text}</a>
       </li>

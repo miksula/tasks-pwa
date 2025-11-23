@@ -20,7 +20,7 @@ const styles = css`
     display: flex;
     justify-content: space-between;
     padding-block: var(--spacing-4);
-    border-bottom: 1px solid var(--main-border-light);
+    border-bottom: 1px solid var(--color-gray-200);
   }
 
   li.viewing.new {
@@ -37,10 +37,10 @@ const styles = css`
     border: none;
     font-size: var(--text-xs);
     font-family: var(--font-sans);
-    color: var(--grey1);
+    color: var(--color-gray-500);
 
     &:hover {
-      color: var(--main-text);
+      color: var(--color-gray-900);
     }
 
     svg {
@@ -51,20 +51,20 @@ const styles = css`
 
   li.viewing span.completed {
     text-decoration: line-through;
-    color: var(--disabled-text);
+    color: var(--color-gray-400);
   }
 
   form.editing {
     display: flex;
     justify-content: space-between;
     padding-block: var(--spacing-4);
-    border-bottom: 1px solid var(--main-border-light);
+    border-bottom: 1px solid var(--color-gray-200);
     width: 100%;
     gap: var(--spacing-2);
 
     input {
       flex: 1;
-      color: var(--input-text);
+      color: var(--color-zinc-800);
     }
   }
 `;

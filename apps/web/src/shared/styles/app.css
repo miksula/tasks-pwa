@@ -1,27 +1,5 @@
 @import "tailwindcss";
-
-@theme static {
-  --font-sans: 'Google Sans Flex', ui-sans-serif, system-ui, sans-serif;
-
-  /* Custom colors */
-  --color-brand-100: oklch(95.5% 0.0384 234.35);
-  --color-brand-200: oklch(90.854% 0.05168 235.931);
-  --color-brand-300: oklch(82.31% 0.065 237.51);
-  --color-brand-400: oklch(73.76% 0.0783 239.1);
-  --color-brand-500: oklch(65.21% 0.0916 240.68);
-  --color-brand-600: oklch(56.66% 0.105 242.27);
-  --color-brand-700: oklch(48.115% 0.1183 243.848);
-  
-  --color-brand-blue: var(--color-brand-700);
-  --color-brand-blue-light: var(--color-brand-200);
-  --color-btn-grey: var(--color-zinc-700);
-
-  --container-width: 474px;
-
-  --heading1: var(--font-weight-normal) 2.25rem / 2.75rem var(--font-sans);
-  --heading2: var(--font-weight-medium) 1rem / 1.5rem var(--font-sans);
-  --slug: var(--font-weight-normal) 0.75rem / 1rem var(--font-sans);
-}
+@import "./theme.css";
 
 @layer components {
   h1 {
@@ -30,6 +8,10 @@
 
   h2 {
     font: var(--heading2);
+  }
+
+  .label {
+    font: var(--label);
   }
 
   .slug {

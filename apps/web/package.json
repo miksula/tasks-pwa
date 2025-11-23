@@ -5,7 +5,8 @@
   "private": true,
   "scripts": {
     "dev": "vite",
-    "dev:db": "turso dev --db-file ../api/src/db/api.db  --port 8088"
+    "dev:db": "turso dev --db-file ../api/src/db/api.db  --port 8088",
+    "tailwind:build": "tailwindcss -i ./src/shared/styles/app.css -o ./src/shared/styles/output.css"
   },
   "dependencies": {
     "@app/api": "workspace:^",
@@ -23,6 +24,7 @@
     "zod": "^4.0.14"
   },
   "devDependencies": {
+    "@tailwindcss/cli": "^4.1.17",
     "@tailwindcss/vite": "^4.1.17",
     "vite": "^7.1.12",
     "vite-tsconfig-paths": "^5.1.4",
