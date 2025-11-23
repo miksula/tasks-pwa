@@ -18,8 +18,10 @@ class AppNavigation extends useRouter(noShadow(LitElement)) {
 
   override render() {
     return html`
-      <nav>
-        <ul>
+      <nav
+        class="bg-gray-50 flex justify-center items-center h-16 border-b border-b-gray-200 py-3 px-2"
+      >
+        <ul class="m-0 p-0 flex justify-between list-none">
           <nav-link text="Dashboard " to="/" ?active="${this.activePath ==
             "/"}"></nav-link>
           <nav-link text="Tasks" to="/tasks" ?active="${this.activePath ==

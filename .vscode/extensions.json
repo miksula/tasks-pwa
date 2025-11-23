@@ -5,6 +5,7 @@
     "denoland.vscode-deno",
     "runem.lit-plugin",
     "thebearingedge.vscode-sql-lit",
-    "phoenisx.cssvar"
+    "phoenisx.cssvar",
+    "bradlc.vscode-tailwindcss"
   ]
 }

@@ -4,8 +4,6 @@ import { classMap } from "lit/directives/class-map.js";
 import { noShadow } from "../mixins/noShadow.ts";
 import { useRouter } from "../mixins/useRouter.ts";
 
-// import { TaskNote } from "../icons/TaskNote.ts";
-
 const props = {
   text: { type: String },
   to: { type: String },
@@ -31,10 +29,19 @@ class NavLink extends useRouter(noShadow(LitElement)) {
 
   override render() {
     return html`
-      <li @click="${this.handleClick}" class="${classMap({
-        active: this.active || false,
-      })}">
-        <a href="${this.to}">${this.text}</a>
+      <li
+        @click="${this
+          .handleClick}"
+        class="group transition-[background-color] cursor-pointer mx-2 px-4 py-2 rounded-full hover:bg-stone-200 [&.active]:bg-brand-blue-light ${classMap(
+          {
+            "active": !!this.active,
+          },
+        )}"
+      >
+        <a
+          class="text-btn-grey font-medium text-base group-[.active]:text-brand-blue"
+          href="${this.to}"
+        >${this.text}</a>
       </li>
     `;
   }

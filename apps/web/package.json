@@ -19,9 +19,11 @@
     "hono": "^4.8.12",
     "kysely": "^0.28.8",
     "lit": "^3.3.1",
+    "tailwindcss": "^4.1.17",
     "zod": "^4.0.14"
   },
   "devDependencies": {
+    "@tailwindcss/vite": "^4.1.17",
     "vite": "^7.1.12",
     "vite-tsconfig-paths": "^5.1.4",
     "vite-plugin-devtools-json": "^1.0.0"

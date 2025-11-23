@@ -29,10 +29,10 @@ export function Dashboard(data: State) {
   });
 
   return html`
-    <div class="dashboard">
+    <div class="box-content mx-auto max-w-width">
       <h1>Dashboard</h1>
 
-      <div class="blog-sections">
+      <div class="py-6 flex flex-row gap-4 flex-wrap">
         ${mappedSections.map((section) =>
           Section(section.title, section.slug, section.count)
         )}

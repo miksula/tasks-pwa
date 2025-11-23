@@ -3,9 +3,9 @@ import "@/shared/components/app-navigation.ts";
 
 export default function Layout(content: TemplateResult | null) {
   return html`
-    <div class="app">
+    <div>
       <app-navigation></app-navigation>
-      <main>${content}</main>
+      <main class="mx-4 mt-16">${content}</main>
     </div>
   `;
 }
