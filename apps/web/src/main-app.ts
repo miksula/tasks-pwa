@@ -8,7 +8,7 @@ import { withStore } from "@/lib/mixins/withStore.ts";
 import { prepareHooks } from "@/lib/hooks.ts";
 
 import { Dashboard, NotFound, Task, Tasks, Test } from "@/routes/index.ts";
-import Layout from "./Layout.ts";
+import Layout from "./layout.ts";
 
 export class MainApp extends withRouter(withStore(noShadow(LitElement))) {
   private page: TemplateResult | null = null;

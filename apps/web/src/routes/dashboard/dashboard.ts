@@ -1,7 +1,6 @@
 import { html } from "lit";
 import { State, TodoItem } from "@/lib/types.ts";
-import { Section } from "./components/Section.ts";
-
+import { Section } from "./components/section.ts";
 const sections = [
   {
     title: "Total",
