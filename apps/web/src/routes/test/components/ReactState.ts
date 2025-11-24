@@ -1,5 +1,5 @@
 import { html } from "lit";
-import { useState } from "@/shared/hooks.ts";
+import { useState } from "@/lib/hooks.ts";
 
 export default function ReactState() {
   const [countA, setCountA] = useState(1);

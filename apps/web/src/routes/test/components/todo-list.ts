@@ -1,6 +1,6 @@
 import { html, LitElement, render } from "lit";
-import { State, TodoItem } from "@/shared/types.ts";
-import { EVENT_DATA } from "@/shared/constants.ts";
+import { State, TodoItem } from "@/lib/types.ts";
+import { EVENT_DATA } from "@/lib/constants.ts";
 import { styles } from "../styles/todo-list.css.ts";
 
 export default class TodoList extends LitElement {

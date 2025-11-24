@@ -1207,6 +1207,7 @@
             "npm:@libsql/kysely-libsql@~0.4.1",
             "npm:@lit/context@^1.1.6",
             "npm:@tailwindcss/vite@^4.1.17",
+            "npm:@tailwindplus/elements@^1.0.19",
             "npm:hono@^4.8.12",
             "npm:kysely@~0.28.8",
             "npm:lit@^3.3.1",

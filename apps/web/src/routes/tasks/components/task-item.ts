@@ -1,10 +1,10 @@
 import { css, html, LitElement } from "lit";
 import { classMap } from "lit/directives/class-map.js";
 
-import { type TodoItem } from "@/shared/types.ts";
-import { useStore } from "@/shared/mixins/useStore.ts";
-import { EditIcon } from "../../../shared/icons/EditIcon.ts";
-import { DeleteIcon } from "../../../shared/icons/DeleteIcon.ts";
+import { type TodoItem } from "@/lib/types.ts";
+import { useStore } from "@/lib/mixins/useStore.ts";
+import { EditIcon } from "@/lib/icons/EditIcon.ts";
+import { DeleteIcon } from "@/lib/icons/DeleteIcon.ts";
 
 const styles = css`
   @keyframes fadeIn {

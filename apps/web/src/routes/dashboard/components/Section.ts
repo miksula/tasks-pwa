@@ -1,5 +1,5 @@
 import { html } from "lit";
-import { useState } from "@/shared/hooks.ts";
+import { useState } from "@/lib/hooks.ts";
 
 export function Section(title: string, slug: string, count: number) {
   const [active, setActive] = useState(false);

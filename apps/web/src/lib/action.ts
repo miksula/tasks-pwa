@@ -21,7 +21,7 @@ export function dispatchActionEvent(
  *
  * @example
  * ```ts
- * import action from "@/shared/action.ts";
+ * import action from "@/lib/action.ts";
  *
  * class TaskStore {
  *  `@action`

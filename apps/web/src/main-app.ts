@@ -1,11 +1,11 @@
 import { LitElement, type TemplateResult } from "lit";
 
-import type { State } from "@/shared/types.ts";
-import { EVENT_DATA, EVENT_LOAD } from "@/shared/constants.ts";
-import { noShadow } from "@/shared/mixins/noShadow.ts";
-import { withRouter } from "@/shared/mixins/withRouter.ts";
-import { withStore } from "@/shared/mixins/withStore.ts";
-import { prepareHooks } from "@/shared/hooks.ts";
+import type { State } from "@/lib/types.ts";
+import { EVENT_DATA, EVENT_LOAD } from "@/lib/constants.ts";
+import { noShadow } from "@/lib/mixins/noShadow.ts";
+import { withRouter } from "@/lib/mixins/withRouter.ts";
+import { withStore } from "@/lib/mixins/withStore.ts";
+import { prepareHooks } from "@/lib/hooks.ts";
 
 import { Dashboard, NotFound, Task, Tasks, Test } from "@/routes/index.ts";
 import Layout from "./Layout.ts";

@@ -1,9 +1,9 @@
 import { css, html, LitElement } from "lit";
 import { classMap } from "lit/directives/class-map.js";
 
-import type { Filter } from "@/shared/types.ts";
-import { CheckMarkIcon } from "@/shared/icons/CheckMarkIcon.ts";
-import { useStore } from "@/shared/mixins/useStore.ts";
+import type { Filter } from "@/lib/types.ts";
+import { CheckMarkIcon } from "@/lib/icons/CheckMarkIcon.ts";
+import { useStore } from "@/lib/mixins/useStore.ts";
 
 export class FilterButton extends useStore(LitElement) {
   static override properties = {

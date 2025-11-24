@@ -1,5 +1,5 @@
 // deno-lint-ignore-file no-explicit-any
-import { dispatchActionEvent } from "@/shared/action.ts";
+import { dispatchActionEvent } from "@/lib/action.ts";
 
 let callIndex = 0;
 let stateValues: any[] = [];

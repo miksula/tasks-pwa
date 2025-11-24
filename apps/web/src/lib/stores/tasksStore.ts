@@ -1,5 +1,5 @@
-import type { Filter, TodoItem } from "@/shared/types.ts";
-import action from "@/shared/action.ts";
+import type { Filter, TodoItem } from "@/lib/types.ts";
+import action from "@/lib/action.ts";
 import * as queries from "../queries.ts";
 import * as storage from "../db/storage.ts";
 
