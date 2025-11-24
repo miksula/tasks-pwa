@@ -40,7 +40,7 @@ export function TailwindElements() {
               href="#"
               class="block px-4 py-2 text-sm text-gray-700 focus:bg-gray-100 focus:text-gray-900 focus:outline-hidden dark:text-gray-300 dark:focus:bg-white/5 dark:focus:text-white"
             >License</a>
-            <form action="#" method="POST">
+            <form action="#" method="post">
               <button
                 type="submit"
                 class="block w-full px-4 py-2 text-left text-sm text-gray-700 focus:bg-gray-100 focus:text-gray-900 focus:outline-hidden dark:text-gray-300 dark:focus:bg-white/5 dark:focus:text-white"
@@ -90,7 +90,7 @@ export function TailwindElements() {
               href="#"
               class="block px-4 py-2 text-sm text-gray-700 focus:bg-gray-100 focus:text-gray-900 focus:outline-hidden dark:text-gray-300 dark:focus:bg-white/5 dark:focus:text-white"
             >License</a>
-            <form action="#" method="POST">
+            <form action="#" method="post">
               <button
                 type="submit"
                 class="block w-full px-4 py-2 text-left text-sm text-gray-700 focus:bg-gray-100 focus:text-gray-900 focus:outline-hidden dark:text-gray-300 dark:focus:bg-white/5 dark:focus:text-white"
