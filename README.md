@@ -1,6 +1,8 @@
 # Tasks PWA
 
-A progressive web application for task management built with Deno, Hono, and Lit. Features a monorepo structure with API server and web application sharing TypeScript types.
+A web application for task management (Todo list) built with Deno, Hono, and
+Lit. Features a monorepo structure with API server and web application sharing
+TypeScript types.
 
 ## Getting Started
 
@@ -13,7 +15,7 @@ A progressive web application for task management built with Deno, Hono, and Lit
    ```bash
    # Start both database and web app
    deno task dev
-   
+
    # Or start individually:
    deno task api      # API server on http://localhost:9999
    deno task web      # Web app on http://localhost:5173
@@ -29,25 +31,26 @@ A progressive web application for task management built with Deno, Hono, and Lit
 ├── packages/
 │   ├── api-client/   # Type-safe API client
 │   ├── router/       # Client-side router
-│   └── lit-query/    # TanStack Query integration for Lit
+│   └── lit-query/    # Example: TanStack Query integration for Lit
 ├── deno.json         # Root tasks and configuration
 └── package.json      # Workspace configuration
 ```
 
 ### API Server (`apps/api/`)
 
-Hono-based REST API with LibSQL database, Kysely query builder, and Zod validation. Runs on Deno runtime with structured Pino logging.
+Hono-based REST API with LibSQL database, Kysely query builder, and Zod
+validation. Runs on Deno runtime with structured Pino logging.
 
 **Tech Stack**: Hono, Kysely, LibSQL, Zod, Pino
 
 ### Web Application (`apps/web/`)
 
-Lit-based frontend with local LibSQL database and Auth.js authentication. Built with Vite and uses workspace packages for routing and API client.
+Lit-based frontend with local LibSQL database and Auth.js authentication. Built
+with Vite and uses workspace packages for routing and API client.
 
-**Tech Stack**: Lit, Vite, @libsql/client, Auth.js, TanStack Query
+**Tech Stack**: Lit, Vite, @libsql/client, Auth.js, TailwindCSS
 
 ### Shared Packages
 
 - **api-client**: Type-safe Hono client for API communication
 - **router**: Lightweight client-side router with TypeScript
-- **lit-query**: TanStack Query wrapper for Lit web components
