@@ -1,4 +1,4 @@
 import { createContext } from "@lit/context";
-import Store from "../stores/store.ts";
-export type StoreType = ReturnType<typeof Store>;
+import RootStore from "@/state/stores/root.ts";
+export type StoreType = ReturnType<typeof RootStore>;
 export const storeContext = createContext<StoreType>("store");

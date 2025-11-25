@@ -1,7 +1,7 @@
 import type { Filter, TodoItem } from "@/lib/types.ts";
-import action from "@/lib/action.ts";
-import * as queries from "../queries.ts";
-import * as storage from "../db/storage.ts";
+import action from "@/state/action.ts";
+import * as queries from "@/services/db/queries.ts";
+import * as storage from "@/services/db/storage.ts";
 
 export type Tasks = {
   items: TodoItem[];

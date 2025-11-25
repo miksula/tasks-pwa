@@ -1,4 +1,4 @@
-import type { State } from "./stores/store.ts";
+import type { State } from "@/state/stores/root.ts";
 
 export type { State };
 

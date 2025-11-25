@@ -1,4 +1,4 @@
-import { db } from "./db/client.ts";
+import { db } from "./client.ts";
 import type { TaskInsert, TaskUpdate } from "@app/api/schema/task.ts";
 
 export async function fetchTasks() {

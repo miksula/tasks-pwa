@@ -1,5 +1,6 @@
 import { css, html, LitElement, PropertyValues } from "lit";
 import { repeat } from "lit/directives/repeat.js";
+import "@tailwindplus/elements";
 
 import type { Filter, State, TodoItem } from "@/lib/types.ts";
 import { useStore } from "@/lib/mixins/useStore.ts";
@@ -190,6 +191,23 @@ export default class TasksPage extends useStore(noShadow(LitElement)) {
         </ul>
 
         <p class="label">${itemsCountText}</p>
+
+        <el-dialog>
+          <dialog id="delete-profile">
+            <el-dialog-panel>
+              <form method="dialog">
+                <h3>Delete profile</h3>
+                <p>Are you sure? This action is permanent and cannot be undone.</p>
+                <div class="flex gap-4">
+                  <button command="close" commandfor="delete-profile" type="button">
+                    Cancel
+                  </button>
+                  <button type="submit">Delete</button>
+                </div>
+              </form>
+            </el-dialog-panel>
+          </dialog>
+        </el-dialog>
       </section>
     `;
   }

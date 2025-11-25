@@ -1,6 +1,6 @@
 import tasksStore from "./tasksStore.ts";
-import { EVENT_ACTION, EVENT_DATA, EVENT_LOAD } from "../constants.ts";
-import { Action } from "../types.ts";
+import { EVENT_ACTION, EVENT_DATA, EVENT_LOAD } from "@/lib/constants.ts";
+import { Action } from "@/lib/types.ts";
 
 export interface State {
   tasks: typeof tasksStore.initialState;
@@ -10,7 +10,7 @@ const initialState = {
   tasks: tasksStore.initialState,
 };
 
-export default function Store() {
+export default function RootStore() {
   const appState: State = initialState;
 
   addEventListener(EVENT_LOAD, () => updateState());

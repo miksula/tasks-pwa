@@ -5,7 +5,7 @@ import { EVENT_DATA, EVENT_LOAD } from "@/lib/constants.ts";
 import { noShadow } from "@/lib/mixins/noShadow.ts";
 import { withRouter } from "@/lib/mixins/withRouter.ts";
 import { withStore } from "@/lib/mixins/withStore.ts";
-import { prepareHooks } from "@/lib/hooks.ts";
+import { prepareHooks } from "@/state/hooks.ts";
 
 import { Dashboard, NotFound, Task, Tasks, Test } from "@/routes/index.ts";
 import Layout from "./layout.ts";

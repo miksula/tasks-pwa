@@ -1,5 +1,5 @@
-import { EVENT_ACTION } from "./constants.ts";
-import { Action } from "./types.ts";
+import { EVENT_ACTION } from "@/lib/constants.ts";
+import type { Action } from "@/lib/types.ts";
 
 export function dispatchActionEvent(
   detail: Action,
