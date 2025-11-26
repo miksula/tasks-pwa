@@ -1,4 +1,4 @@
-import { css, html, LitElement, PropertyValues } from "lit";
+import { html, LitElement, PropertyValues } from "lit";
 import { repeat } from "lit/directives/repeat.js";
 import "@tailwindplus/elements";
 
@@ -19,66 +19,6 @@ export default class TasksPage extends useStore(noShadow(LitElement)) {
   static override properties = {
     data: {},
   };
-
-  // static override styles = css`
-  //   .tasks {
-  //     margin: 0 auto;
-  //     max-width: var(--container-width);
-  //   }
-
-  //   h1 {
-  //     font: var(--heading1);
-  //     margin-block: 0;
-  //   }
-
-  //   .input-group {
-  //     display: flex;
-  //     gap: var(--spacing-2);
-  //     margin-block: var(--spacing-4);
-
-  //     input {
-  //       flex: 1;
-  //       color: var(--color-zinc-800);
-  //       font-size: var(--text-base);
-  //       font-family: var(--font-sans);
-  //       border-style: none;
-  //       background-color: var(--color-zinc-200);
-  //       padding-inline: var(--spacing-3);
-  //       padding-block: var(--spacing-2);
-  //       border-radius: var(--radius-lg);
-  //     }
-
-  //     button.action {
-  //       cursor: pointer;
-  //       background-color: var(--color-brand-blue-light);
-  //       color: var(--color-brand-blue);
-  //       font-size: var(--text-xs);
-  //       font-family: var(--font-sans);
-  //       font-weight: var(--font-weight-semibold);
-  //       border-style: none;
-  //       padding-inline: var(--spacing-3);
-  //       padding-block: var(--spacing-2);
-  //       border-radius: var(--radius-lg);
-  //       text-transform: uppercase;
-  //     }
-  //   }
-
-  //   .label {
-  //     font: var(--label);
-  //   }
-
-  //   .filter-by-group {
-  //     display: flex;
-  //     gap: var(--spacing-2);
-  //     margin-block: var(--spacing-4);
-  //   }
-
-  //   ul {
-  //     margin: 0;
-  //     padding: 0;
-  //     list-style: none;
-  //   }
-  // `;
 
   /** The tasks store state. */
   declare public data: State["tasks"];
