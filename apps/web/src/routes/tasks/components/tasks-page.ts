@@ -1,10 +1,10 @@
 import { html, LitElement, PropertyValues } from "lit";
 import { repeat } from "lit/directives/repeat.js";
-import "@tailwindplus/elements";
 
 import type { Filter, State, TodoItem } from "@/lib/types.ts";
 import { useStore } from "@/lib/mixins/useStore.ts";
 import { noShadow } from "@/lib/mixins/noShadow.ts";
+import { DeleteDialog } from "./deleteDialog.ts";
 
 import "./task-item.ts";
 import "./filter-button.ts";
@@ -25,6 +25,7 @@ export default class TasksPage extends useStore(noShadow(LitElement)) {
 
   private input?: HTMLInputElement;
   private newId?: number;
+  private modalOpen?: boolean;
 
   override firstUpdated() {
     this.input = this.renderRoot?.querySelector("input") || undefined;
@@ -130,26 +131,16 @@ export default class TasksPage extends useStore(noShadow(LitElement)) {
           )}
         </ul>
 
-        <p class="label">${itemsCountText}</p>
+        <p class="label" @click="${this.toggleModal}">${itemsCountText}</p>
 
-        <el-dialog>
-          <dialog id="delete-profile">
-            <el-dialog-panel>
-              <form method="dialog">
-                <h3>Delete profile</h3>
-                <p>Are you sure? This action is permanent and cannot be undone.</p>
-                <div class="flex gap-4">
-                  <button command="close" commandfor="delete-profile" type="button">
-                    Cancel
-                  </button>
-                  <button type="submit">Delete</button>
-                </div>
-              </form>
-            </el-dialog-panel>
-          </dialog>
-        </el-dialog>
+        ${DeleteDialog(this.modalOpen)}
       </section>
     `;
+  }
+
+  toggleModal() {
+    this.modalOpen = !this.modalOpen;
+    this.requestUpdate();
   }
 }
 

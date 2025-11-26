@@ -32,7 +32,7 @@ export class TaskItem extends useStore(noShadow(LitElement)) {
           'input[name="task-edit"]',
         ) as HTMLInputElement;
         input?.focus();
-        input?.select();
+        // input?.select();
       }
     });
   }
