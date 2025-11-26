@@ -1,82 +1,17 @@
-import { css, html, LitElement } from "lit";
+import { html, LitElement } from "lit";
 import { classMap } from "lit/directives/class-map.js";
 
 import { type TodoItem } from "@/lib/types.ts";
 import { useStore } from "@/lib/mixins/useStore.ts";
+import { noShadow } from "@/lib/mixins/noShadow.ts";
 import { EditIcon } from "@/lib/icons/EditIcon.ts";
 import { DeleteIcon } from "@/lib/icons/DeleteIcon.ts";
 
-const styles = css`
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-
-  li.viewing {
-    display: flex;
-    justify-content: space-between;
-    padding-block: var(--spacing-4);
-    border-bottom: 1px solid var(--color-gray-200);
-  }
-
-  li.viewing.new {
-    animation: fadeIn 100ms ease-in;
-  }
-
-  li.viewing input + span {
-    margin-left: var(--spacing-2);
-  }
-
-  li.viewing button {
-    cursor: pointer;
-    background: none;
-    border: none;
-    font-size: var(--text-xs);
-    font-family: var(--font-sans);
-    color: var(--color-gray-500);
-
-    &:hover {
-      color: var(--color-gray-900);
-    }
-
-    svg {
-      width: 1rem;
-      height: 1rem;
-    }
-  }
-
-  li.viewing span.completed {
-    text-decoration: line-through;
-    color: var(--color-gray-400);
-  }
-
-  form.editing {
-    display: flex;
-    justify-content: space-between;
-    padding-block: var(--spacing-4);
-    border-bottom: 1px solid var(--color-gray-200);
-    width: 100%;
-    gap: var(--spacing-2);
-
-    input {
-      flex: 1;
-      color: var(--color-zinc-800);
-    }
-  }
-`;
-
-const props = {
-  item: { type: Object },
-  new: { type: Boolean },
-};
-
-export class TaskItem extends useStore(LitElement) {
-  static override styles = styles;
-  static override properties = props;
+export class TaskItem extends useStore(noShadow(LitElement)) {
+  static override properties = {
+    item: { type: Object },
+    new: { type: Boolean },
+  };
 
   /** The todo item to display and manage. */
   declare public item: TodoItem;
@@ -91,6 +26,15 @@ export class TaskItem extends useStore(LitElement) {
     if (update) {
       this.requestUpdate();
     }
+    this.updateComplete.then(() => {
+      if (isEditing) {
+        const input = this.renderRoot.querySelector(
+          'input[name="task-edit"]',
+        ) as HTMLInputElement;
+        input?.focus();
+        input?.select();
+      }
+    });
   }
 
   toggleCompleted(item: TodoItem) {
@@ -165,7 +109,7 @@ export class TaskItem extends useStore(LitElement) {
           .value="${this.newText || item.text}"
           @input="${(event: KeyboardEvent) => this.handleChange(event, item)}"
         />
-        <div>
+        <div class="buttons">
           <button
             @click="${() => this.setEditing(false)}"
           >
