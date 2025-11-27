@@ -58,13 +58,13 @@ export function DeleteDialog(open: boolean | undefined) {
               </div>
             </div>
             <div
-              class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6 dark:bg-gray-700/25"
+              class="bg-white px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6 dark:bg-gray-700/25"
             >
               <button
                 type="button"
                 command="close"
                 commandfor="dialog"
-                class="inline-flex w-full uppercase justify-center rounded-md bg-brand-700 px-4 py-3 text-xs font-semibold text-white shadow-xs hover:bg-brand-600 sm:ml-3 sm:w-auto dark:bg-brand-500 dark:shadow-none dark:hover:bg-brand-400"
+                class="inline-flex w-full uppercase justify-center rounded-md bg-brand-200 px-4 py-3 text-xs font-semibold text-brand-700 sm:ml-3 sm:w-auto dark:bg-brand-500 dark:shadow-none dark:hover:bg-brand-400"
               >
                 Delete
               </button>
@@ -72,7 +72,7 @@ export function DeleteDialog(open: boolean | undefined) {
                 type="button"
                 command="close"
                 commandfor="dialog"
-                class="mt-3 uppercase inline-flex w-full justify-center rounded-md bg-white px-4 py-3 text-xs font-semibold text-gray-900 shadow-xs inset-ring inset-ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto dark:bg-white/10 dark:text-white dark:shadow-none dark:inset-ring-white/5 dark:hover:bg-white/20"
+                class="mt-3 uppercase inline-flex w-full justify-center rounded-md bg-white px-4 py-3 text-xs font-semibold text-gray-900 hover:bg-gray-50 sm:mt-0 sm:w-auto dark:bg-white/10 dark:text-white dark:shadow-none dark:inset-ring-white/5 dark:hover:bg-white/20"
               >
                 Cancel
               </button>
