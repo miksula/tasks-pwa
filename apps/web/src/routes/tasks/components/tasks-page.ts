@@ -8,7 +8,6 @@ import { DeleteDialog } from "./deleteDialog.ts";
 
 import "./task-item.ts";
 import "./filter-button.ts";
-import { on } from "node:events";
 
 const FILTER_MAP = {
   all: () => true,
