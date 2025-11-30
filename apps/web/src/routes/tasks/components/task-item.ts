@@ -11,6 +11,7 @@ export class TaskItem extends useStore(noShadow(LitElement)) {
   static override properties = {
     item: { type: Object },
     new: { type: Boolean },
+    removeItem: { type: Function },
   };
 
   /** The todo item to display and manage. */
@@ -45,8 +46,13 @@ export class TaskItem extends useStore(noShadow(LitElement)) {
   }
 
   removeTask(item: TodoItem) {
-    const id = String(item.id);
-    this.store?.tasks.delete(id);
+    this.dispatchEvent(
+      new CustomEvent("delete-task", {
+        detail: { id: String(item.id) },
+        bubbles: true,
+        composed: true,
+      }),
+    );
   }
 
   editTask(item: Omit<TodoItem, "completed">) {

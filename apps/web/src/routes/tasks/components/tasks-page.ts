@@ -8,12 +8,15 @@ import { DeleteDialog } from "./deleteDialog.ts";
 
 import "./task-item.ts";
 import "./filter-button.ts";
+import { on } from "node:events";
 
 const FILTER_MAP = {
   all: () => true,
   active: (todo: TodoItem) => !todo.completed,
   completed: (todo: TodoItem) => todo.completed,
 };
+
+type DeleteEvent = CustomEvent<{ id: number }>;
 
 export default class TasksPage extends useStore(noShadow(LitElement)) {
   static override properties = {
@@ -26,6 +29,7 @@ export default class TasksPage extends useStore(noShadow(LitElement)) {
   private input?: HTMLInputElement;
   private newId?: number;
   private modalOpen?: boolean;
+  private idToDelete?: string;
 
   override firstUpdated() {
     this.input = this.renderRoot?.querySelector("input") || undefined;
@@ -125,21 +129,41 @@ export default class TasksPage extends useStore(noShadow(LitElement)) {
             (item: TodoItem) => item.id,
             (item) =>
               html`
-                <task-item .item="${item}" ?new="${item.id ==
-                  this.newId}"></task-item>
+                <task-item
+                  .item="${item}"
+                  ?new="${item.id == this.newId}"
+                  @delete-task="${this.onDeleteTask}"
+                ></task-item>
               `,
           )}
         </ul>
 
-        <p class="label" @click="${this.toggleModal}">${itemsCountText}</p>
+        <p class="label">${itemsCountText}</p>
 
-        ${DeleteDialog(this.modalOpen)}
+        ${DeleteDialog(
+          this.modalOpen,
+          () => this.handleDelete(),
+          () => this.openModal(false),
+        )}
       </section>
     `;
   }
 
-  toggleModal() {
-    this.modalOpen = !this.modalOpen;
+  onDeleteTask(event: DeleteEvent) {
+    this.idToDelete = String(event.detail.id);
+    this.openModal();
+  }
+
+  handleDelete() {
+    if (this.idToDelete) {
+      this.store?.tasks.delete(this.idToDelete);
+      this.idToDelete = undefined;
+    }
+    this.openModal(false);
+  }
+
+  openModal(open = true) {
+    this.modalOpen = open;
     this.requestUpdate();
   }
 }

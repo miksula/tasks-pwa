@@ -1,9 +1,13 @@
 import { html } from "lit";
 import "@tailwindplus/elements";
 
-export function DeleteDialog(open: boolean | undefined) {
+export function DeleteDialog(
+  open: boolean | undefined,
+  onClickDelete: () => void,
+  onClose: () => void,
+) {
   return html`
-    <el-dialog ?open="${open}">
+    <el-dialog ?open="${open}" @close="${() => onClose()}">
       <dialog
         id="dialog"
         aria-labelledby="dialog-title"
@@ -65,6 +69,7 @@ export function DeleteDialog(open: boolean | undefined) {
                 command="close"
                 commandfor="dialog"
                 class="inline-flex w-full uppercase justify-center rounded-md bg-brand-200 px-4 py-3 text-xs font-semibold text-brand-700 sm:ml-3 sm:w-auto dark:bg-brand-500 dark:shadow-none dark:hover:bg-brand-400"
+                @click="${() => onClickDelete()}"
               >
                 Delete
               </button>
