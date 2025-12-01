@@ -12,6 +12,7 @@
     "npm:@libsql/kysely-libsql@~0.4.1": "0.4.1_kysely@0.28.8",
     "npm:@lit/context@^1.1.6": "1.1.6",
     "npm:@tailwindcss/vite@^4.1.17": "4.1.17_vite@7.1.12__@types+node@24.2.0__picomatch@4.0.3_@types+node@24.2.0",
+    "npm:@tailwindplus/elements@^1.0.19": "1.0.19",
     "npm:@tanstack/query-core@^5.90.5": "5.90.5",
     "npm:@types/node@*": "24.2.0",
     "npm:hono-pino@~0.10.1": "0.10.3_hono@4.10.4_pino@9.14.0",
@@ -610,6 +611,9 @@
         "tailwindcss",
         "vite"
       ]
+    },
+    "@tailwindplus/elements@1.0.19": {
+      "integrity": "sha512-JMtqgYmZYNXO3VWu+SFxt2DChD/FL2A42jEhkUC9maQpFjfi0rhLm8lBFFo39Xbe9dwH0rT3fOi6DhSNFFnuzA=="
     },
     "@tanstack/query-core@5.90.5": {
       "integrity": "sha512-wLamYp7FaDq6ZnNehypKI5fNvxHPfTYylE0m/ZpuuzJfJqhR5Pxg9gvGBHZx4n7J+V5Rg5mZxHHTlv25Zt5u+w=="

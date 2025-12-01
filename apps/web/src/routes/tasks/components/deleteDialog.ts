@@ -30,18 +30,12 @@ export function DeleteDialog(
                   class="mx-auto flex size-12 shrink-0 items-center justify-center rounded-full bg-brand-100 sm:mx-0 sm:size-10 dark:bg-brand-500/10"
                 >
                   <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="1.5"
-                    data-slot="icon"
-                    aria-hidden="true"
+                    viewBox="0 -960 960 960"
                     class="size-6 text-brand-600 dark:text-brand-400"
+                    fill="currentColor"
                   >
                     <path
-                      d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                      d="m40-120 440-760 440 760H40Zm138-80h604L480-720 178-200Zm302-40q17 0 28.5-11.5T520-280q0-17-11.5-28.5T480-320q-17 0-28.5 11.5T440-280q0 17 11.5 28.5T480-240Zm-40-120h80v-200h-80v200Zm40-100Z"
                     />
                   </svg>
                 </div>
